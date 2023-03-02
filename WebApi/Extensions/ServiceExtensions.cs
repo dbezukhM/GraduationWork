@@ -1,5 +1,5 @@
 ﻿using DAL;
-using DAL.Interfaces;
+using DAL.Contracts;
 using DAL.Repositories;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,6 +16,7 @@ namespace WebApi.Extensions
         public static void RegisterRepositories(this IServiceCollection services)
         {
             services.AddScoped(typeof(IRepositoryAsync<>), typeof(RepositoryAsync<>));
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
         }
     }
 }

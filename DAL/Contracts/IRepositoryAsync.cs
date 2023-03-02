@@ -1,7 +1,7 @@
 ﻿using System.Linq.Expressions;
 using DAL.Entities;
 
-namespace DAL.Interfaces
+namespace DAL.Contracts
 {
     public interface IRepositoryAsync<T, in TKey>
         where T : BaseEntity

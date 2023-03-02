@@ -1,4 +1,4 @@
-using DAL.Interfaces;
+using DAL.Contracts;
 using DAL.Repositories;
 using WebApi.Extensions;
 
