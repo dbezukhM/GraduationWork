@@ -5,7 +5,7 @@ namespace DAL
 {
     public class EducationalProgramsDbContext : DbContext
     {
-        public EducationalProgramsDbContext(DbContextOptions options) : base(options)
+        public EducationalProgramsDbContext(DbContextOptions<EducationalProgramsDbContext> options) : base(options)
         {
             Database.EnsureCreated();
         }

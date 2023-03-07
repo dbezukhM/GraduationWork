@@ -17,6 +17,7 @@ namespace WebApi
             builder.Services.AddSwaggerGen();
 
             builder.Services.ConfigureSqlContext(builder.Configuration);
+            builder.Services.RegisterIdentity();
             builder.Services.RegisterRepositories();
             builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 

@@ -10,7 +10,7 @@ namespace DAL.Repositories
     {
         private readonly DbSet<T> _dbSet;
 
-        public RepositoryAsync(EducationalProgramsDbContext dbContext)
+        public RepositoryAsync(DbContext dbContext)
         {
             _dbSet = dbContext.Set<T>();
         }
