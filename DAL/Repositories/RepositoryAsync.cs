@@ -15,7 +15,10 @@ namespace DAL.Repositories
             _dbSet = dbContext.Set<T>();
         }
 
-        public ValueTask<T> GetAsync(TKey key) => _dbSet.FindAsync(key);
+        public async Task<T> GetAsync(TKey key)
+        {
+            return await _dbSet.FindAsync(key);
+        }
 
         public async Task<T> FindAsync(Expression<Func<T, bool>> predicate)
         {

@@ -18,6 +18,7 @@ namespace WebApi
 
             builder.Services.ConfigureSqlContext(builder.Configuration);
             builder.Services.RegisterRepositories();
+            builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             var app = builder.Build();
 

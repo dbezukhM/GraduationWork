@@ -14,14 +14,21 @@ namespace DAL
 
         public async Task SaveChangesAsync()
         {
-            await SaveEpChangesAsync();
+            await SaveChangesAsync(_educationalProgramsDbContext);
         }
 
-        private async Task SaveEpChangesAsync()
+        public async Task<T> NewTransaction<T>(Func<Task<T>> action)
         {
-            _educationalProgramsDbContext.ChangeTracker.DetectChanges();
+            var t = await action();
+            await SaveChangesAsync();
+            return t;
+        }
 
-            var entitiesToTrack = _educationalProgramsDbContext
+        private static async Task SaveChangesAsync(DbContext context)
+        {
+            context.ChangeTracker.DetectChanges();
+
+            var entitiesToTrack = context
                 .ChangeTracker
                 .Entries()
                 .Where(e => e.State != EntityState.Detached && e.State != EntityState.Unchanged)
@@ -29,7 +36,7 @@ namespace DAL
 
             if (entitiesToTrack.Any())
             {
-                await _educationalProgramsDbContext.SaveChangesAsync();
+                await context.SaveChangesAsync();
             }
         }
     }

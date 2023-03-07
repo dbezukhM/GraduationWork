@@ -1,4 +1,6 @@
-﻿using DAL;
+﻿using BLL.Contracts;
+using BLL.Services;
+using DAL;
 using DAL.Contracts;
 using DAL.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -17,6 +19,8 @@ namespace WebApi.Extensions
         {
             services.AddScoped(typeof(IRepositoryAsync<>), typeof(RepositoryAsync<>));
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+            services.AddScoped<IUniversityService, UniversityService>();
         }
     }
 }

@@ -6,7 +6,7 @@ namespace DAL.Contracts
     public interface IRepositoryAsync<T, in TKey>
         where T : BaseEntity
     {
-        ValueTask<T> GetAsync(TKey key);
+        Task<T> GetAsync(TKey key);
 
         Task<T> FindAsync(Expression<Func<T, bool>> predicate);
 
