@@ -109,10 +109,19 @@ namespace DAL.Repositories
         }
     }
 
-    public class RepositoryAsync<T> : RepositoryAsync<T, Guid>, IRepositoryAsync<T>
+    public class EpRepositoryAsync<T> : RepositoryAsync<T, Guid>, IEpRepositoryAsync<T>
         where T : BaseEntity
     {
-        public RepositoryAsync(EducationalProgramsDbContext dbContext)
+        public EpRepositoryAsync(EducationalProgramsDbContext dbContext)
+            : base(dbContext)
+        {
+        }
+    }
+
+    public class WpRepositoryAsync<T> : RepositoryAsync<T, Guid>, IWpRepositoryAsync<T>
+        where T : BaseEntity
+    {
+        public WpRepositoryAsync(WorkingProgramsDbContext dbContext)
             : base(dbContext)
         {
         }

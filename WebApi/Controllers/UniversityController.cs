@@ -41,7 +41,7 @@ namespace WebApi.Controllers
         public async Task<IActionResult> CreateAsync(UniversityRequest request)
         {
             var model = Mapper.Map<UniversityModel>(request);
-            var result = await _universityService.AddAsync(model);
+            var result = await _universityService.CreateAsync(model);
 
             return OperationResult(result);
         }

@@ -9,7 +9,7 @@ namespace BLL.Contracts
 
         Task<Result<T>> GetByIdAsync(Guid id);
 
-        Task<Result<Guid>> AddAsync(T model);
+        Task<Result<Guid>> CreateAsync(T model);
 
         Task<Result> UpdateAsync(T model);
 

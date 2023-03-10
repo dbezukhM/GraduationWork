@@ -35,7 +35,12 @@ namespace DAL.Contracts
         Task<ICollection<T>> DeleteAsync(Expression<Func<T, bool>> predicate);
     }
 
-    public interface IRepositoryAsync<T> : IRepositoryAsync<T, Guid>
+    public interface IEpRepositoryAsync<T> : IRepositoryAsync<T, Guid>
+        where T : BaseEntity
+    {
+    }
+
+    public interface IWpRepositoryAsync<T> : IRepositoryAsync<T, Guid>
         where T : BaseEntity
     {
     }

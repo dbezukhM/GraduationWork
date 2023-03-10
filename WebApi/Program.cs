@@ -1,5 +1,3 @@
-using DAL.Contracts;
-using DAL.Repositories;
 using WebApi.Extensions;
 
 namespace WebApi
@@ -18,7 +16,8 @@ namespace WebApi
 
             builder.Services.ConfigureSqlContext(builder.Configuration);
             builder.Services.RegisterIdentity();
-            builder.Services.RegisterRepositories();
+            builder.Services.RegisterRepositories(builder.Configuration);
+            builder.Services.RegisterJwt(builder.Configuration);
             builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             var app = builder.Build();
@@ -32,6 +31,7 @@ namespace WebApi
 
             app.UseHttpsRedirection();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
 

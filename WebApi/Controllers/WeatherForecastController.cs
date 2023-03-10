@@ -2,6 +2,9 @@ using BLL.Contracts;
 using DAL.Entities;
 using DAL.Contracts;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
+using System.Data;
 
 namespace WebApi.Controllers
 {
@@ -15,27 +18,37 @@ namespace WebApi.Controllers
         };
 
         private readonly ILogger<WeatherForecastController> _logger;
-        private readonly IRepositoryAsync<AreaOfExpertise> _areaOfExpertiseRepository;
+        private readonly IEpRepositoryAsync<AreaOfExpertise> _areaOfExpertiseRepository;
+        private readonly IWpRepositoryAsync<WorkingProgram> _workingProgramRepository;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IUniversityService _universityService;
+        private readonly ITokenGenerator _tokenGenerator;
+        private readonly UserManager<Person> _userManager;
+        private readonly IAccountService _accountService;
+
+        private readonly SignInManager<Person> _signInManager;
 
         public WeatherForecastController(ILogger<WeatherForecastController> logger,
-            IRepositoryAsync<AreaOfExpertise> areaOfExpertiseRepository,
+            IEpRepositoryAsync<AreaOfExpertise> areaOfExpertiseRepository,
             IUnitOfWork unitOfWork,
-            IUniversityService universityService)
+            IUniversityService universityService,
+            IWpRepositoryAsync<WorkingProgram> workingProgramRepository, UserManager<Person> userManager, ITokenGenerator tokenGenerator, SignInManager<Person> signInManager, IAccountService accountService)
         {
             _logger = logger;
             _areaOfExpertiseRepository = areaOfExpertiseRepository;
             _unitOfWork = unitOfWork;
             _universityService = universityService;
+            _workingProgramRepository = workingProgramRepository;
+            _userManager = userManager;
+            _tokenGenerator = tokenGenerator;
+            _signInManager = signInManager;
+            _accountService = accountService;
         }
 
         [HttpGet(Name = "GetWeatherForecast")]
+        [Authorize(Roles = "Admin")]
         public async Task<IEnumerable<WeatherForecast>> Get()
         {
-            await _universityService.GetByIdAsync(new Guid());
-
-            await _unitOfWork.SaveChangesAsync();
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
                 {
                     Date = DateTime.Now.AddDays(index),
@@ -43,6 +56,14 @@ namespace WebApi.Controllers
                     Summary = Summaries[Random.Shared.Next(Summaries.Length)]
                 })
                 .ToArray();
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "Lecturer")]
+        [Route("GetStrings")]
+        public IEnumerable<string> GetString()
+        {
+            return new string[] { "John Doe", "Jane Doe" };
         }
     }
 }

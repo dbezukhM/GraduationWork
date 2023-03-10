@@ -10,12 +10,12 @@ namespace BLL.Services
 {
     public class UniversityService : IUniversityService
     {
-        private readonly IRepositoryAsync<University> _repository;
+        private readonly IEpRepositoryAsync<University> _repository;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
         public UniversityService(
-            IRepositoryAsync<University> repository,
+            IEpRepositoryAsync<University> repository,
             IUnitOfWork unitOfWork,
             IMapper mapper)
         {
@@ -40,7 +40,7 @@ namespace BLL.Services
             return Result.Success(result);
         }
 
-        public async Task<Result<Guid>> AddAsync(UniversityModel model)
+        public async Task<Result<Guid>> CreateAsync(UniversityModel model)
         {
             var isExisting = await _repository.ExistsAsync(x => x.Name == model.Name);
             if (isExisting)

@@ -6,15 +6,18 @@ namespace DAL
     public class UnitOfWork : IUnitOfWork
     {
         private readonly EducationalProgramsDbContext _educationalProgramsDbContext;
+        private readonly WorkingProgramsDbContext _workingProgramsDbContext;
 
-        public UnitOfWork(EducationalProgramsDbContext context)
+        public UnitOfWork(EducationalProgramsDbContext context, WorkingProgramsDbContext workingProgramsDbContext)
         {
             _educationalProgramsDbContext = context;
+            _workingProgramsDbContext = workingProgramsDbContext;
         }
 
         public async Task SaveChangesAsync()
         {
             await SaveChangesAsync(_educationalProgramsDbContext);
+            await SaveChangesAsync(_workingProgramsDbContext);
         }
 
         public async Task<T> NewTransaction<T>(Func<Task<T>> action)

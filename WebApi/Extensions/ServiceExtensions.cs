@@ -1,12 +1,15 @@
-﻿using BLL.Contracts;
+﻿using System.Text;
+using BLL.Contracts;
 using BLL.Services;
 using DAL;
 using DAL.Contracts;
 using DAL.DatabaseInitializers;
 using DAL.Entities;
 using DAL.Repositories;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 namespace WebApi.Extensions
 {
@@ -20,12 +23,16 @@ namespace WebApi.Extensions
                 options.UseSqlServer(configuration.GetConnectionString("WorkingProgramsDb")));
         }
 
-        public static void RegisterRepositories(this IServiceCollection services)
+        public static void RegisterRepositories(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddScoped(typeof(IRepositoryAsync<>), typeof(RepositoryAsync<>));
+            services.AddScoped(typeof(IEpRepositoryAsync<>), typeof(EpRepositoryAsync<>));
+            services.AddScoped(typeof(IWpRepositoryAsync<>), typeof(WpRepositoryAsync<>));
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             services.AddScoped<IUniversityService, UniversityService>();
+            services.AddScoped<ITokenGenerator>(s => new TokenGenerator(configuration.GetValue<string>("Apps:Api"),
+                services.BuildServiceProvider().GetRequiredService<UserManager<Person>>()));
+            services.AddScoped<IAccountService, AccountService>();
         }
 
         public static void RegisterIdentity(this IServiceCollection services)
@@ -52,6 +59,29 @@ namespace WebApi.Extensions
                 var logger = serviceProvider.GetRequiredService<ILogger<Program>>();
                 logger.LogError(ex, "An error occurred while seeding the database.");
             }
+        }
+
+        public static void RegisterJwt(this IServiceCollection services, IConfiguration configuration)
+        {
+            var serverUrl = configuration.GetValue<string>("Apps:Api");
+            services.AddAuthentication(opt =>
+                {
+                    opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                    opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                })
+                .AddJwtBearer(options =>
+                {
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ValidateLifetime = true,
+                        ValidateIssuerSigningKey = true,
+                        ValidIssuer = serverUrl,
+                        ValidAudience = serverUrl,
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("superSecretKey@345"))
+                    };
+                });
         }
     }
 }
