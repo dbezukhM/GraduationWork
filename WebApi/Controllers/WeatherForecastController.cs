@@ -1,17 +1,19 @@
-using BLL.Contracts;
+﻿using BLL.Contracts;
 using DAL.Entities;
 using DAL.Contracts;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
-using System.Data;
+using Xceed.Words.NET;
+using System.Net;
+using Newtonsoft.Json;
 
 namespace WebApi.Controllers
 {
     [ApiController]
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
-    {//UniversityController
+    {
         private static readonly string[] Summaries = new[]
         {
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
@@ -64,6 +66,37 @@ namespace WebApi.Controllers
         public IEnumerable<string> GetString()
         {
             return new string[] { "John Doe", "Jane Doe" };
+        }
+        public class BlobFileResponse
+        {
+            public byte[] Contents { get; set; }
+
+            public string Error { get; set; }
+        }
+        [HttpGet]
+        [Authorize(Roles = "Admin")]
+        [Route("GetStrings2/{fileName}")]
+        public async Task<IActionResult> Generate(string fileName)
+        {
+            var url = $"https://blobdataprocessor20230312163612.azurewebsites.net/api/GetBlobFile/{fileName}?code=kfUFmiGHbVL1r6RCVI8ManGAvezkBQoZKLs0WhJSSQvnAzFu3Yi0Rg==&clientId=default";
+            using var client = new HttpClient();
+
+            var result = await client.GetAsync(url);
+            if (result.StatusCode != HttpStatusCode.OK)
+            {
+                return BadRequest("Wrong file name");
+            }
+
+            var responseContent = await result.Content.ReadAsStringAsync();
+            var model = JsonConvert.DeserializeObject<BlobFileResponse>(responseContent);
+
+            var docx = DocX.Load(new MemoryStream(model.Contents));
+            docx.ReplaceText("<UNIVERSITYNAME>", "KNU");
+            
+            var stream = new MemoryStream();
+            docx.SaveAs(stream);
+            stream.Flush();
+            return File(stream.ToArray(), "application/vnd.ms-word", "Template.docx");
         }
     }
 }
