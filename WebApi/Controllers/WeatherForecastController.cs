@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Xceed.Words.NET;
 using System.Net;
 using Newtonsoft.Json;
+using Xceed.Document.NET;
 
 namespace WebApi.Controllers
 {
@@ -48,7 +49,7 @@ namespace WebApi.Controllers
         }
 
         [HttpGet(Name = "GetWeatherForecast")]
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         public async Task<IEnumerable<WeatherForecast>> Get()
         {
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
@@ -93,6 +94,38 @@ namespace WebApi.Controllers
             var docx = DocX.Load(new MemoryStream(model.Contents));
             docx.ReplaceText("<UNIVERSITYNAME>", "KNU");
             
+            var stream = new MemoryStream();
+            docx.SaveAs(stream);
+            stream.Flush();
+            return File(stream.ToArray(), "application/vnd.ms-word", "Template.docx");
+        }
+
+        [HttpGet]
+        [Route("Generate")]
+        public async Task<IActionResult> Generate2()
+        {
+            var filePath = "D:\\TrainingTasks\\University\\Template-main.docx";
+
+            var docx = DocX.Load(filePath);
+
+            docx.ReplaceText("<UNIVERSITYNAME>", "КИЇВСЬКИЙ НАЦІОНАЛЬНИЙ УНІВЕРСИТЕТ ІМЕНІ ТАРАСА ШЕВЧЕНКА");
+            docx.ReplaceText("<FACULTY>", "ФАКУЛЬТЕТ КОМП'ЮТЕРНИХ НАУК ТА КІБЕРНЕТИКИ");
+            docx.ReplaceText("<SUBJECTNAME>", "ІНСТРУМЕНТАЛЬНІ СЕРЕДОВИЩА ТА ТЕХНОЛОГІЇ ПРОГРАМУВАННЯ");
+            docx.ReplaceText("<AREAOFEXPERTISE>", "12 «Інформаційні технології»");
+            docx.ReplaceText("<SPECIALIZATION>", "122 «Комп'ютерні науки»");
+            docx.ReplaceText("<EDUCATIONALPROGRAMTYPE>", "бакалавр");
+            docx.ReplaceText("<EDUCATIONALPROGRAM>", "«Інформатика»");
+            docx.ReplaceText("<SELECTIVEBLOCK>", "обов'язкова");
+            docx.ReplaceText("<YEARNOW>", "2023");
+            docx.ReplaceText("<YEARTO>", "2024");
+            docx.ReplaceText("<SUBJECTSEMESTER>", "4");
+            docx.ReplaceText("<SUBJECTCREDITS>", "5");
+            docx.ReplaceText("<FINALCONTROLTYPE>", "іспит");
+            docx.ReplaceText("<LECTURESHOURS>", "36");
+            docx.ReplaceText("<SEMINARSHOURS>", "38");
+            docx.ReplaceText("<SELFWORKHOURS>", "76");
+            docx.ReplaceText("<SUMHOURS> ", "150");
+
             var stream = new MemoryStream();
             docx.SaveAs(stream);
             stream.Flush();

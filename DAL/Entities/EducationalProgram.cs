@@ -16,10 +16,8 @@
 
         public EducationalProgramsType? EducationalProgramsType { get; set; }
 
-        public ICollection<EducationalProgramsCompetence>? EducationalProgramsCompetences { get; set; }
-
         public ICollection<ProgramResult>? ProgramResults { get; set; }
 
-        public ICollection<SelectiveBlock>? SelectiveBlocks { get; set; }
+        public ICollection<Competence>? Competences { get; set; }
     }
 }

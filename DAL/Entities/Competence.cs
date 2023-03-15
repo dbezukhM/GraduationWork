@@ -2,12 +2,14 @@
 {
     public class Competence : BaseEntity
     {
+        public string? Name { get; set; }
+
         public string? Description { get; set; }
 
-        public Guid CompetenceTypeId { get; set; }
+        public Guid EducationalProgramId { get; set; }
 
-        public CompetenceType? CompetenceType { get; set; }
+        public EducationalProgram? EducationalProgram { get; set; }
 
-        public ICollection<EducationalProgramsCompetence>? EducationalProgramsCompetences { get; set; }
+        public ICollection<SubjectCompetence>? SubjectCompetences { get; set; }
     }
 }

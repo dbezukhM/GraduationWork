@@ -18,14 +18,14 @@ namespace WebApi.Extensions
     {
         public static void ConfigureSqlContext(this IServiceCollection services, IConfiguration configuration)
         {
-            /*services.AddDbContext<EducationalProgramsDbContext>(options =>
+            services.AddDbContext<EducationalProgramsDbContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("EducationalProgramsDb")));
             services.AddDbContext<WorkingProgramsDbContext>(options =>
-                options.UseSqlServer(configuration.GetConnectionString("WorkingProgramsDb")));*/
-            services.AddDbContext<EducationalProgramsDbContext>(options =>
-                options.UseInMemoryDatabase("EducationalProgramsDb"));
-            services.AddDbContext<WorkingProgramsDbContext>(options =>
-                options.UseInMemoryDatabase("WorkingProgramsDb"));
+                options.UseSqlServer(configuration.GetConnectionString("WorkingProgramsDb")));
+            //services.AddDbContext<EducationalProgramsDbContext>(options =>
+            //    options.UseInMemoryDatabase("EducationalProgramsDb"));
+            //services.AddDbContext<WorkingProgramsDbContext>(options =>
+            //    options.UseInMemoryDatabase("WorkingProgramsDb"));
         }
 
         public static void RegisterRepositories(this IServiceCollection services, IConfiguration configuration)

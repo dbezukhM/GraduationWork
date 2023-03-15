@@ -4,7 +4,7 @@
     {
         public Guid ProgramResultId { get; set; }
 
-        public Guid? SubjectId { get; set; }
+        public Guid SubjectId { get; set; }
 
         public ProgramResult? ProgramResult { get; set; }
 
