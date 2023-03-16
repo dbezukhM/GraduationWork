@@ -3,21 +3,23 @@ using System.Security.Claims;
 using System.Text;
 using BLL.Contracts;
 using BLL.Results;
+using BLL.Settings;
 using DAL.Entities;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
 namespace BLL.Services
 {
     public class TokenGenerator : ITokenGenerator
     {
-        private readonly string _apiUrl;
+        private readonly ProgramSettings _settings;
 
         private readonly UserManager<Person> _userManager;
 
-        public TokenGenerator(string apiUrl, UserManager<Person> userManager)
+        public TokenGenerator(IOptionsSnapshot<ProgramSettings> settings, UserManager<Person> userManager)
         {
-            _apiUrl = apiUrl;
+            _settings = settings.Value;
             _userManager = userManager;
         }
 
@@ -27,8 +29,8 @@ namespace BLL.Services
             var signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
 
             var tokeOptions = new JwtSecurityToken(
-                issuer: _apiUrl,
-                audience: _apiUrl,
+                issuer: _settings.ApiUrl,
+                audience: _settings.ApiUrl,
                 claims: await GetClaims(person),
                 expires: DateTime.Now.AddMinutes(30),
                 signingCredentials: signinCredentials

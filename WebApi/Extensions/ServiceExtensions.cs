@@ -1,6 +1,7 @@
 ﻿using System.Text;
 using BLL.Contracts;
 using BLL.Services;
+using BLL.Settings;
 using DAL;
 using DAL.Contracts;
 using DAL.DatabaseInitializers;
@@ -16,7 +17,8 @@ namespace WebApi.Extensions
 {
     public static class ServiceExtensions
     {
-        public static void ConfigureSqlContext(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection ConfigureSqlContext(this IServiceCollection services,
+            IConfiguration configuration)
         {
             services.AddDbContext<EducationalProgramsDbContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("EducationalProgramsDb")));
@@ -26,29 +28,36 @@ namespace WebApi.Extensions
             //    options.UseInMemoryDatabase("EducationalProgramsDb"));
             //services.AddDbContext<WorkingProgramsDbContext>(options =>
             //    options.UseInMemoryDatabase("WorkingProgramsDb"));
+
+            return services;
         }
 
-        public static void RegisterRepositories(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddRepositories(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddScoped(typeof(IEpRepositoryAsync<>), typeof(EpRepositoryAsync<>));
             services.AddScoped(typeof(IWpRepositoryAsync<>), typeof(WpRepositoryAsync<>));
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             services.AddScoped<IUniversityService, UniversityService>();
-            services.AddScoped<ITokenGenerator>(s => new TokenGenerator(configuration.GetValue<string>("Apps:Api"),
-                services.BuildServiceProvider().GetRequiredService<UserManager<Person>>()));
+            services.AddScoped<ITokenGenerator, TokenGenerator>();
             services.AddScoped<IAccountService, AccountService>();
+            services.AddScoped<IFileProvider, FileProvider>();
+            services.AddScoped<IFileGenerator, FileGenerator>();
+
+            return services;
         }
 
-        public static void RegisterIdentity(this IServiceCollection services)
+        public static IServiceCollection AddIdentity(this IServiceCollection services)
         {
             services.AddIdentity<Person, IdentityRole<Guid>>()
                 .AddEntityFrameworkStores<WorkingProgramsDbContext>();
 
             services.InitializeIdentity();
+
+            return services;
         }
 
-        public static async void InitializeIdentity(this IServiceCollection services)
+        private static async void InitializeIdentity(this IServiceCollection services)
         {
             await using var serviceProvider = services.BuildServiceProvider();
 
@@ -66,9 +75,9 @@ namespace WebApi.Extensions
             }
         }
 
-        public static void RegisterJwt(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddJwt(this IServiceCollection services, IConfiguration configuration)
         {
-            var serverUrl = configuration.GetValue<string>("Apps:Api");
+            var serverUrl = configuration.GetValue<string>("ProgramSettings:ApiUrl");
             services.AddAuthentication(opt =>
                 {
                     opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -87,9 +96,11 @@ namespace WebApi.Extensions
                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("superSecretKey@345"))
                     };
                 });
+
+            return services;
         }
 
-        public static void RegisterSwaggerGen(this IServiceCollection services)
+        public static IServiceCollection AddSwaggerGen(this IServiceCollection services)
         {
             services.AddSwaggerGen(c =>
             {
@@ -119,6 +130,16 @@ namespace WebApi.Extensions
                     },
                 });
             });
+
+            return services;
+        }
+
+        public static IServiceCollection AddSettings(this IServiceCollection services, IConfiguration configuration)
+        {
+            services.Configure<ProgramSettings>(
+                configuration.GetSection(ProgramSettings.SectionName));
+
+            return services;
         }
     }
 }

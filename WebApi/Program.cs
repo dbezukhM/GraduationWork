@@ -12,13 +12,14 @@ namespace WebApi
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
-            builder.Services.RegisterSwaggerGen();
+            builder.Services.AddSwaggerGen();
 
             builder.Services.ConfigureSqlContext(builder.Configuration);
-            builder.Services.RegisterIdentity();
-            builder.Services.RegisterRepositories(builder.Configuration);
-            builder.Services.RegisterJwt(builder.Configuration);
+            builder.Services.AddIdentity();
+            builder.Services.AddRepositories(builder.Configuration);
+            builder.Services.AddJwt(builder.Configuration);
             builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            builder.Services.AddSettings(builder.Configuration);
 
             var app = builder.Build();
 

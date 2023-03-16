@@ -2,8 +2,8 @@
 {
     public class EducationalProgramsType : BaseEntity
     {
-        public string? Name { get; set; }
+        public string Name { get; set; }
 
-        public ICollection<EducationalProgram>? EducationalPrograms { get; set; }
+        public ICollection<EducationalProgram> EducationalPrograms { get; set; }
     }
 }

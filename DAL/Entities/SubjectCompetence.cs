@@ -6,8 +6,8 @@
 
         public Guid CompetenceId { get; set; }
 
-        public Subject? Subject { get; set; }
+        public Subject Subject { get; set; }
 
-        public Competence? Competence { get; set; }
+        public Competence Competence { get; set; }
     }
 }

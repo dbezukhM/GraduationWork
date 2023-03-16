@@ -2,6 +2,6 @@
 {
     public class UniversityRequest : IRequest
     {
-        public string? Name { get; set; }
+        public string Name { get; set; }
     }
 }

@@ -11,5 +11,7 @@ namespace BLL.Errors
 
         public static Error WrongEmailOrPassword =>
             new Error("E0003", "Email address / Password combination is not correct, please try again");
+
+        public static Error FileNotFound => new Error("E0004", "File not found");
     }
 }

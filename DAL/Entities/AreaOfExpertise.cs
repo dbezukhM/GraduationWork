@@ -3,8 +3,10 @@
     //галузі знань
     public class AreaOfExpertise : BaseEntity
     {
-        public string? Name { get; set; }
+        public int Number { get; set; }
 
-        public ICollection<Specialization>? Specializations { get; set; }
+        public string Name { get; set; }
+
+        public ICollection<Specialization> Specializations { get; set; }
     }
 }

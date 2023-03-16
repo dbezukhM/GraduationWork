@@ -6,8 +6,8 @@
 
         public Guid SubjectId { get; set; }
 
-        public ProgramResult? ProgramResult { get; set; }
+        public ProgramResult ProgramResult { get; set; }
 
-        public Subject? Subject { get; set; }
+        public Subject Subject { get; set; }
     }
 }

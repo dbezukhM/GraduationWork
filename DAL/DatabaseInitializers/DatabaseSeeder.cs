@@ -49,7 +49,8 @@ namespace DAL.DatabaseInitializers
                 new AreaOfExpertise
                 {
                     Id = Guid.Parse("579CA45F-59E8-4C59-BE83-14D0032A84C4"),
-                    Name = "12 «Інформаційні технології»",
+                    Number = 12,
+                    Name = "Інформаційні технології",
                 });
         }
 
@@ -59,7 +60,8 @@ namespace DAL.DatabaseInitializers
                 new Specialization
                 {
                     Id = Guid.Parse("66E1809B-AB20-4122-A1C4-8643CECE445D"),
-                    Name = "122 «Комп’ютерні науки»",
+                    Number = 122,
+                    Name = "Комп’ютерні науки",
                     AreaOfExpertiseId = Guid.Parse("579CA45F-59E8-4C59-BE83-14D0032A84C4"),
                 });
         }
@@ -189,6 +191,7 @@ namespace DAL.DatabaseInitializers
                     SelfWorkHours = 62,
                     SelectiveBlockId = Guid.Parse("986241D5-B78A-4D9B-A96F-1DA84D9C48AA"),
                     FinalControlTypeId = Guid.Parse("41A17216-A137-403E-8912-000C2DB43368"),
+                    EducationalProgramId = Guid.Parse("E119AF71-D0C5-436A-95F5-3EEB626F82F2"),
                 });
         }
 

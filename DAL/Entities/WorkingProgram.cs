@@ -8,8 +8,8 @@
 
         public Guid? ApprovedById { get; set; }
 
-        public Person? CreatedBy { get; set; }
+        public Person CreatedBy { get; set; }
 
-        public Person? ApprovedBy { get; set; }
+        public Person ApprovedBy { get; set; }
     }
 }
