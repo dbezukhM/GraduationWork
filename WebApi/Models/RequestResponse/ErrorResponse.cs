@@ -1,4 +1,6 @@
-﻿namespace WebApi.Models.RequestResponse
+﻿using Newtonsoft.Json;
+
+namespace WebApi.Models.RequestResponse
 {
     public class ErrorResponse
     {
@@ -18,6 +20,11 @@
             return this;
         }
 
+        public string ToJson()
+        {
+            return JsonConvert.SerializeObject(this);
+        }
+
         public class ErrorModel
         {
             public string Code { get; set; }
@@ -27,6 +34,11 @@
             public string FieldName { get; set; }
 
             public Dictionary<string, string> Parameters { get; set; } = new Dictionary<string, string>();
+
+            public IEnumerable<ErrorModel> ToEnumerable()
+            {
+                yield return this;
+            }
         }
     }
 }

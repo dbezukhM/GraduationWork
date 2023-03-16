@@ -1,4 +1,5 @@
 using WebApi.Extensions;
+using WebApi.Middleware;
 
 namespace WebApi
 {
@@ -31,6 +32,7 @@ namespace WebApi
             }
 
             app.UseHttpsRedirection();
+            app.UseMiddleware<ExceptionMiddleware>();
 
             app.UseAuthentication();
             app.UseAuthorization();
