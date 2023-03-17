@@ -12,6 +12,14 @@
 
         public int SeminarsHours { get; set; }
 
+        public int PracticalClassesHours { get; set; }
+
+        public int LaboratoryClassesHours { get; set; }
+
+        public int TrainingsHours { get; set; }
+
+        public int ConsultationsHours { get; set; }
+
         public int SelfWorkHours { get; set; }
 
         public Guid SelectiveBlockId { get; set; }
@@ -19,6 +27,8 @@
         public Guid FinalControlTypeId { get; set; }
 
         public Guid EducationalProgramId { get; set; }
+
+        public Guid? WorkingProgramId { get; set; }
 
         public SelectiveBlock SelectiveBlock { get; set; }
 

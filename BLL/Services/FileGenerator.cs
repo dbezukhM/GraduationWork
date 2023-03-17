@@ -1,10 +1,12 @@
-﻿using BLL.Contracts;
+﻿using System.Collections;
+using BLL.Contracts;
 using BLL.Errors;
 using BLL.Extensions;
 using BLL.Models;
 using BLL.Results;
 using BLL.Settings;
 using DAL.Contracts;
+using DAL.DatabaseInitializers;
 using DAL.Entities;
 using Microsoft.Extensions.Options;
 using Xceed.Document.NET;
@@ -107,6 +109,9 @@ namespace BLL.Services
             }
 
             docx.Tables[1].Design = TableDesign.TableGrid;
+
+            LeaveNecessaryGrades(docx, subjectDetailsModel.FinalControlType);
+
             var stream = new MemoryStream();
             docx.SaveAs(stream);
             stream.Flush();
@@ -158,7 +163,15 @@ namespace BLL.Services
 
         private Dictionary<string, string> GetDictionary(SubjectDetailsModel model)
         {
-            var sumHours = model.Subject.LecturesHours + model.Subject.SeminarsHours + model.Subject.SelfWorkHours;
+            var lecturesHours = model.Subject.LecturesHours;
+            var seminarsHours = model.Subject.SeminarsHours;
+            var practicalClassesHours = model.Subject.PracticalClassesHours;
+            var laboratoryClassesHours = model.Subject.LaboratoryClassesHours;
+            var trainingsHours = model.Subject.TrainingsHours;
+            var consultationsHours = model.Subject.ConsultationsHours;
+            var selfWorkHours = model.Subject.SelfWorkHours;
+            var sumHours = lecturesHours + seminarsHours + practicalClassesHours + laboratoryClassesHours +
+                           trainingsHours + consultationsHours + selfWorkHours;
             var result = new Dictionary<string, string>
             {
                 { "<UNIVERSITYNAME>", model.University.Name.ToUpper() },
@@ -174,13 +187,36 @@ namespace BLL.Services
                 { "<SUBJECTSEMESTER>", model.Subject.Semester.ToString() },
                 { "<SUBJECTCREDITS>", model.Subject.Credits.ToString() },
                 { "<FINALCONTROLTYPE>", model.FinalControlType.Name.ToLower() },
-                { "<LECTURESHOURS>", model.Subject.LecturesHours.ToString() },
-                { "<SEMINARSHOURS>", model.Subject.SeminarsHours.ToString() },
-                { "<SELFWORKHOURS>", model.Subject.SelfWorkHours.ToString() },
+                { "<LECTURESHOURS>", lecturesHours != 0 ? lecturesHours.ToString() : "-" },
+                { "<SEMINARSHOURS>", seminarsHours != 0 ? seminarsHours.ToString() : "-" },
+                { "<PRACTICALCLASSESHOURS>", practicalClassesHours != 0 ? practicalClassesHours.ToString() : "-" },
+                { "<LABORATORYCLASSESHOURS>", laboratoryClassesHours != 0 ? laboratoryClassesHours.ToString() : "-" },
+                { "<TRAININGSHOURS>", trainingsHours != 0 ? trainingsHours.ToString() : "-" },
+                { "<CONSULTATIONSHOURS>", consultationsHours != 0 ? consultationsHours.ToString() : "-" },
+                { "<SELFWORKHOURS>", selfWorkHours != 0 ? selfWorkHours.ToString() : "-" },
                 { "<SUMHOURS> ", sumHours.ToString() },
             };
 
             return result;
+        }
+
+        private DocX LeaveNecessaryGrades(DocX docx, FinalControlType type)
+        {
+            if (type.Id == DatabaseSeeder.FinalControlTypeExam)
+            {
+                var rowsCount = docx.Tables[2].RowCount;
+                docx.Tables[2].RemoveRow(rowsCount - 1);
+                docx.Tables[2].RemoveRow(rowsCount - 2);
+            }
+            else if (type.Id == DatabaseSeeder.FinalControlTypeCredit)
+            {
+                foreach (var i in Enumerable.Range(0, 4))
+                {
+                    docx.Tables[2].RemoveRow(0);
+                }
+            }
+
+            return docx;
         }
     }
 }

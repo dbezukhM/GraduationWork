@@ -5,6 +5,9 @@ namespace DAL.DatabaseInitializers
 {
     public class DatabaseSeeder
     {
+        public static Guid FinalControlTypeExam = Guid.Parse("41A17216-A137-403E-8912-000C2DB43368");
+        public static Guid FinalControlTypeCredit = Guid.Parse("6D42A2EC-C9F0-4265-9C4D-6C4FD60EC467");
+
         public static void Seed(ModelBuilder modelBuilder)
         {
             SeedUniversities(modelBuilder);
@@ -154,11 +157,11 @@ namespace DAL.DatabaseInitializers
             modelBuilder.Entity<FinalControlType>().HasData(
                 new FinalControlType
                 {
-                    Id = Guid.Parse("41A17216-A137-403E-8912-000C2DB43368"),
+                    Id = FinalControlTypeExam,
                     Name = "Іспит",
                 }, new FinalControlType
                 {
-                    Id = Guid.Parse("C7380E74-EAEE-4E16-ABEA-87C5A8AC2D63"),
+                    Id = FinalControlTypeCredit,
                     Name = "Залік",
                 });
         }
@@ -188,9 +191,13 @@ namespace DAL.DatabaseInitializers
                     Semester = 3,
                     LecturesHours = 28,
                     SeminarsHours = 28,
+                    PracticalClassesHours = 2,
+                    LaboratoryClassesHours = 1,
+                    TrainingsHours = 0,
+                    ConsultationsHours = 0,
                     SelfWorkHours = 62,
                     SelectiveBlockId = Guid.Parse("986241D5-B78A-4D9B-A96F-1DA84D9C48AA"),
-                    FinalControlTypeId = Guid.Parse("41A17216-A137-403E-8912-000C2DB43368"),
+                    FinalControlTypeId = FinalControlTypeExam,
                     EducationalProgramId = Guid.Parse("E119AF71-D0C5-436A-95F5-3EEB626F82F2"),
                 });
         }
