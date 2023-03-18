@@ -20,6 +20,18 @@ namespace DAL.Repositories
             return await _dbSet.FindAsync(key);
         }
 
+        public async Task<T> GetWithDetailsAsync(Guid key, params Expression<Func<T, object>>[] includes)
+        {
+            var query = _dbSet.AsQueryable();
+            if (includes != null)
+            {
+                query = includes.Aggregate(query,
+                    (current, include) => current.Include(include));
+            }
+
+            return await  query.FirstOrDefaultAsync(x => x.Id == key);
+        }
+
         public async Task<T> FindAsync(Expression<Func<T, bool>> predicate)
         {
             return await _dbSet.AsQueryable().FirstOrDefaultAsync(predicate);
@@ -30,9 +42,16 @@ namespace DAL.Repositories
             return await _dbSet.AsQueryable().Where(predicate).ToArrayAsync();
         }
 
-        public async Task<ICollection<T>> GetAllAsync()
+        public async Task<ICollection<T>> GetAllAsync(params Expression<Func<T, object>>[] includes)
         {
-            return await _dbSet.AsQueryable().ToArrayAsync();
+            var query = _dbSet.AsQueryable();
+            if (includes != null)
+            {
+                query = includes.Aggregate(query,
+                    (current, include) => current.Include(include));
+            }
+
+            return await query.ToArrayAsync();
         }
 
         public Task<bool> ExistsAsync(Expression<Func<T, bool>> predicate)

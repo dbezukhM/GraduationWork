@@ -43,6 +43,7 @@ namespace WebApi.Extensions
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<IFileProvider, FileProvider>();
             services.AddScoped<IFileGenerator, FileGenerator>();
+            services.AddScoped<IEducationalProgramService, EducationalProgramService>();
 
             return services;
         }

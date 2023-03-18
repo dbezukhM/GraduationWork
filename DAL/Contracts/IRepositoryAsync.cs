@@ -8,11 +8,13 @@ namespace DAL.Contracts
     {
         Task<T> GetAsync(TKey key);
 
+        Task<T> GetWithDetailsAsync(Guid key, params Expression<Func<T, object>>[] includes);
+
         Task<T> FindAsync(Expression<Func<T, bool>> predicate);
 
         Task<ICollection<T>> FindAllAsync(Expression<Func<T, bool>> predicate);
 
-        Task<ICollection<T>> GetAllAsync();
+        Task<ICollection<T>> GetAllAsync(params Expression<Func<T, object>>[] includes);
 
         Task<bool> ExistsAsync(Expression<Func<T, bool>> predicate);
 
