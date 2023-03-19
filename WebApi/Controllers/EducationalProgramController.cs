@@ -20,12 +20,11 @@ namespace WebApi.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAsync()
+        public async Task<IActionResult> GetAllAsync()
         {
             var result = await _educationalProgramService.GetAllAsync();
 
-            return OperationResult<IEnumerable<EducationalProgramModel>, IEnumerable<EducationalProgramResponse>>(
-                result);
+            return OperationResult<IEnumerable<EducationalProgramModel>, IEnumerable<EducationalProgramResponse>>(result);
         }
 
         [HttpGet("{id}")]

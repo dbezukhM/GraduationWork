@@ -14,6 +14,8 @@ namespace BLL.Errors
 
         public static Error FileNotFound => new Error("E0004", "File not found");
 
-        public static Error EducationalProgramNameNotUnique => new Error("E0005", "Educational program name already exists");
+        public static Error EducationalProgramNameNotUnique => new Error("E0005", "Educational program name is not unique");
+
+        public static Error ProgramResultNameNotUnique => new Error("E0006", "Program result name is not unique");
     }
 }

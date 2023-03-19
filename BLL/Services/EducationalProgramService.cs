@@ -55,8 +55,8 @@ namespace BLL.Services
 
         public async Task<Result<Guid>> CreateAsync(EducationalProgramCreateModel model)
         {
-            var isExisting = await _educationalProgramRepository.ExistsAsync(x => x.Name == model.Name);
-            if (isExisting)
+            var isNameExisting = await _educationalProgramRepository.ExistsAsync(x => x.Name == model.Name);
+            if (isNameExisting)
             {
                 return Result.ValidationError<Guid>(BlErrors.EducationalProgramNameNotUnique);
             }
@@ -79,8 +79,8 @@ namespace BLL.Services
                 return Result.NotFound(BlErrors.NotFound(model.Id));
             }
 
-            var isNameUnique = await _educationalProgramRepository.ExistsAsync(x => x.Id != model.Id && x.Name == model.Name);
-            if (isNameUnique)
+            var isNameExisting = await _educationalProgramRepository.ExistsAsync(x => x.Id != model.Id && x.Name == model.Name);
+            if (isNameExisting)
             {
                 return Result.ValidationError(BlErrors.EducationalProgramNameNotUnique);
             }

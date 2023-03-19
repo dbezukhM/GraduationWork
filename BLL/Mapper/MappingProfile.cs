@@ -21,6 +21,7 @@ namespace BLL.Mapper
             CreateMap<Faculty, IdNameModel<Guid>>();
             CreateMap<EducationalProgramsType, IdNameModel<Guid>>();
             CreateMap<Subject, IdNameModel<Guid>>();
+            CreateMap<EducationalProgram, IdNameModel<Guid>>();
             CreateMap<AreaOfExpertise, IdNameModel<Guid>>()
                 .ForMember(x => x.Name, cfg => cfg.MapFrom(scr => $"{scr.Number} «{scr.Name.FirstCharToUpper()}»"));
             CreateMap<Specialization, IdNameModel<Guid>>()
@@ -30,6 +31,10 @@ namespace BLL.Mapper
                 .ForMember(x => x.University, cfg => cfg.MapFrom(src => src.Faculty.University));
 
             CreateMap<EducationalProgramCreateModel, EducationalProgram>();
+            CreateMap<ProgramResultCreateModel, ProgramResult>();
+            CreateMap<ProgramResult, ProgramResultGetModel>()
+                .ForMember(x => x.Subjects, cfg => cfg.Ignore());
+            CreateMap<ProgramResultCreateModel, ProgramResult>();
         }
     }
 }
