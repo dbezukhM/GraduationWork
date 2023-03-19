@@ -19,5 +19,7 @@ namespace BLL.Errors
         public static Error ProgramResultNameNotUnique => new Error("E0006", "Program result name is not unique");
 
         public static Error CompetenceNameNotUnique => new Error("E0007", "Competence name is not unique");
+
+        public static Error SubjectNameNotUnique => new Error("E0008", "Subject name is not unique");
     }
 }

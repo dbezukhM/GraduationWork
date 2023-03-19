@@ -46,6 +46,7 @@ namespace WebApi.Extensions
             services.AddScoped<IEducationalProgramService, EducationalProgramService>();
             services.AddScoped<IProgramResultService, ProgramResultService>();
             services.AddScoped<ICompetenceService, CompetenceService>();
+            services.AddScoped<ISubjectService, SubjectService>();
 
             return services;
         }
