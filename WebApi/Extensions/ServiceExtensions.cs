@@ -45,6 +45,7 @@ namespace WebApi.Extensions
             services.AddScoped<IFileGenerator, FileGenerator>();
             services.AddScoped<IEducationalProgramService, EducationalProgramService>();
             services.AddScoped<IProgramResultService, ProgramResultService>();
+            services.AddScoped<ICompetenceService, CompetenceService>();
 
             return services;
         }

@@ -34,7 +34,9 @@ namespace BLL.Mapper
             CreateMap<ProgramResultCreateModel, ProgramResult>();
             CreateMap<ProgramResult, ProgramResultGetModel>()
                 .ForMember(x => x.Subjects, cfg => cfg.Ignore());
-            CreateMap<ProgramResultCreateModel, ProgramResult>();
+            CreateMap<Competence, CompetenceGetModel>()
+                .ForMember(x => x.Subjects, cfg => cfg.Ignore());
+            CreateMap<CompetenceCreateModel, Competence>();
         }
     }
 }
