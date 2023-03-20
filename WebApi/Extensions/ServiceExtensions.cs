@@ -47,6 +47,7 @@ namespace WebApi.Extensions
             services.AddScoped<IProgramResultService, ProgramResultService>();
             services.AddScoped<ICompetenceService, CompetenceService>();
             services.AddScoped<ISubjectService, SubjectService>();
+            services.AddScoped<ILookupService, LookupService>();
 
             return services;
         }
