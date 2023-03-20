@@ -2,6 +2,8 @@
 {
     public class WorkingProgram : BaseEntity
     {
+        public string Name { get; set; }
+
         public string FileName { get; set; }
 
         public Guid CreatedById { get; set; }

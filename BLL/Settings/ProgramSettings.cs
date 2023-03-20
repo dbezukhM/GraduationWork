@@ -8,7 +8,9 @@
 
         public string ClientUrl { get; set; }
 
-        public string AzureFunctionUrl { get; set; }
+        public string AzureFunctionGetFileUrl { get; set; }
+
+        public string AzureFunctionPostFileUrl { get; set; }
 
         public string TemplateFileName { get; set; }
     }

@@ -17,8 +17,8 @@ namespace BlobDataProcessor
     {
         [FunctionName("GetBlobFile")]
         public static async Task<IActionResult> Run(
-            [HttpTrigger(AuthorizationLevel.Function, "get", Route = "GetBlobFile/{fileName}")]
-            HttpRequest req, string fileName,
+            [HttpTrigger(AuthorizationLevel.Function, "get", Route = "GetBlobFile/{fullFileName}")]
+            HttpRequest req, string fullFileName,
             ILogger log, ExecutionContext context)
         {
             var config = new ConfigurationBuilder()
@@ -32,7 +32,7 @@ namespace BlobDataProcessor
             try
             {
                 var containerClient = new BlobContainerClient(blobConnection, container);
-                var blobClient = containerClient.GetBlobClient(fileName);
+                var blobClient = containerClient.GetBlobClient(fullFileName);
 
                 using var stream = new MemoryStream();
                 await blobClient.DownloadToAsync(stream);

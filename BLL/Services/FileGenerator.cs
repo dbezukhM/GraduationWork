@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using BLL.Contracts;
+﻿using BLL.Contracts;
 using BLL.Errors;
 using BLL.Extensions;
 using BLL.Models;
@@ -69,12 +68,12 @@ namespace BLL.Services
             _fileProvider = fileProvider;
         }
 
-        public async Task<Result<MemoryStream>> GenerateFile(Guid subjectId)
+        public async Task<Result<WorkingProgramModel>> GenerateFile(Guid subjectId)
         {
             var subjectDetailsModel = await GetDetailsModel(subjectId);
             if (subjectDetailsModel == null)
             {
-                return Result.NotFound<MemoryStream>(BlErrors.NotFound(subjectId));
+                return Result.NotFound<WorkingProgramModel>(BlErrors.NotFound(subjectId));
             }
 
             var file = await _fileProvider.GetFileAsync(_programSettings.TemplateFileName);
@@ -115,8 +114,13 @@ namespace BLL.Services
             var stream = new MemoryStream();
             docx.SaveAs(stream);
             stream.Flush();
+            var result = new WorkingProgramModel
+            {
+                FullFileName = $"{subjectDetailsModel.Subject.Name} - шаблон робочої програми.docx",
+                File = stream,
+            };
 
-            return Result.Success(stream);
+            return Result.Success(result);
         }
 
         private async Task<SubjectDetailsModel> GetDetailsModel(Guid subjectId)

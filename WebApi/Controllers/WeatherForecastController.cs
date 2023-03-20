@@ -20,6 +20,7 @@ namespace WebApi.Controllers
 
         private readonly ProgramSettings _settings;
         private readonly IFileGenerator _fileGenerator;
+        private readonly IFileProvider _fileProvider;
 
         private readonly SignInManager<Person> _signInManager;
 
@@ -27,10 +28,11 @@ namespace WebApi.Controllers
             SignInManager<Person> signInManager,
             IOptionsSnapshot<ProgramSettings> settings,
             IFileGenerator fileGenerator,
-            IMapper mapper) : base(mapper)
+            IMapper mapper, IFileProvider fileProvider) : base(mapper)
         {
             _signInManager = signInManager;
             _fileGenerator = fileGenerator;
+            _fileProvider = fileProvider;
             _settings = settings.Value;
         }
 
@@ -67,7 +69,22 @@ namespace WebApi.Controllers
                 return ErrorResult(result);
             }
 
-            return File(result.Value.ToArray(), "application/vnd.ms-word", "Template.docx");
+            return File(result.Value.File.ToArray(), "application/vnd.ms-word", result.Value.FullFileName);
+        }
+
+        public class CreateModel
+        {
+            public string Name { get; set; }
+
+            public IFormFile File { get; set; }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> PostFile([FromForm] CreateModel model)
+        {
+            var result = await _fileProvider.PostFileAsync(model.File);
+
+            return OperationResult(result);
         }
     }
 }
