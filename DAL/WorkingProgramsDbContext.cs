@@ -12,18 +12,18 @@ namespace DAL
             Database.EnsureCreated();
         }
 
-        public DbSet<WorkingProgram>? WorkingPrograms { get; set; }
+        public DbSet<WorkingProgram> WorkingPrograms { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<WorkingProgram>()
                 .HasOne<Person>(p => p.CreatedBy)
-                .WithMany(p => p.WorkingProgramsAuthors)
+                .WithMany(p => p.WorkingProgramsAuthor)
                 .HasForeignKey(p => p.CreatedById);
 
             builder.Entity<WorkingProgram>()
                 .HasOne<Person>(p => p.ApprovedBy)
-                .WithMany(p => p.WorkingProgramsApprovers)
+                .WithMany(p => p.WorkingProgramsApprover)
                 .HasForeignKey(p => p.ApprovedById);
 
             base.OnModelCreating(builder);

@@ -5,6 +5,14 @@ namespace BLL.Contracts
 {
     public interface IAccountService
     {
-        Task<Result<string>> LoginAsync(LoginModel model);
+        Task<Result<TokenModel>> LoginAsync(LoginModel model);
+
+        Task<Result> LogOut();
+
+        Task<Result<Guid>> CreateAsync(PersonCreateModel model);
+
+        Task<Result> ChangePasswordAsync(PersonChangePasswordModel model);
+
+        Task<Result<PersonGetModel>> GetByIdAsync(Guid personId);
     }
 }

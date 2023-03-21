@@ -5,8 +5,8 @@ namespace DAL.DatabaseInitializers
 {
     public class IdentityInitializer
     {
-        private const string AdminRoleName = "Admin";
-        private const string LecturerRoleName = "Lecturer";
+        public const string AdminRoleName = "Admin";
+        public const string LecturerRoleName = "Lecturer";
 
         public static async Task InitializeAsync(UserManager<Person> userManager,
             RoleManager<IdentityRole<Guid>> roleManager)

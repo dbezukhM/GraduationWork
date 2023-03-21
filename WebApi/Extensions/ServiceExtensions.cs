@@ -48,6 +48,8 @@ namespace WebApi.Extensions
             services.AddScoped<ICompetenceService, CompetenceService>();
             services.AddScoped<ISubjectService, SubjectService>();
             services.AddScoped<ILookupService, LookupService>();
+            services.AddScoped<IPasswordService, PasswordService>();
+            services.AddScoped<IEmailSender, EmailSender>();
 
             return services;
         }
@@ -55,7 +57,8 @@ namespace WebApi.Extensions
         public static IServiceCollection AddIdentity(this IServiceCollection services)
         {
             services.AddIdentity<Person, IdentityRole<Guid>>()
-                .AddEntityFrameworkStores<WorkingProgramsDbContext>();
+                .AddEntityFrameworkStores<WorkingProgramsDbContext>()
+                .AddDefaultTokenProviders();
 
             services.InitializeIdentity();
 

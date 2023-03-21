@@ -12,8 +12,8 @@ namespace DAL.Entities
 
         public bool IsAdmin { get; set; }
 
-        public ICollection<WorkingProgram> WorkingProgramsAuthors { get; set; }
+        public ICollection<WorkingProgram> WorkingProgramsAuthor { get; set; }
 
-        public ICollection<WorkingProgram> WorkingProgramsApprovers { get; set; }
+        public ICollection<WorkingProgram> WorkingProgramsApprover { get; set; }
     }
 }

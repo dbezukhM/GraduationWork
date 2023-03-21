@@ -13,5 +13,7 @@
         public string AzureFunctionPostFileUrl { get; set; }
 
         public string TemplateFileName { get; set; }
+
+        public string LogicAppEmailSenderUrl { get; set; }
     }
 }
