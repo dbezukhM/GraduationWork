@@ -19,6 +19,7 @@ namespace BLL.Services
         private readonly IEpRepositoryAsync<University> _universityRepository;
         private readonly IEpRepositoryAsync<Specialization> _specializationRepository;
         private readonly IEpRepositoryAsync<AreaOfExpertise> _areaOfExpertiseRepository;
+        private readonly IEpRepositoryAsync<Subject> _subjectRepository;
         private readonly IMapper _mapper;
 
         public LookupService(
@@ -32,6 +33,7 @@ namespace BLL.Services
             IEpRepositoryAsync<University> universityRepository,
             IEpRepositoryAsync<Specialization> specializationRepository,
             IEpRepositoryAsync<AreaOfExpertise> areaOfExpertiseRepository,
+            IEpRepositoryAsync<Subject> subjectRepository,
             IMapper mapper)
         {
             _selectiveBlockRepository = selectiveBlockRepository;
@@ -44,6 +46,7 @@ namespace BLL.Services
             _universityRepository = universityRepository;
             _specializationRepository = specializationRepository;
             _areaOfExpertiseRepository = areaOfExpertiseRepository;
+            _subjectRepository = subjectRepository;
             _mapper = mapper;
         }
 
@@ -114,6 +117,13 @@ namespace BLL.Services
         public async Task<Result<IEnumerable<IdNameModel<Guid>>>> GetSelectiveBlocksAsync()
         {
             var result = await _selectiveBlockRepository.GetAllAsync();
+
+            return Result.Success(_mapper.Map<IEnumerable<IdNameModel<Guid>>>(result));
+        }
+
+        public async Task<Result<IEnumerable<IdNameModel<Guid>>>> GetSubjectsAsync()
+        {
+            var result = await _subjectRepository.GetAllAsync();
 
             return Result.Success(_mapper.Map<IEnumerable<IdNameModel<Guid>>>(result));
         }

@@ -15,5 +15,7 @@ namespace DAL.Entities
         public ICollection<WorkingProgram> WorkingProgramsAuthor { get; set; }
 
         public ICollection<WorkingProgram> WorkingProgramsApprover { get; set; }
+
+        public ICollection<Comment> Comments { get; set; }
     }
 }

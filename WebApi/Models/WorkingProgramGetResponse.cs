@@ -1,6 +1,6 @@
-﻿namespace BLL.Models
+﻿namespace WebApi.Models
 {
-    public class WorkingProgramGetModel : IDomainModel
+    public class WorkingProgramGetResponse : IResponse
     {
         public Guid Id { get; set; }
 

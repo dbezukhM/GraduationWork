@@ -24,5 +24,7 @@ namespace BLL.Contracts
         Task<Result<IEnumerable<IdNameModel<Guid>>>> GetFinalControlTypesAsync();
 
         Task<Result<IEnumerable<IdNameModel<Guid>>>> GetSelectiveBlocksAsync();
+
+        Task<Result<IEnumerable<IdNameModel<Guid>>>> GetSubjectsAsync();
     }
 }

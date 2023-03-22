@@ -27,5 +27,7 @@ namespace BLL.Errors
         public static Error PasswordNotCorrect => new Error("E0009", "Old password is not correct");
 
         public static Error PasswordIsSimple => new Error("E0010", "The password is simple");
+
+        public static Error CanNotApproveOwnWorkingProgram => new Error("E0011", "Can not approve you own working program");
     }
 }

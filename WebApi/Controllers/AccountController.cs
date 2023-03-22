@@ -50,7 +50,7 @@ namespace WebApi.Controllers
         }
 
         [HttpPost]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> CreateAsync(PersonCreateRequest model)
         {
             var personModel = Mapper.Map<PersonCreateModel>(model);

@@ -50,6 +50,7 @@ namespace WebApi.Extensions
             services.AddScoped<ILookupService, LookupService>();
             services.AddScoped<IPasswordService, PasswordService>();
             services.AddScoped<IEmailSender, EmailSender>();
+            services.AddScoped<IWorkingProgramService, WorkingProgramService>();
 
             return services;
         }

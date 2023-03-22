@@ -1,9 +1,15 @@
-﻿namespace BLL.Models
+﻿using Microsoft.AspNetCore.Http;
+
+namespace BLL.Models
 {
     public class WorkingProgramCreateModel : IDomainModel
     {
-        public Guid Id { get; set; }
+        public string Name { get; set; }
 
-        public string FileName { get; set; }
+        public IFormFile File { get; set; }
+
+        public Guid SubjectId { get; set; }
+
+        public string CreatedByEmail { get; set; }
     }
 }

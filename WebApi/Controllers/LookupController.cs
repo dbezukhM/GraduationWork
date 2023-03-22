@@ -98,5 +98,13 @@ namespace WebApi.Controllers
 
             return OperationResult(result);
         }
+
+        [HttpGet("subjects")]
+        public async Task<IActionResult> GetSubjectsAsync()
+        {
+            var result = await _lookupService.GetSubjectsAsync();
+
+            return OperationResult(result);
+        }
     }
 }

@@ -51,6 +51,13 @@ namespace BLL.Mapper
             CreateMap<SubjectCreateModel, Subject>();
             CreateMap<Person, PersonGetModel>();
             CreateMap<PersonCreateModel, Person>();
+            CreateMap<Person, IdNameModel<Guid>>();
+            CreateMap<WorkingProgramCreateModel, WorkingProgram>();
+            CreateMap<WorkingProgram, WorkingProgramGetModel>();
+            CreateMap<WorkingProgram, WorkingProgramDetailsModel>();
+            CreateMap<WorkingProgram, IdNameModel<Guid>>();
+            CreateMap<Comment, CommentModel>()
+                .ForMember(x => x.CreatedByName, cfg => cfg.MapFrom(src => $"{src.CreatedBy.FirstName} {src.CreatedBy.LastName}"));
         }
     }
 }
