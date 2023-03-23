@@ -150,5 +150,20 @@ namespace WebApi.Extensions
 
             return services;
         }
+
+        public static IServiceCollection AddCors(this IServiceCollection services, IConfiguration configuration)
+        {
+            var clientUrl = configuration.GetValue<string>("ProgramSettings:ClientUrl");
+            services.AddCors(o => o.AddPolicy("CorsPolicy", builder =>
+            {
+                builder
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .AllowCredentials()
+                    .WithOrigins(clientUrl);
+            }));
+
+            return services;
+        }
     }
 }

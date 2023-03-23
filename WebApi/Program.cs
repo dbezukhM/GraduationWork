@@ -21,6 +21,8 @@ namespace WebApi
             builder.Services.AddJwt(builder.Configuration);
             builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             builder.Services.AddSettings(builder.Configuration);
+            builder.Services.AddCors(builder.Configuration);
+            //builder.Services.AddApplicationInsightsTelemetry();
 
             var app = builder.Build();
 
@@ -32,6 +34,7 @@ namespace WebApi
             }
 
             app.UseHttpsRedirection();
+            app.UseCors("CorsPolicy");
             app.UseMiddleware<ExceptionMiddleware>();
 
             app.UseAuthentication();
