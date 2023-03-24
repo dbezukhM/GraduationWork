@@ -39,7 +39,7 @@ namespace WebApi.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Lecturer")]
+        //[Authorize(Roles = "Lecturer")]
         [Route("GetStrings")]
         public IEnumerable<string> GetString()
         {
