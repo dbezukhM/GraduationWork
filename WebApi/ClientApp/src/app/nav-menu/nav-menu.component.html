@@ -1,1 +1,36 @@
-<p>nav-menu works!</p>
+<div class="sidenav" [ngClass]="collapsed ? 'sidenav-collapsed': ''">
+    <div class="logo-container">
+        <i class="logo bi bi-list" (click)="toggleCollapse()"></i>
+        <div class="logo-text" @fadeInOut *ngIf="collapsed">Angular</div>
+        <button class="btn-close" @fadeInOut *ngIf="collapsed" (click)="closeSidenav()">
+            <i class="fal fa-times close-icon"></i>
+        </button>
+    </div>
+    <div class="sidenav-nav">
+        <div class="sidenav-nav-item" *ngFor="let data of navData; let last = last"
+            [ngClass]="{'sidenav-nav-item-last': last}">
+            <a class="sidenav-nav-link" [routerLink]="[data.routeLink]" 
+                routerLinkActive="active"
+                [routerLinkActiveOptions]="{exact: true}"
+            >
+                <i class="sidenav-link-icon" [class]="data.icon"></i>
+                <span class="sidenav-link-text" @fadeInOut *ngIf="collapsed">
+                    {{data.label}}
+                </span>
+            </a>
+        </div>
+    </div>
+    <div class="sidenav-nav">
+        <div class="sidenav-nav-item">
+            <a class="sidenav-nav-link person" [routerLink]="['person']" 
+                routerLinkActive="active"
+                [routerLinkActiveOptions]="{exact: true}"
+            >
+                <i class="sidenav-link-icon bi bi-person"></i>
+                <span class="sidenav-link-text" @fadeInOut *ngIf="collapsed">
+                    Person
+                </span>
+            </a>
+        </div>
+    </div>
+</div>

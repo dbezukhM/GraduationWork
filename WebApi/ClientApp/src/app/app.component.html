@@ -1,3 +1,5 @@
-<div class="container text-center">asdasd</div>
-<button (click)="showToast()">Show toast</button>
-<button (click)="loadData()">Show toast2</button>
+<app-nav-menu (onToggleSideNav)="onToggleSideNav($event)"></app-nav-menu>
+<app-body
+    [collapsed]="isSideNavCollapsed"
+    [screenWidth]="screenWidth"
+></app-body>
