@@ -1,1 +1,156 @@
-/* You can add global styles to this file, and also import other style files */
+.data-container{
+    margin-top: 30px;
+    box-sizing: border-box;
+    background: #ffffff;
+    box-shadow: 0 4px 17px #12106517;
+    border-radius: 6px;
+    padding: 24px;
+
+    .info {
+        margin-top: 20px;
+    }
+}
+.row-label{
+    color: #84868d;
+}
+.row-text{
+    color: #19213F;
+}
+.row-container{
+    padding: 12px;
+}
+.row-odd{
+    background-color: rgb(247, 250, 255);
+    border-radius: 5px;
+}
+.innerlabel{
+    font-weight: 700;
+    font-size: 18px;
+}
+.content-center-vertical{
+    display: flex;
+    align-items: center;
+}
+.content-right{
+    display: flex;
+    justify-content: right;
+}
+.main-title{
+    font-size: 30px;
+    font-weight: 700;
+}
+
+.grid-container-2{
+    display: grid;
+    grid-template-columns: calc(50% - 10px) calc(50% - 10px);
+    column-gap: 20px;
+}
+.top-line{
+    border-top: 1px solid #babfc780;
+    margin-top: 10px;
+}
+.overflow-ellipsis{
+    text-overflow: ellipsis;
+}
+.working-program-link{
+    color: #3585F6;
+    text-decoration: inherit;
+}
+.working-program-link:hover{
+    text-decoration: underline;
+    color: #3585F6;
+}
+.popUpForm{
+    padding: 40px;
+    position: absolute;
+    height: 100%;
+    width: 40%;
+    top: 0;
+    right: 0;
+    background-color: white;
+    box-shadow: 0.063rem 0 1.25rem 0 #c7d3e8;
+}
+.popUpFormBackGround{
+    position: fixed;
+    backdrop-filter: blur(5px);
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    transition: all 0.4s ease;
+    opacity: 0;
+    visibility: hidden;
+}
+.show{
+    opacity: 1;
+    visibility: visible;
+}
+.text-vertial-center{
+    display: flex;
+    align-items: center;
+}
+.padding75rem{
+    padding: 0.75rem;
+}
+.marging-top30{
+    margin-top: 30px;;
+}
+.margin-right20{
+    margin-right: 20px;;
+}
+
+.button-lightBlue{
+    padding: 10px 25px;
+    border: none;
+    border-radius: 7px;
+    color: #526ED3;
+    background-color: #EEF0FB;
+    font-weight: 1000;
+    font-size: 1.02rem;
+}
+
+.button-lightBlue:hover{
+    background-color: #dee2fa;
+}
+.button-lightBlue:active{
+    border: 1px solid #526ED3;
+}
+
+.button-darkBlue{
+    padding: 10px 25px;
+    border: none;
+    border-radius: 7px;
+    color: white;
+    background-color: #526ED3;
+    font-weight: 1000;
+    font-size: 1.02rem;
+}
+.button-darkBlue:hover{
+    background-color: #7086d3;
+}
+.button-darkBlue:active{
+    border: 1px solid #526ED3;
+}
+.button-darkBlue:disabled,
+.button-darkBlue[disabled]{
+    background-color: #686f88;
+    opacity: 0.5;
+}
+.error-container{
+    border: 1px solid red;
+    border-radius: 5px;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.error-icon-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px;
+}
+.error-icon-container .mat-icon{
+    height: auto;
+}

@@ -1,6 +1,8 @@
 <div class="sidenav" [ngClass]="collapsed ? 'sidenav-collapsed': ''">
     <div class="logo-container">
-        <i class="logo bi bi-list" (click)="toggleCollapse()"></i>
+        <div class="icon-container">
+            <mat-icon svgIcon="list" (click)="toggleCollapse()" class="logo"></mat-icon>
+        </div>
         <div class="logo-text" @fadeInOut *ngIf="collapsed">Angular</div>
         <button class="btn-close" @fadeInOut *ngIf="collapsed" (click)="closeSidenav()">
             <i class="fal fa-times close-icon"></i>
@@ -13,7 +15,9 @@
                 routerLinkActive="active"
                 [routerLinkActiveOptions]="{exact: true}"
             >
-                <i class="sidenav-link-icon" [class]="data.icon"></i>
+                <div class="icon-container">
+                    <mat-icon [svgIcon]="data.icon" class=""></mat-icon>
+                </div>
                 <span class="sidenav-link-text" @fadeInOut *ngIf="collapsed">
                     {{data.label}}
                 </span>
@@ -25,7 +29,9 @@
                     routerLinkActive="active"
                     [routerLinkActiveOptions]="{exact: true}"
                 >
-                    <i class="sidenav-link-icon bi bi-person"></i>
+                    <div class="icon-container">
+                        <mat-icon svgIcon="person" class=""></mat-icon>
+                    </div>
                     <span class="sidenav-link-text" @fadeInOut *ngIf="collapsed">
                         Кабінет
                     </span>
@@ -40,7 +46,9 @@
                 routerLinkActive="active"
                 [routerLinkActiveOptions]="{exact: true}"
                 >
-                    <i class="sidenav-link-icon bi bi-box-arrow-in-left"></i>
+                    <div class="icon-container">
+                        <mat-icon svgIcon="box-arrow-in-left" class=""></mat-icon>
+                    </div>
                     <span class="sidenav-link-text" @fadeInOut *ngIf="collapsed">
                         Увійти до системи
                     </span>
@@ -51,7 +59,9 @@
                 routerLinkActive="active"
                 [routerLinkActiveOptions]="{exact: true}"
                 >
-                    <i class="sidenav-link-icon bi bi-box-arrow-right"></i>
+                    <div class="icon-container">
+                        <mat-icon svgIcon="box-arrow-right" class=""></mat-icon>
+                    </div>
                     <span class="sidenav-link-text" @fadeInOut *ngIf="collapsed">
                         Вихід
                     </span>

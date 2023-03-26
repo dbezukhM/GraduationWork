@@ -5,6 +5,7 @@ export interface Person {
     id: Guid;
     firstName: string;
     lastName: string;
+    email: string;
     isFirstPasswordChanged: boolean;
     isAdmin: boolean;
     workingProgramsAuthor: IdNameModel[];

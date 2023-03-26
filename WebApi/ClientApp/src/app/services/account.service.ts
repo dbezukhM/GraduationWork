@@ -4,6 +4,7 @@ import { Guid } from 'guid-typescript';
 import { environment } from 'src/environments/environment';
 import { ApiResponse } from '../models/api-response.model';
 import { AuthenticatedResponse } from '../models/authenticated-response.model';
+import { ChangePassword } from '../models/change-password.model';
 import { Person } from '../models/person.model';
 
 @Injectable({
@@ -35,5 +36,9 @@ export class AccountService {
 
   getAuthorizedPerson() {
     return this.httpClient.get<ApiResponse<Person>>(environment.baseUrl + 'api/Account/getAuthorized');
+  }
+
+  changePassword(req: ChangePassword) {
+    return this.httpClient.post(environment.baseUrl + 'api/Account/changePassword', req);
   }
 }

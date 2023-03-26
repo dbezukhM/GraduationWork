@@ -1,0 +1,17 @@
+*{
+    font-family: Trebuchet;
+}
+
+.button-change-email:hover{
+    background-color: #dee2fa;
+}
+.button-change-email:active{
+    border: 1px solid #526ED3;
+}
+.height-350{
+    height: 350px;
+}
+.vertical-grid2{
+    display: grid;
+    grid-template-rows: auto auto;
+}

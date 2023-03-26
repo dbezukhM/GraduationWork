@@ -1,26 +1,165 @@
-<p>account works!</p>
 <ng-container *ngIf="person">
-<p>
-    {{person.id}}
-</p>
-<p>
-    {{person.firstName}}
-</p>
-<p>
-    {{person.lastName}}
-</p>
-<p>
-    {{person.isFirstPasswordChanged}}
-</p>
-
-<p>
-    {{person.isAdmin}}
-</p>
-<div class="row">
-    <div *ngFor="let a of person.workingProgramsAuthor">
-        {{a.id}}
-        {{a.name}}
+    <div class="row" style="justify-content: space-between;">
+        <div class="col-md-5 content-center-vertical main-title">Кабінет користувача</div>
+        <div class="col-md-3 content-right">
+            <button class="button-lightBlue" (click)="openChangePasswordForm()">Змінити пароль</button>
+        </div>
     </div>
-</div>
-
+    <div class="data-container">
+        <div class="label">
+            <div class="innerlabel">Інформація про акаунт користувача</div>
+        </div>
+        <div class="row info">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="row row-container row-odd">
+                        <div class="col-md-5 row-label">
+                            Ім'я
+                        </div>
+                        <div class="col-md-7 row-text">
+                            {{person.firstName}}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="row row-container row-odd">
+                        <div class="col-md-5 row-label">
+                            Електронна пошта
+                        </div>
+                        <div class="col-md-7 row-text">
+                            {{person.email}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="row row-container">
+                        <div class="col-md-5 row-label">
+                            Прізвище
+                        </div>
+                        <div class="col-md-7 row-text">
+                            {{person.lastName}}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="row row-container">
+                        <div class="col-md-5 row-label">
+                            Роль у системі
+                        </div>
+                        <div class="col-md-7 row-text">
+                            {{person.isAdmin ? 'Викладач, адміністратор' : 'Викладач'}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <div class="grid-container-2">
+            <div class="data-container height-350">
+                <div class="vertical-grid2">
+                    <div class="label">
+                        <div class="innerlabel">Перелік створених робочих програм</div>
+                    </div>
+                    <div class="top-line">
+                        <ng-container *ngIf="person.workingProgramsAuthor.length">
+                            <div *ngFor="let item of person.workingProgramsAuthor; let index = index"
+                                [ngClass]="{'row-odd': 0 === index % 2}">
+                                <a class="working-program-link" [routerLink]="['', item.id]">
+                                    {{item.name}}
+                                </a>        
+                            </div>
+                        </ng-container>
+                        <ng-container *ngIf="!person.workingProgramsAuthor.length">
+                            <div class="row-label">
+                                Створені робочі програми відсутні
+                            </div>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+            <div class="data-container height-350">
+                <div class="vertical-grid2">
+                    <div class="label">
+                        <div class="innerlabel">Перелік підтверджених робочих програм</div>
+                    </div>
+                    <div class="top-line">
+                        <ng-container *ngIf="person.workingProgramsApprover.length">
+                            <div *ngFor="let item of person.workingProgramsApprover; let index = index"
+                            [ngClass]="{'row-odd': 0 === index % 2}">
+                                <a class="working-program-link" [routerLink]="['', item.id]">
+                                    {{item.name}}
+                                </a>        
+                            </div>
+                        </ng-container>
+                        <ng-container *ngIf="!person.workingProgramsApprover.length">
+                            <div class="row-label">
+                                Підтверджені робочі програми відсутні
+                            </div>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="popUpFormBackGround" [ngClass]="{'show': changePasswordFormOpened}">
+        <div class="popUpForm">
+            <div class="main-title">Зміна паролю</div>
+            <form [formGroup]="changePasswordForm" autocomplete="off" (submit)="changePassword()" class="marging-top30">
+                <ng-container *ngIf="error">
+                    <div class="error-container">
+                        <div class="error-icon-container">
+                            <mat-icon svgIcon="exclamation-circle-red" class=""></mat-icon>
+                        </div>
+                        <div class="error-text">
+                            Невірний пароль, спробуйте знову
+                        </div>
+                    </div>
+                </ng-container>
+                <div class="row row-odd padding75rem">
+                    <div class="col-md-6 row-label text-vertial-center ">
+                        Старий пароль
+                    </div>
+                    <div class="col-md-6 row-text">
+                        <input type="password" class="form-control form-control-md" formControlName="OldPassword"
+                        [ngClass]="{'invalid-input': changePasswordForm.get('OldPassword')?.invalid && changePasswordForm.get('OldPassword')?.touched}">
+                        <label class="text-danger" *ngIf="changePasswordForm.get('OldPassword')?.touched && changePasswordForm.get('OldPassword')?.errors?.['required']">Уведіть пароль</label>
+                    </div>
+                </div>
+                <div class="row padding75rem">
+                    <div class="col-md-6 row-label text-vertial-center">
+                        Новий пароль
+                    </div>
+                    <div class="col-md-6 row-text">
+                        <input type="password" class="form-control form-control-md" formControlName="NewPassword"
+                        [ngClass]="{'invalid-input': changePasswordForm.get('NewPassword')?.invalid && changePasswordForm.get('NewPassword')?.touched}">
+                        <label class="text-danger" *ngIf="changePasswordForm.get('NewPassword')?.touched && changePasswordForm.get('NewPassword')?.errors?.['required']">Уведіть пароль</label>
+                    </div>
+                </div>
+                <div class="row row-odd padding75rem">
+                    <div class="col-md-6 row-label text-vertial-center">
+                        Новий пароль (повторно)
+                    </div>
+                    <div class="col-md-6 row-text">
+                        <input type="password" class="form-control form-control-md" formControlName="ConfirmPassword"
+                        [ngClass]="{'invalid-input': changePasswordForm.get('ConfirmPassword')?.invalid && changePasswordForm.get('ConfirmPassword')?.touched}">
+                        <label class="text-danger" *ngIf="changePasswordForm.get('ConfirmPassword')?.touched && changePasswordForm.get('ConfirmPassword')?.errors?.['required']">Уведіть пароль</label>
+                        <label class="text-danger" *ngIf="changePasswordForm.get('ConfirmPassword')?.touched && changePasswordForm.get('ConfirmPassword')?.errors?.['passwordMismatch']">Паролі не співпадають</label>
+                    </div>
+                </div>
+                <div class="marging-top30" style="float: right;">
+                    <button type="button" (click)="closeChangePasswordForm()" class="button-lightBlue margin-right20">
+                        Повернутись
+                    </button>
+                    <button type="submit" class="button-darkBlue" [disabled]="!changePasswordForm.valid">
+                        <span class="button-text">
+                            Змінити пароль
+                        </span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
 </ng-container>

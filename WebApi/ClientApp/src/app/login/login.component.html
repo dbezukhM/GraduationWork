@@ -5,7 +5,7 @@
             <ng-container *ngIf="error">
                 <div class="error-container">
                     <div class="error-icon-container">
-                        <i class="bi bi-exclamation-circle text-danger icon-error"></i>
+                        <mat-icon svgIcon="exclamation-circle-red" class=""></mat-icon>
                     </div>
                     <div class="error-text">
                         Невірна електронна адреса та пароль, спробуйте знову
@@ -16,8 +16,8 @@
                 <label >Електронна адреса</label>
                 <input class="form-control form-control-md" id="Email" formControlName="Email"
                     [ngClass]="{'invalid-input': loginForm.get('Email')?.invalid && loginForm.get('Email')?.touched}">
-                <label class="text-danger" *ngIf="loginForm.get('Email')?.touched && loginForm.get('Email')?.errors?.['required']">Уведіть електронну пошту</label>
-                <label class="text-danger" *ngIf="loginForm.get('Email')?.touched && loginForm.get('Email')?.errors?.['email']">Уведіть коректну електронну пошту</label>
+                <label class="text-danger" *ngIf="loginForm.get('Email')?.touched && loginForm.get('Email')?.errors?.['required']">Уведіть електронну адресу</label>
+                <label class="text-danger" *ngIf="loginForm.get('Email')?.touched && loginForm.get('Email')?.errors?.['email']">Уведіть коректну електронну адресу</label>
             </div>
             <div class="form-control-group">
                 <label>Пароль</label>
