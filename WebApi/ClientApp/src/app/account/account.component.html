@@ -1,0 +1,26 @@
+<p>account works!</p>
+<ng-container *ngIf="person">
+<p>
+    {{person.id}}
+</p>
+<p>
+    {{person.firstName}}
+</p>
+<p>
+    {{person.lastName}}
+</p>
+<p>
+    {{person.isFirstPasswordChanged}}
+</p>
+
+<p>
+    {{person.isAdmin}}
+</p>
+<div class="row">
+    <div *ngFor="let a of person.workingProgramsAuthor">
+        {{a.id}}
+        {{a.name}}
+    </div>
+</div>
+
+</ng-container>

@@ -1,5 +1,6 @@
 import { animate, keyframes, style, transition, trigger } from '@angular/animations';
 import { Component, Output, EventEmitter, OnInit, HostListener } from '@angular/core';
+import { AccountComponent } from '../account/account.component';
 import { navbarData } from './nav-data';
 
 interface SideNavToggle {
@@ -35,6 +36,9 @@ export class NavMenuComponent implements OnInit {
   screenWidth = 0;
   navData = navbarData;
 
+  constructor(public account: AccountComponent){
+
+  }
   ngOnInit(): void {
     this.screenWidth = window.innerWidth;
   }

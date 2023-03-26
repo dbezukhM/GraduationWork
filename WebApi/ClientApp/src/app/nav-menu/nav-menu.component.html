@@ -8,7 +8,7 @@
     </div>
     <div class="sidenav-nav">
         <div class="sidenav-nav-item" *ngFor="let data of navData; let last = last"
-            [ngClass]="{'sidenav-nav-item-last': last}">
+            [ngClass]="{'sidenav-nav-item-last': last && !account.isAuthenticated()}">
             <a class="sidenav-nav-link" [routerLink]="[data.routeLink]" 
                 routerLinkActive="active"
                 [routerLinkActiveOptions]="{exact: true}"
@@ -19,18 +19,44 @@
                 </span>
             </a>
         </div>
+        <ng-container *ngIf="account.isAuthenticated()">
+            <div class="sidenav-nav-item sidenav-nav-item-last">
+                <a class="sidenav-nav-link" [routerLink]="['account']" 
+                    routerLinkActive="active"
+                    [routerLinkActiveOptions]="{exact: true}"
+                >
+                    <i class="sidenav-link-icon bi bi-person"></i>
+                    <span class="sidenav-link-text" @fadeInOut *ngIf="collapsed">
+                        Кабінет
+                    </span>
+                </a>
+            </div>
+        </ng-container>
     </div>
     <div class="sidenav-nav">
         <div class="sidenav-nav-item">
-            <a class="sidenav-nav-link person" [routerLink]="['person']" 
+            <ng-container *ngIf="!account.isAuthenticated()">
+                <a class="sidenav-nav-link" [routerLink]="['login']" 
                 routerLinkActive="active"
                 [routerLinkActiveOptions]="{exact: true}"
-            >
-                <i class="sidenav-link-icon bi bi-person"></i>
-                <span class="sidenav-link-text" @fadeInOut *ngIf="collapsed">
-                    Person
-                </span>
-            </a>
+                >
+                    <i class="sidenav-link-icon bi bi-box-arrow-in-left"></i>
+                    <span class="sidenav-link-text" @fadeInOut *ngIf="collapsed">
+                        Увійти до системи
+                    </span>
+                </a>
+            </ng-container>
+            <ng-container *ngIf="account.isAuthenticated()">
+                <a class="sidenav-nav-link pointer" (click)= "account.logOut()"
+                routerLinkActive="active"
+                [routerLinkActiveOptions]="{exact: true}"
+                >
+                    <i class="sidenav-link-icon bi bi-box-arrow-right"></i>
+                    <span class="sidenav-link-text" @fadeInOut *ngIf="collapsed">
+                        Вихід
+                    </span>
+                </a>
+            </ng-container>
         </div>
     </div>
 </div>

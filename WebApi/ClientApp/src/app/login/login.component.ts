@@ -42,6 +42,7 @@ export class LoginComponent implements OnInit {
     .subscribe({
       next: (response: ApiResponse<AuthenticatedResponse>) => {
         localStorage.setItem("token", response.result.token); 
+        this.router.navigate(['/'])
       },
       error: (response: HttpErrorResponse) => {
         this.loginForm.enable()

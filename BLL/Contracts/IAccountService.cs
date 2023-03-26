@@ -14,5 +14,7 @@ namespace BLL.Contracts
         Task<Result> ChangePasswordAsync(PersonChangePasswordModel model);
 
         Task<Result<PersonGetModel>> GetByIdAsync(Guid personId);
+
+        Task<Result<PersonGetModel>> GetByEmailAsync(string email);
     }
 }

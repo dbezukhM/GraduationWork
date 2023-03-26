@@ -6,13 +6,15 @@ import { FormBuilder, FormsModule, FormGroup, ReactiveFormsModule } from '@angul
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HotToastModule } from '@ngneat/hot-toast';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { BodyComponent } from './body/body.component';
 import { TestComponent } from './test/test.component';
 import { ProductsComponent } from './products/products.component';
 import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './guards/auth.guard';
+import { AccountComponent } from './account/account.component';
+import { AuthTokenInterceptor } from './guards/auth-token.interceptor';
 
 @NgModule({
   declarations: [
@@ -21,7 +23,8 @@ import { AuthGuard } from './guards/auth.guard';
     BodyComponent,
     TestComponent,
     ProductsComponent,
-    LoginComponent
+    LoginComponent,
+    AccountComponent
   ],
   imports: [
     BrowserModule,
@@ -37,7 +40,12 @@ import { AuthGuard } from './guards/auth.guard';
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [FormBuilder, AuthGuard],
+  providers: [FormBuilder, AuthGuard,
+  {
+    provide: HTTP_INTERCEPTORS,
+    multi: true,
+    useClass: AuthTokenInterceptor
+  }, AccountComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

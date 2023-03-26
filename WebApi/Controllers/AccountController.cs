@@ -49,6 +49,24 @@ namespace WebApi.Controllers
             return OperationResult<PersonGetModel, PersonGetResponse>(result);
         }
 
+        [HttpGet("getByEmail/{email}")]
+        [Authorize(Roles = "Admin, Lecturer")]
+        public async Task<IActionResult> GetByEmailAsync(string email)
+        {
+            var result = await _accountService.GetByEmailAsync(email);
+
+            return OperationResult<PersonGetModel, PersonGetResponse>(result);
+        }
+
+        [HttpGet("getAuthorized")]
+        [Authorize(Roles = "Admin, Lecturer")]
+        public async Task<IActionResult> GetAuthorizedAsync()
+        {
+            var result = await _accountService.GetByEmailAsync(User.FindFirst(ClaimTypes.Name)?.Value);
+
+            return OperationResult<PersonGetModel, PersonGetResponse>(result);
+        }
+
         [HttpPost]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> CreateAsync(PersonCreateRequest model)

@@ -123,11 +123,26 @@ namespace BLL.Services
         public async Task<Result<PersonGetModel>> GetByIdAsync(Guid personId)
         {
             var person = await _userManager.Users.Include(u => u.WorkingProgramsAuthor)
-                .Include(u => u.WorkingProgramsAuthor)
+                .Include(u => u.WorkingProgramsApprover)
                 .FirstOrDefaultAsync(u => u.Id == personId);
             if (person == null)
             {
                 return Result.NotFound<PersonGetModel>(BlErrors.NotFound(personId));
+            }
+
+            var result = _mapper.Map<PersonGetModel>(person);
+
+            return Result.Success(result);
+        }
+
+        public async Task<Result<PersonGetModel>> GetByEmailAsync(string email)
+        {
+            var person = await _userManager.Users.Include(u => u.WorkingProgramsAuthor)
+                .Include(u => u.WorkingProgramsApprover)
+                .FirstOrDefaultAsync(u => u.Email == email);
+            if (person == null)
+            {
+                return Result.NotFound<PersonGetModel>(BlErrors.EntityNotFound);
             }
 
             var result = _mapper.Map<PersonGetModel>(person);
