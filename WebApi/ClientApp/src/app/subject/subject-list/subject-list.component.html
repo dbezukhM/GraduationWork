@@ -3,7 +3,7 @@
         <div class="col-md-5 content-center-vertical font-bold text-5xl">Дисципліни</div>
         <ng-container *ngIf="account.isAuthenticated() && account?.person?.isAdmin">
             <div class="col-md-3 content-right">
-                <button class="button-darkBlue">Додати дисципліну</button>
+                <button class="button-darkBlue" [routerLink]="['/subject-create']">Додати дисципліну</button>
             </div>
         </ng-container>
     </div>

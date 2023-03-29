@@ -142,7 +142,7 @@ export class SubjectUpdateComponent implements OnInit {
       this.toastService.observe(
         {
           loading: 'Оновлення дисципліни',
-          success: 'Успішне оновлення',
+          success: 'Дисципліна оновлена успішно',
           error: 'Помилка оновлення',
         }
       )

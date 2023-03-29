@@ -22,6 +22,10 @@ export class LookupService {
     return this.httpClient.get<ApiResponse<IdNameModel[]>>(environment.baseUrl + 'api/Lookup/finalControlTypes')
   }
 
+  getEducationalPrograms(){
+    return this.httpClient.get<ApiResponse<IdNameModel[]>>(environment.baseUrl + 'api/Lookup/educationalPrograms')
+  }
+
   getCompetences(id: Guid){
     return this.httpClient.get<ApiResponse<Competence[]>>(environment.baseUrl + `api/Lookup/competences/${id}`)
   }

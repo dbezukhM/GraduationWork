@@ -63,10 +63,10 @@
                     <div class="label">
                         <div class="innerlabel">Перелік створених робочих програм</div>
                     </div>
-                    <div class="top-line">
+                    <div class="top-line" style="padding-top: 10px;">
                         <ng-container *ngIf="person.workingProgramsAuthor.length">
                             <div *ngFor="let item of person.workingProgramsAuthor; let index = index"
-                                [ngClass]="{'row-odd': 0 === index % 2}">
+                                [ngClass]="{'row-odd': 0 === index % 2}" style="padding: 12px;">
                                 <a class="grid-link" [routerLink]="['', item.id]">
                                     {{item.name}}
                                 </a>        
@@ -85,10 +85,10 @@
                     <div class="label">
                         <div class="innerlabel">Перелік підтверджених робочих програм</div>
                     </div>
-                    <div class="top-line">
+                    <div class="top-line" style="padding-top: 10px;">
                         <ng-container *ngIf="person.workingProgramsApprover.length">
                             <div *ngFor="let item of person.workingProgramsApprover; let index = index"
-                            [ngClass]="{'row-odd': 0 === index % 2}">
+                            [ngClass]="{'row-odd': 0 === index % 2}" style="padding: 12px;">
                                 <a class="grid-link" [routerLink]="['', item.id]">
                                     {{item.name}}
                                 </a>        

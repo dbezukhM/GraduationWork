@@ -18,6 +18,7 @@ import { AuthTokenInterceptor } from './guards/auth-token.interceptor';
 import { SubjectListComponent } from './subject/subject-list/subject-list.component';
 import { SubjectDetailsComponent } from './subject/subject-details/subject-details.component';
 import { SubjectUpdateComponent } from './subject/subject-update/subject-update.component';
+import { SubjectCreateComponent } from './subject/subject-create/subject-create.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { SubjectUpdateComponent } from './subject/subject-update/subject-update.
     AccountComponent,
     SubjectListComponent,
     SubjectDetailsComponent,
-    SubjectUpdateComponent
+    SubjectUpdateComponent,
+    SubjectCreateComponent
   ],
   imports: [
     BrowserModule,
