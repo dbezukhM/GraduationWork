@@ -1,6 +1,6 @@
 <ng-container *ngIf="person">
     <div class="row" style="justify-content: space-between;">
-        <div class="col-md-5 content-center-vertical main-title">Кабінет користувача</div>
+        <div class="col-md-5 content-center-vertical font-bold text-5xl">Кабінет користувача</div>
         <div class="col-md-3 content-right">
             <button class="button-lightBlue" (click)="openChangePasswordForm()">Змінити пароль</button>
         </div>
@@ -67,7 +67,7 @@
                         <ng-container *ngIf="person.workingProgramsAuthor.length">
                             <div *ngFor="let item of person.workingProgramsAuthor; let index = index"
                                 [ngClass]="{'row-odd': 0 === index % 2}">
-                                <a class="working-program-link" [routerLink]="['', item.id]">
+                                <a class="grid-link" [routerLink]="['', item.id]">
                                     {{item.name}}
                                 </a>        
                             </div>
@@ -89,7 +89,7 @@
                         <ng-container *ngIf="person.workingProgramsApprover.length">
                             <div *ngFor="let item of person.workingProgramsApprover; let index = index"
                             [ngClass]="{'row-odd': 0 === index % 2}">
-                                <a class="working-program-link" [routerLink]="['', item.id]">
+                                <a class="grid-link" [routerLink]="['', item.id]">
                                     {{item.name}}
                                 </a>        
                             </div>
@@ -149,7 +149,7 @@
                         <label class="text-danger" *ngIf="changePasswordForm.get('ConfirmPassword')?.touched && changePasswordForm.get('ConfirmPassword')?.errors?.['passwordMismatch']">Паролі не співпадають</label>
                     </div>
                 </div>
-                <div class="marging-top30" style="float: right;">
+                <div class="marging-top30" style="float: right; display: flex;">
                     <button type="button" (click)="closeChangePasswordForm()" class="button-lightBlue margin-right20">
                         Повернутись
                     </button>

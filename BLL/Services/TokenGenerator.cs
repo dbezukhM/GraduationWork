@@ -32,7 +32,7 @@ namespace BLL.Services
                 issuer: _settings.ApiUrl,
                 audience: _settings.ApiUrl,
                 claims: await GetClaims(person),
-                expires: DateTime.Now.AddMinutes(30),
+                expires: DateTime.Now.AddMinutes(60),
                 signingCredentials: signinCredentials
             );
             var tokenString = new JwtSecurityTokenHandler().WriteToken(tokeOptions);

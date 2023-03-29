@@ -1,0 +1,9 @@
+.container-flex{
+    display: flex;
+    justify-content: space-between;
+}
+
+.grid2 {
+    display: grid;
+    grid-template-columns: 30% auto;
+}

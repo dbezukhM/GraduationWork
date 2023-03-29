@@ -28,8 +28,6 @@
 
         public Guid FinalControlTypeId { get; set; }
 
-        public Guid EducationalProgramId { get; set; }
-
         public IEnumerable<Guid> CompetencesIds { get; set; }
 
         public IEnumerable<Guid> ProgramResultsIds { get; set; }

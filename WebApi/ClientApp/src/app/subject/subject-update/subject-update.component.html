@@ -1,0 +1,142 @@
+<ng-container *ngIf="subject">
+    <div class="grid2-main-title">
+        <div class="content-center-vertical font-bold text-5xl">{{subject.name}}</div>
+        <div class="content-right">
+            <div class="content-right">
+                <button class="button-lightBlue" (click)="back()" [disabled]="disabled">Повернутись</button>
+            </div>
+            <div class="content-right" style="margin-left: 10px;">
+                <button class="button-darkBlue" (click)="updateSubject()" [disabled]="disabled">Зберегти</button>
+            </div>
+        </div>
+    </div>
+    <div class="data-container">
+        <div class="label">
+            <div class="innerlabel">Інформація про дисципліну</div>
+        </div>
+        <div class="marging-top30">
+            <ng-container *ngIf="error">
+                <div class="error-container margin-bottom10">
+                    <div class="error-icon-container">
+                        <mat-icon svgIcon="exclamation-circle-red" class=""></mat-icon>
+                    </div>
+                    <div class="error-text">
+                        Дисципліна з такою назвою вже існує, спробуйте знову
+                    </div>
+                </div>
+            </ng-container>
+            <div class="grid-container-2 ">
+                <div>
+                    <div class="flex-padding15 row-odd">
+                        <div class="col-md-6 row-label">Назва дисципліни</div>
+                        <textarea type="text" rows="4" [(ngModel)]="updateModel.name" class="form-control form-control-md"></textarea>
+                    </div>
+                    <div class="flex-padding15">
+                        <div class="col-md-6 row-label">Форма заключного контролю</div>
+                        <select class="form-select" [(ngModel)]="updateModel.finalControlTypeId">
+                            <option *ngFor="let item of finalControlTypes" value="{{item.id}}">{{item.name}}</option>
+                        </select>            
+                    </div>
+                    <div class="flex-padding15 row-odd">
+                        <div class="col-md-6 row-label">Кількість кредитів ЕСТS</div>
+                        <input type="number" min="5" [(ngModel)]="updateModel.credits" class="form-control form-control-md">
+                    </div>
+                    <div class="flex-padding15">
+                        <div class="col-md-6 row-label">Семестр</div>
+                        <input type="number" min="1" max="8" [(ngModel)]="updateModel.semester" class="form-control form-control-md">
+                    </div>
+                    <div class="flex-padding15 row-odd">
+                        <div class="col-md-6 row-label">Вид дисципліни</div>
+                        <select class="form-select" [(ngModel)]="updateModel.selectiveBlockId">
+                            <option *ngFor="let item of selectiveBlocks" value="{{item.id}}">{{item.name}}</option>
+                        </select> 
+                    </div>
+                </div>
+                <div>
+                    <div class="flex-padding15 row-odd">
+                        <div class="col-md-6 row-label">Лекції (години)</div>
+                        <input type="number" min="1" [(ngModel)]="updateModel.lecturesHours" class="form-control form-control-md">
+                    </div>
+                    <div class="flex-padding15">
+                        <div class="col-md-6 row-label">Семінари (години)</div>
+                        <input type="number" min="1" [(ngModel)]="updateModel.seminarsHours" class="form-control form-control-md">
+                    </div>
+                    <div class="flex-padding15 row-odd">
+                        <div class="col-md-6 row-label">Практичні заняття (години)</div>
+                        <input type="number" min="1" [(ngModel)]="updateModel.practicalClassesHours" class="form-control form-control-md">
+                    </div>
+                    <div class="flex-padding15">
+                        <div class="col-md-6 row-label">Лабораторні заняття (години)</div>
+                        <input type="number" min="1" [(ngModel)]="updateModel.laboratoryClassesHours" class="form-control form-control-md">
+                    </div>
+                    <div class="flex-padding15 row-odd">
+                        <div class="col-md-6 row-label">Тренінги (години)</div>
+                        <input type="number" min="1" [(ngModel)]="updateModel.trainingsHours" class="form-control form-control-md">
+                    </div>
+                    <div class="flex-padding15">
+                        <div class="col-md-6 row-label">Консультації (години)</div>
+                        <input type="number" min="1" [(ngModel)]="updateModel.consultationsHours" class="form-control form-control-md">
+                    </div>
+                    <div class="flex-padding15 row-odd">
+                        <div class="col-md-6 row-label">Самостійна робота (години)</div>
+                        <input type="number" min="1" [(ngModel)]="updateModel.selfWorkHours" class="form-control form-control-md">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="data-container">
+        <div class="label">
+            <div class="innerlabel">Компетентності</div>
+        </div>
+        <div class="marging-top30 content-center-vertical">
+            <div class="col-md-2">
+                <select class="form-select" [(ngModel)]="selectedCompetence">
+                    <option *ngFor="let item of competences" [ngValue]="item">{{item.name}}</option>
+                </select>
+            </div>
+            <div style="margin-left: 10px;">
+                <button class="button-darkBlue" [disabled]="selectedCompetence==null" (click)="addCompetence(selectedCompetence!)"> Додати компетентність</button>
+            </div>
+        </div>
+        <div class="marging-top30">
+            <ng-container *ngFor="let comp of selectedCompetences; let index = index">
+                <div class="flex-padding15 row-odd" [ngClass]="{'row-odd': 0 === index % 2}">
+                    <div class="col-md-2 row-label">{{comp.name}}</div>
+                    <div class="col-md-9 row-text">{{comp.description}}</div>
+                    <div class="col-md-1 flex-center-absolute" (click)="deleteCompetense(comp.id)"><mat-icon svgIcon="trash-red"></mat-icon></div>
+                </div>
+            </ng-container>
+            <ng-container *ngIf="!selectedCompetences.length">
+                <div class="row-label">Компетентності відсутні</div>
+            </ng-container>
+        </div>
+    </div>
+    <div class="data-container" style="margin-bottom: 10px;">
+        <div class="label">
+            <div class="innerlabel">Програмні результати навчання</div>
+        </div>
+        <div class="marging-top30 content-center-vertical">
+            <div class="col-md-2">
+                <select class="form-select" [(ngModel)]="selectedProgramResult">
+                    <option *ngFor="let item of programResults" [ngValue]="item">{{item.name}}</option>
+                </select>
+            </div>
+            <div style="margin-left: 10px;">
+                <button class="button-darkBlue" [disabled]="selectedProgramResult==null" (click)="addProgramResult(selectedProgramResult!)"> Додати результат навчання</button>
+            </div>
+        </div>
+        <div class="marging-top30">
+            <ng-container *ngFor="let res of selectedProgramResults; let index = index">
+                <div class="flex-padding15 row-odd" [ngClass]="{'row-odd': 0 === index % 2}">
+                    <div class="col-md-2 row-label">{{res.name}}</div>
+                    <div class="col-md-9 row-text">{{res.description}}</div>
+                    <div class="col-md-1 flex-center-absolute" (click)="deleteProgramResult(res.id)"><mat-icon svgIcon="trash-red"></mat-icon></div>
+                </div>
+            </ng-container>
+            <ng-container *ngIf="!selectedProgramResults.length">
+                <div class="row-label">Програмні результати відсутні</div>
+            </ng-container>
+        </div>
+    </div>
+</ng-container>

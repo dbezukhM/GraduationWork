@@ -1,0 +1,29 @@
+<ng-container *ngIf="subjects.length">
+    <div class="row" style="justify-content: space-between;">
+        <div class="col-md-5 content-center-vertical font-bold text-5xl">Дисципліни</div>
+        <ng-container *ngIf="account.isAuthenticated() && account?.person?.isAdmin">
+            <div class="col-md-3 content-right">
+                <button class="button-darkBlue">Додати дисципліну</button>
+            </div>
+        </ng-container>
+    </div>
+    <div class="data-container" style="height: 530px">
+        <div class="grid">
+            <div>Назва дисципліни</div>
+            <div>Освітня програма</div>
+            <div>Вид дисципліни</div>
+            <input [(ngModel)]="searchName" class="form-control form-control-md" type="text" (input)="search()">
+            <input [(ngModel)]="searchEducationalProgram" class="form-control form-control-md" type="text" (input)="search()">
+            <input [(ngModel)]="searchSelectiveBlock" class="form-control form-control-md" type="text" (input)="search()">
+            <ng-container *ngFor="let subject of searchedSubjects; let index = index">
+                <div>
+                    <a class="grid-link" [routerLink]="['/subject', subject.id]">
+                        {{subject.name}}
+                    </a>
+                </div>
+                <div>{{subject.educationalProgramName}}</div>
+                <div>{{subject.selectiveBlockName}}</div>
+            </ng-container>
+        </div>
+    </div>
+</ng-container>

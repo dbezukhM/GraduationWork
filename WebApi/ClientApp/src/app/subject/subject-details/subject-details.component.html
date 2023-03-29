@@ -1,0 +1,108 @@
+<ng-container *ngIf="subject">
+    <div class="grid2-main-title">
+        <div class="content-center-vertical font-bold text-5xl">{{subject.name}}</div>
+        <div class="content-right">
+            <ng-container *ngIf="account.isAuthenticated() && account?.person?.isAdmin">
+                <div class="content-right">
+                    <button class="button-lightBlue" (click)="downLoad()">Шаблон робочої програми</button>
+                </div>
+                <ng-container *ngIf="account?.person?.isAdmin">
+                    <div class="content-right" style="margin-left: 10px;">
+                        <button class="button-lightBlue" [routerLink]="['/subject-update', subject.id]">Редагувати</button>
+                    </div>
+                </ng-container>
+            </ng-container>
+        </div>
+    </div>
+    <div class="data-container">
+        <div class="label">
+            <div class="innerlabel">Інформація про дисципліну</div>
+        </div>
+        <div class="grid-container-2 marging-top30">
+            <div>
+                <div class="flex-padding15 row-odd">
+                    <div class="col-md-6 row-label">Освітня програма</div>
+                    <div class="col-md-6 row-text">{{subject.educationalProgram.name}}</div>
+                </div>
+                <div class="flex-padding15">
+                    <div class="col-md-6 row-label">Форма заключного контролю</div>
+                    <div class="col-md-6 row-text">{{subject.finalControlType.name}}</div>
+                </div>
+                <div class="flex-padding15 row-odd">
+                    <div class="col-md-6 row-label">Кількість кредитів ЕСТS</div>
+                    <div class="col-md-6 row-text">{{subject.credits}}</div>
+                </div>
+                <div class="flex-padding15">
+                    <div class="col-md-6 row-label">Семестр</div>
+                    <div class="col-md-6 row-text">{{subject.semester}}</div>
+                </div>
+                <div class="flex-padding15 row-odd">
+                    <div class="col-md-6 row-label">Вид дисципліни</div>
+                    <div class="col-md-6 row-text">{{subject.selectiveBlock.name}}</div>
+                </div>
+            </div>
+            <div>
+                <div class="flex-padding15 row-odd">
+                    <div class="col-md-6 row-label">Лекції</div>
+                    <div class="col-md-6 row-text">{{subject.lecturesHours}} <span class="text-inalic">год.</span></div>
+                </div>
+                <div class="flex-padding15">
+                    <div class="col-md-6 row-label">Семінари</div>
+                    <div class="col-md-6 row-text">{{subject.seminarsHours}} <span class="text-inalic">год.</span></div>
+                </div>
+                <div class="flex-padding15 row-odd">
+                    <div class="col-md-6 row-label">Практичні заняття</div>
+                    <div class="col-md-6 row-text">{{subject.practicalClassesHours}} <span class="text-inalic">год.</span></div>
+                </div>
+                <div class="flex-padding15">
+                    <div class="col-md-6 row-label">Лабораторні заняття</div>
+                    <div class="col-md-6 row-text">{{subject.laboratoryClassesHours}} <span class="text-inalic">год.</span></div>
+                </div>
+                <div class="flex-padding15 row-odd">
+                    <div class="col-md-6 row-label">Тренінги</div>
+                    <div class="col-md-6 row-text">{{subject.trainingsHours}} <span class="text-inalic">год.</span></div>
+                </div>
+                <div class="flex-padding15">
+                    <div class="col-md-6 row-label">Консультації</div>
+                    <div class="col-md-6 row-text">{{subject.consultationsHours}} <span class="text-inalic">год.</span></div>
+                </div>
+                <div class="flex-padding15 row-odd">
+                    <div class="col-md-6 row-label">Самостійна робота</div>
+                    <div class="col-md-6 row-text">{{subject.selfWorkHours}} <span class="text-inalic">год.</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="data-container">
+        <div class="label">
+            <div class="innerlabel">Компетентності</div>
+        </div>
+        <div class="marging-top30">
+            <ng-container *ngFor="let comp of subject.competences; let index = index">
+                <div class="flex-padding15 row-odd" [ngClass]="{'row-odd': 0 === index % 2}">
+                    <div class="col-md-2 row-label">{{comp.name}}</div>
+                    <div class="col-md-10 row-text">{{comp.description}}</div>
+                </div>
+            </ng-container>
+            <ng-container *ngIf="!subject.competences.length">
+                <div class="row-label">Для даної дисципліни компетентності відсутні</div>
+            </ng-container>
+        </div>
+    </div>
+    <div class="data-container" style="margin-bottom: 10px;">
+        <div class="label">
+            <div class="innerlabel">Програмні результати навчання</div>
+            <div class="marging-top30">
+                <ng-container *ngFor="let res of subject.programResults; let index = index">
+                    <div class="flex-padding15 row-odd" [ngClass]="{'row-odd': 0 === index % 2}">
+                        <div class="col-md-2 row-label">{{res.name}}</div>
+                        <div class="col-md-10 row-text">{{res.description}}</div>
+                    </div>
+                </ng-container>
+                <ng-container *ngIf="!subject.programResults.length">
+                    <div class="row-label">Для даної дисципліни програмні результати відсутні</div>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+</ng-container>

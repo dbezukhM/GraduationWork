@@ -28,9 +28,7 @@ export class AccountComponent implements OnInit {
     private toastService: HotToastService) { }
 
   ngOnInit(): void {
-    if(this.isAuthenticated()){
-      this.loadAuthorizedPerson()
-    }
+    this.loadPerson()
     this.changePasswordForm = this.formBuilder.group({
       OldPassword: ['', Validators.required],
       NewPassword: ['', [Validators.required]],
@@ -47,10 +45,17 @@ export class AccountComponent implements OnInit {
         confirmPswrdCtrl.setErrors(null);
     }
   }
+
+  loadPerson(){
+    if(this.isAuthenticated()){
+      this.loadAuthorizedPerson()
+    }
+  }
+
   changePassword(){
+    this.error = null
     this.req.oldPassword = this.changePasswordForm.value.OldPassword;
     this.req.newPassword = this.changePasswordForm.value.NewPassword;
-    console.log(this.req)
     this.changePasswordForm.disable()
     this.accountService.changePassword(this.req)
     .pipe(
@@ -64,6 +69,8 @@ export class AccountComponent implements OnInit {
     )
     .subscribe({
       next: () =>{
+        this.changePasswordForm.enable()
+        this.changePasswordForm.reset()
         this.changePasswordFormOpened = false
       },
       error: (response: HttpErrorResponse) => {
@@ -107,7 +114,6 @@ export class AccountComponent implements OnInit {
     this.accountService.getAuthorizedPerson().subscribe({
       next: (response: ApiResponse<Person>) => {
         this.person = response.result
-        console.log(this.person)
       }
     });
   }

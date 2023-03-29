@@ -1,13 +1,8 @@
 export const navbarData = [
     {
-        routeLink: '',
-        icon: 'buildings',
-        label: 'Університети'
-    },
-    {
-        routeLink: 'products',
-        icon: 'buildings',
-        label: 'Факультети'
+        routeLink: 'subjects',
+        icon: 'journals',
+        label: 'Дисципліни'
     }
 ];
 export const iconsToLoad = [
@@ -34,5 +29,13 @@ export const iconsToLoad = [
     {
         iconName: 'list',
         iconPath: '../assets/svg/list.svg'
+    },
+    {
+        iconName: 'journals',
+        iconPath: '../assets/svg/journals.svg'
+    },
+    {
+        iconName: 'trash-red',
+        iconPath: '../assets/svg/trash-red.svg'
     }
 ]

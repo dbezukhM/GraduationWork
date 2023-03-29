@@ -135,7 +135,6 @@ public class SubjectService : ISubjectService
             existingEntity.SelfWorkHours = model.SelfWorkHours;
             existingEntity.SelectiveBlockId = model.SelectiveBlockId;
             existingEntity.FinalControlTypeId = model.FinalControlTypeId;
-            existingEntity.EducationalProgramId = model.EducationalProgramId;
 
             _subjectCompetenceRepository.Delete(subjectCompetenceToDelete);
             _subjectProgramResultRepository.Delete(subjectProgramResultToDelete);

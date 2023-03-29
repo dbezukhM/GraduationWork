@@ -10,22 +10,26 @@ import { HotToastModule } from '@ngneat/hot-toast';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { BodyComponent } from './body/body.component';
-import { TestComponent } from './test/test.component';
 import { ProductsComponent } from './products/products.component';
 import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './guards/auth.guard';
 import { AccountComponent } from './account/account.component';
 import { AuthTokenInterceptor } from './guards/auth-token.interceptor';
+import { SubjectListComponent } from './subject/subject-list/subject-list.component';
+import { SubjectDetailsComponent } from './subject/subject-details/subject-details.component';
+import { SubjectUpdateComponent } from './subject/subject-update/subject-update.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavMenuComponent,
     BodyComponent,
-    TestComponent,
     ProductsComponent,
     LoginComponent,
-    AccountComponent
+    AccountComponent,
+    SubjectListComponent,
+    SubjectDetailsComponent,
+    SubjectUpdateComponent
   ],
   imports: [
     BrowserModule,

@@ -15,6 +15,7 @@
 }
 .row-text{
     color: #19213F;
+    font-weight: 500;
 }
 .row-container{
     padding: 12px;
@@ -25,7 +26,7 @@
 }
 .innerlabel{
     font-weight: 700;
-    font-size: 18px;
+    font-size: 17px;
 }
 .content-center-vertical{
     display: flex;
@@ -52,11 +53,11 @@
 .overflow-ellipsis{
     text-overflow: ellipsis;
 }
-.working-program-link{
+.grid-link{
     color: #3585F6;
     text-decoration: inherit;
 }
-.working-program-link:hover{
+.grid-link:hover{
     text-decoration: underline;
     color: #3585F6;
 }
@@ -94,10 +95,10 @@
     padding: 0.75rem;
 }
 .marging-top30{
-    margin-top: 30px;;
+    margin-top: 30px;
 }
 .margin-right20{
-    margin-right: 20px;;
+    margin-right: 20px;
 }
 
 .button-lightBlue{
@@ -106,8 +107,13 @@
     border-radius: 7px;
     color: #526ED3;
     background-color: #EEF0FB;
-    font-weight: 1000;
-    font-size: 1.02rem;
+    font-weight: 700;
+    font-size: 15px;
+    white-space: nowrap;
+    max-height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .button-lightBlue:hover{
@@ -123,8 +129,13 @@
     border-radius: 7px;
     color: white;
     background-color: #526ED3;
-    font-weight: 1000;
-    font-size: 1.02rem;
+    font-weight: 700;
+    font-size: 15px;
+    white-space: nowrap;
+    max-height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .button-darkBlue:hover{
     background-color: #7086d3;
@@ -133,9 +144,12 @@
     border: 1px solid #526ED3;
 }
 .button-darkBlue:disabled,
-.button-darkBlue[disabled]{
+.button-darkBlue[disabled],
+.button-lightBlue:disabled,
+.button-lightBlue[disabled]{
     background-color: #686f88;
     opacity: 0.5;
+    color: white;
 }
 .error-container{
     border: 1px solid red;
@@ -153,4 +167,45 @@
 }
 .error-icon-container .mat-icon{
     height: auto;
+}
+
+.font-bold {
+    font-weight: 700;
+}
+
+.text-5xl {
+    font-size: 2rem;
+}
+
+.grid-title{
+    border-bottom: 1px solid #babfc780;
+}
+
+.flex-padding15 {
+    display: flex;
+    padding: 15px;
+}
+
+.grid2-main-title {
+    display: grid;
+    grid-template-columns: calc(60% - 10px) calc(40% - 10px);
+    column-gap: 20px;
+}
+
+.text-inalic {
+    font-style: italic;
+}
+
+.flex-center-absolute{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mat-icon:hover{
+    cursor: pointer;
+}
+
+.margin-bottom10{
+    margin-bottom: 10px;
 }
