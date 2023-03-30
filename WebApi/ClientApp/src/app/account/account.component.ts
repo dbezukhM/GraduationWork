@@ -24,6 +24,10 @@ export class AccountComponent implements OnInit {
   error: ServerError | null;
   req: ChangePassword = {} as ChangePassword;
 
+  pageComp: number = 1;
+  pageWP: number = 1;
+  tableSize: number = 5;
+
   constructor(private accountService: AccountService, private router: Router, private formBuilder: FormBuilder,
     private toastService: HotToastService) { }
 
@@ -34,6 +38,10 @@ export class AccountComponent implements OnInit {
       NewPassword: ['', [Validators.required]],
       ConfirmPassword: ['', Validators.required]},
        { validator: this.comparePasswords });
+  }
+
+  onTableCompDataChange(event: any){
+    this.pageComp = event
   }
 
   comparePasswords(fb: FormGroup) {

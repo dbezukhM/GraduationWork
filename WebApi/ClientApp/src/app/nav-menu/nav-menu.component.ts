@@ -40,13 +40,14 @@ export class NavMenuComponent implements OnInit {
   constructor(public account: AccountComponent){
   }
   ngOnInit(): void {
+    this.account.loadPerson()
     this.screenWidth = window.innerWidth;
   }
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
     this.screenWidth = window.innerWidth;
-    if(this.screenWidth <= 768 ) {
+    if(this.screenWidth <= 1200 ) {
       this.collapsed = false;
       this.onToggleSideNav.emit({collapsed: this.collapsed, screenWidth: this.screenWidth});
     }

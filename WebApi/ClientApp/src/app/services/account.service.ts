@@ -27,11 +27,11 @@ export class AccountService {
   }
 
   getPersonById(id: Guid) {
-    return this.httpClient.get<ApiResponse<Person>>(environment.baseUrl + 'api/Account/');
+    return this.httpClient.get<ApiResponse<Person>>(environment.baseUrl + `api/Account/${id}`);
   }
 
   getPersonEmailId(email: string) {
-    return this.httpClient.get<ApiResponse<Person>>(environment.baseUrl + 'api/Account/getByEmail');
+    return this.httpClient.get<ApiResponse<Person>>(environment.baseUrl + `api/Account/getByEmail/${email}`);
   }
 
   getAuthorizedPerson() {
@@ -40,5 +40,9 @@ export class AccountService {
 
   changePassword(req: ChangePassword) {
     return this.httpClient.post(environment.baseUrl + 'api/Account/changePassword', req);
+  }
+
+  getAll() {
+    return this.httpClient.get<ApiResponse<Person[]>>(environment.baseUrl + 'api/Account/persons')
   }
 }

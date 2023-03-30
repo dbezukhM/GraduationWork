@@ -1,0 +1,65 @@
+<ng-container *ngIf="model">
+    <div class="grid2-main-title">
+        <div class="content-center-vertical font-bold text-5xl">
+            Робоча програма
+            <div class="status-container green-status" style="margin-left: 20px;" [ngClass]="{'yellow-status':!model.isAvailable}">
+                <ng-container *ngIf="model.isAvailable">
+                    <div class="circle-green"></div>
+                    <span>Підтверджена</span>
+                </ng-container>
+                <ng-container *ngIf="!model.isAvailable">
+                    <div class="circle-yellow"></div>
+                    <span>Очікує підтвердження</span>
+                </ng-container>
+            </div>
+        </div>
+        <div class="content-right">
+            <div class="content-right">
+                <button class="button-lightBlue" (click)="downLoad()">Завантажити файл робочої програми</button>
+            </div>
+            <ng-container *ngIf="account.isAuthenticated() && account?.person?.isAdmin">
+                <div class="content-right" style="margin-left: 10px;">
+                    <button class="button-delete" (click)="delete()">Видалити</button>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+    <ng-container *ngIf="account.isAuthenticated() && !model.isAvailable">
+        <div class="content-right">
+            <button class="button-confirm" (click)="approve()">Підтвердити робочу програму</button>
+        </div>
+    </ng-container>
+    <div class="data-container">
+        <div class="label">
+            <div class="innerlabel">Загальна інформація</div>
+        </div>
+        <div class="grid-container-2 marging-top30">
+            <div>
+                <div class="flex-padding15 row-odd">
+                    <div class="col-md-6 row-label">Назва</div>
+                    <div class="col-md-6 row-text">{{model.name}}</div>
+                </div>
+                <div class="flex-padding15">
+                    <div class="col-md-6 row-label">Дисципліна</div>
+                    <div class="col-md-6 row-text">{{model.subject.name}}</div>
+                </div>
+                <div class="flex-padding15 row-odd">
+                    <div class="col-md-6 row-label">Освітня програма</div>
+                    <div class="col-md-6 row-text">{{model.educationalProgram.name}}</div>
+                </div>
+            </div>
+            <div>
+                <div class="flex-padding15 row-odd">
+                    <div class="col-md-6 row-label">Робоча програма створена користувачем</div>
+                    <div class="col-md-6 row-text">{{model.createdByName}}</div>
+                </div>
+                <ng-container *ngIf="model.approvedByName">
+                    <div class="flex-padding15">
+                        <div class="col-md-6 row-label">Робоча програма підтверджена користувачем</div>
+                        <div class="col-md-6 row-text">{{model.approvedByName}}</div>
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+</ng-container>

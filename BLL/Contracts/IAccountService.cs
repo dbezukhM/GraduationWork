@@ -16,5 +16,7 @@ namespace BLL.Contracts
         Task<Result<PersonGetModel>> GetByIdAsync(Guid personId);
 
         Task<Result<PersonGetModel>> GetByEmailAsync(string email);
+
+        Task<Result<IEnumerable<PersonGetModel>>> GetAllAsync();
     }
 }

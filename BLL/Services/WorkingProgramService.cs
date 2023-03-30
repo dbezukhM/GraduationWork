@@ -46,6 +46,12 @@ namespace BLL.Services
                 return Result.NotFound<Guid>(BlErrors.NotFound(model.SubjectId));
             }
 
+            var isWpNameExists = await _workingProgramRepository.ExistsAsync(x => x.Name == model.Name);
+            if (isWpNameExists)
+            {
+                return Result.ValidationError<Guid>(BlErrors.ExistingEntity);
+            }
+
             var postFileResult = await _fileProvider.PostFileAsync(model.File);
             if (postFileResult.IsFailed)
             {

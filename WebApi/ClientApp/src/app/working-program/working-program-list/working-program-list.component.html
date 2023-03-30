@@ -1,0 +1,89 @@
+<div class="row" style="justify-content: space-between;">
+    <div class="col-md-5 content-center-vertical font-bold text-5xl">Робочі програми</div>
+    <ng-container *ngIf="account.isAuthenticated() && account?.person?.isAdmin">
+        <div class="col-md-3 content-right">
+            <button class="button-darkBlue" (click)="openForm()">Додати робочу програму</button>
+        </div>
+    </ng-container>
+</div>
+<div class="data-container" style="height: 530px">
+    <ng-container *ngIf="!searchedworkingPrograms.length">
+        <div class="grid-text-empty row-label">Робочі програми відсутні</div>
+    </ng-container>
+    <div class="grid">
+        <div>Назва робочої програми</div>
+        <div>Назва дисципліни</div>
+        <input [(ngModel)]="searchName" class="form-control form-control-md" type="text" placeholder="Назва робочої програми" (input)="search()">
+        <input [(ngModel)]="searchSubjectName" class="form-control form-control-md" type="text" placeholder="Назва дисципліни" (input)="search()">
+        <ng-container *ngFor="let item of searchedworkingPrograms; let index = index">
+            <div class="link-container">
+                <a class="grid-link" [routerLink]="['/working-program', item.id]">
+                    {{item.name}}
+                </a>
+            </div>
+            <div>{{item.subjectName}}</div>
+        </ng-container>
+    </div>
+</div>
+<div class="popUpFormBackGround" [ngClass]="{'show': createFormOpened}">
+    <div class="popUpForm">
+        <div class="main-title">Створення робочої програми</div>
+        <form [formGroup]="createForm" autocomplete="off" (submit)="submit()" class="marging-top30">
+            <ng-container *ngIf="error">
+                <div class="error-container margin-bottom10">
+                    <div class="error-icon-container">
+                        <mat-icon svgIcon="exclamation-circle-red"></mat-icon>
+                    </div>
+                    <div class="error-text">
+                        Робоча програма з такою назвою вже існує, спробуйте знову
+                    </div>
+                </div>
+            </ng-container>
+            <div class="row row-odd padding75rem">
+                <div class="col-md-5 row-label">
+                    Назва робочої програми
+                </div>
+                <div class="col-md-7 row-text">
+                    <textarea type="text" rows="4" class="form-control form-control-md" formControlName="name"></textarea>
+                </div>
+            </div>
+            <div class="row padding75rem">
+                <div class="col-md-5 row-label text-vertial-center">
+                    Дисципліна
+                </div>
+                <div class="col-md-7">
+                    <select class="form-select" formControlName="subjectId">
+                        <option *ngFor="let item of subjects" value="{{item.id}}">{{item.name}}</option>
+                    </select>  
+                </div>
+            </div>
+            <div class="row row-odd padding75rem">
+                <div class="col-md-5 row-label text-vertial-center">
+                    Файл робочої програми
+                </div>
+                <div class="col-md-7 row-text">
+                    <input style="display: none;" #fileUpload type="file" formControlName="file" (change)="uploadFile(fileUpload.files!)">
+                    <div class="upload abs-vert40">
+                        <button class="upload-btn" type="button" mat-mini-fab color="primary" class="upload-btn"
+                        (click)="fileUpload.click()">
+                            <div>Обрати файл</div>
+                        </button>
+                        <span style="padding: 10px;">
+                            {{fileName || "Файл не обрано"}}
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="marging-top30" style="float: right; display: flex;">
+                <button type="button" (click)="closeForm()" class="button-lightBlue margin-right20">
+                    Повернутись
+                </button>
+                <button type="submit" class="button-darkBlue" [disabled]="!createForm.valid">
+                    <span class="button-text">
+                        Створити
+                    </span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

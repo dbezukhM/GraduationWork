@@ -3,6 +3,11 @@ export const navbarData = [
         routeLink: 'subjects',
         icon: 'journals',
         label: 'Дисципліни'
+    },
+    {
+        routeLink: 'working-programs',
+        icon: 'file-text',
+        label: 'Робочі програми'
     }
 ];
 export const iconsToLoad = [
@@ -37,5 +42,13 @@ export const iconsToLoad = [
     {
         iconName: 'trash-red',
         iconPath: '../assets/svg/trash-red.svg'
+    },
+    {
+        iconName: 'file-text',
+        iconPath: '../assets/svg/file-text.svg'
+    },
+    {
+        iconName: 'people',
+        iconPath: '../assets/svg/people.svg'
     }
 ]

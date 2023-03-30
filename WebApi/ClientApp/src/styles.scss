@@ -56,6 +56,7 @@
 .grid-link{
     color: #3585F6;
     text-decoration: inherit;
+    cursor: pointer;
 }
 .grid-link:hover{
     text-decoration: underline;
@@ -115,6 +116,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    border: 1px solid transparent;
 }
 
 .button-lightBlue:hover{
@@ -137,12 +139,55 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    border: 1px solid transparent;
 }
 .button-darkBlue:hover{
     background-color: #7086d3;
 }
 .button-darkBlue:active{
     border: 1px solid #526ED3;
+}
+.button-delete{
+    padding: 10px 25px;
+    border: none;
+    border-radius: 7px;
+    color: white;
+    background-color: #f83b3b;
+    font-weight: 700;
+    font-size: 15px;
+    white-space: nowrap;
+    max-height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid transparent;
+}
+.button-delete:hover{
+    background-color: #d83232;
+}
+.button-delete:active{
+    background-color: #fa5353;
+}
+.button-confirm{
+    padding: 10px 25px;
+    border: none;
+    border-radius: 7px;
+    color: white;
+    background-color: #41b759;
+    font-weight: 700;
+    font-size: 15px;
+    white-space: nowrap;
+    max-height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid transparent;
+}
+.button-confirm:hover{
+    background-color: #61a06e;
+}
+.button-confirm:active{
+    background-color: #39a14d;
 }
 .button-darkBlue:disabled,
 .button-darkBlue[disabled],
@@ -213,4 +258,61 @@
 
 .invalid-input{
     border-color: red !important;
+}
+
+.grid-text-empty{
+    text-align: center;
+    position: absolute;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.upload{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    background-color: #fff;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+}
+
+.link-container {
+    overflow: hidden; 
+    white-space: nowrap; 
+    text-overflow: ellipsis;
+}
+
+.status-container{
+    border-radius: 50px;
+    padding: 4px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    font-weight: 600;
+}
+.green-status{
+    background-color: #E4F7F0;
+}
+.circle-green{
+    background-color: #4AC99B;
+    border-radius: 50%;
+    height: 5px;
+    width: 5px;
+    margin-right: 5px;
+}
+
+.yellow-status {
+    background-color: #FFF4CC;
+}
+.circle-yellow{
+    background-color: #FFC700;
+    border-radius: 50%;
+    height: 5px;
+    width: 5px;
+    margin-right: 5px;
+}
+.relative{
+    position: relative;
 }

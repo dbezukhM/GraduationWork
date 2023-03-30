@@ -150,6 +150,14 @@ namespace BLL.Services
             return Result.Success(result);
         }
 
+        public async Task<Result<IEnumerable<PersonGetModel>>> GetAllAsync()
+        {
+            var persons = await _userManager.Users.ToListAsync();
+            var result = _mapper.Map<IEnumerable<PersonGetModel>>(persons);
+
+            return Result.Success(result);
+        }
+
         private SendEmailModel CreateWelcomeEmailModel(string email, string password)
         {
             var result = new SendEmailModel

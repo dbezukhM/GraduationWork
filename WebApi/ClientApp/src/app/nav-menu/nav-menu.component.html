@@ -24,6 +24,21 @@
             </a>
         </div>
         <ng-container *ngIf="account.isAuthenticated()">
+            <ng-container *ngIf="account.person?.isAdmin">
+                <div class="sidenav-nav-item">
+                    <a class="sidenav-nav-link" [routerLink]="['users']" 
+                        routerLinkActive="active"
+                        [routerLinkActiveOptions]="{exact: true}"
+                    >
+                        <div class="icon-container">
+                            <mat-icon svgIcon="people"></mat-icon>
+                        </div>
+                        <span class="sidenav-link-text" @fadeInOut *ngIf="collapsed">
+                            Користувачі
+                        </span>
+                    </a>
+                </div>
+            </ng-container>
             <div class="sidenav-nav-item sidenav-nav-item-last">
                 <a class="sidenav-nav-link" [routerLink]="['account']" 
                     routerLinkActive="active"

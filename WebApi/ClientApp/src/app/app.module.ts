@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormBuilder, FormsModule, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from "@angular/material/icon";
+import {NgxPaginationModule} from 'ngx-pagination';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -10,7 +11,6 @@ import { HotToastModule } from '@ngneat/hot-toast';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { BodyComponent } from './body/body.component';
-import { ProductsComponent } from './products/products.component';
 import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './guards/auth.guard';
 import { AccountComponent } from './account/account.component';
@@ -19,19 +19,24 @@ import { SubjectListComponent } from './subject/subject-list/subject-list.compon
 import { SubjectDetailsComponent } from './subject/subject-details/subject-details.component';
 import { SubjectUpdateComponent } from './subject/subject-update/subject-update.component';
 import { SubjectCreateComponent } from './subject/subject-create/subject-create.component';
+import { WorkingProgramListComponent } from './working-program/working-program-list/working-program-list.component';
+import { WorkingProgramDetailsComponent } from './working-program/working-program-details/working-program-details.component';
+import { PersonListComponent } from './person-list/person-list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavMenuComponent,
     BodyComponent,
-    ProductsComponent,
     LoginComponent,
     AccountComponent,
     SubjectListComponent,
     SubjectDetailsComponent,
     SubjectUpdateComponent,
-    SubjectCreateComponent
+    SubjectCreateComponent,
+    WorkingProgramListComponent,
+    WorkingProgramDetailsComponent,
+    PersonListComponent
   ],
   imports: [
     BrowserModule,
@@ -46,7 +51,8 @@ import { SubjectCreateComponent } from './subject/subject-create/subject-create.
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
-    MatIconModule
+    MatIconModule,
+    NgxPaginationModule
   ],
   providers: [FormBuilder, AuthGuard,
   {

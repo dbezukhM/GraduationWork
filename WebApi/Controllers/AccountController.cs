@@ -67,6 +67,15 @@ namespace WebApi.Controllers
             return OperationResult<PersonGetModel, PersonGetResponse>(result);
         }
 
+        [HttpGet("persons")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> GetAllAsync()
+        {
+            var result = await _accountService.GetAllAsync();
+
+            return OperationResult<IEnumerable<PersonGetModel>, IEnumerable<PersonGetResponse>>(result);
+        }
+
         [HttpPost]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> CreateAsync(PersonCreateRequest model)

@@ -1,0 +1,25 @@
+.grid{
+    display: grid;
+    grid-template-columns: 50% auto;
+    column-gap: 30px;
+    row-gap: 20px;
+}
+
+.abs-vert40 {
+    align-items: center;
+    height: 40px;
+}
+.upload-btn {
+    background-color: #e9edf1;
+    border: none;
+    border-right: 1px solid #ced4da;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    height: 100%;
+}
+.upload-btn:hover{
+    background-color: #dedede;
+}
+.upload-btn:active{
+    border: 1px solid #5a5252;
+}

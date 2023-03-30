@@ -8,15 +8,18 @@
         </ng-container>
     </div>
     <div class="data-container" style="height: 530px">
+        <ng-container *ngIf="!searchedSubjects.length">
+            <div class="grid-text-empty row-label">Дисципліни відсутні</div>
+        </ng-container>
         <div class="grid">
             <div>Назва дисципліни</div>
             <div>Освітня програма</div>
             <div>Вид дисципліни</div>
-            <input [(ngModel)]="searchName" class="form-control form-control-md" type="text" (input)="search()">
-            <input [(ngModel)]="searchEducationalProgram" class="form-control form-control-md" type="text" (input)="search()">
-            <input [(ngModel)]="searchSelectiveBlock" class="form-control form-control-md" type="text" (input)="search()">
+            <input placeholder="Назва дисципліни" [(ngModel)]="searchName" class="form-control form-control-md" type="text" (input)="search()">
+            <input placeholder="Освітня програма" [(ngModel)]="searchEducationalProgram" class="form-control form-control-md" type="text" (input)="search()">
+            <input placeholder="Вид дисципліни" [(ngModel)]="searchSelectiveBlock" class="form-control form-control-md" type="text" (input)="search()">
             <ng-container *ngFor="let subject of searchedSubjects; let index = index">
-                <div>
+                <div class="link-container">
                     <a class="grid-link" [routerLink]="['/subject', subject.id]">
                         {{subject.name}}
                     </a>

@@ -33,4 +33,8 @@ export class LookupService {
   getProgramResults(id: Guid){
     return this.httpClient.get<ApiResponse<ProgramResult[]>>(environment.baseUrl + `api/Lookup/programResults/${id}`)
   }
+
+  getSubjects(){
+    return this.httpClient.get<ApiResponse<IdNameModel[]>>(environment.baseUrl + 'api/Lookup/subjects')
+  }
 }

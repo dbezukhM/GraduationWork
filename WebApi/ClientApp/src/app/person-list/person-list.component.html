@@ -1,0 +1,49 @@
+<ng-container *ngIf="users.length">
+    <div class="row" style="justify-content: space-between;">
+        <div class="col-md-5 content-center-vertical font-bold text-5xl">Користувачі системи</div>
+        <ng-container *ngIf="account.isAuthenticated() && account?.person?.isAdmin">
+            <div class="col-md-3 content-right">
+                <button class="button-darkBlue" (click)="openForm()">Створити нового користувача</button>
+            </div>
+        </ng-container>
+    </div>
+    <div class="data-container" style="height: 530px">
+        <ng-container *ngIf="!searchedUsers.length">
+            <div class="grid-text-empty row-label">Користувачі відсутні</div>
+        </ng-container>
+        <div class="grid">
+            <div>Електронна пошта</div>
+            <div>Ім'я</div>
+            <div>Прізвище</div>
+            <input placeholder="Електронна пошта" [(ngModel)]="searchEmail" class="form-control form-control-md" type="text" (input)="search()">
+            <input placeholder="Ім'я" [(ngModel)]="searchFirstName" class="form-control form-control-md" type="text" (input)="search()">
+            <input placeholder="Прізвище" [(ngModel)]="searchLastName" class="form-control form-control-md" type="text" (input)="search()">
+            <ng-container *ngFor="let user of searchedUsers; let index = index">
+                <div class="link-container">
+                    <a class="grid-link">
+                        {{user.email}}
+                    </a>
+                </div>
+                <div>{{user.firstName}}</div>
+                <div>{{user.lastName}}</div>
+            </ng-container>
+        </div>
+    </div>
+    <div class="popUpFormBackGround" [ngClass]="{'show': formOpened}">
+        <div class="popUpForm">
+            <div class="main-title">Створення нового користувача</div>
+            <form autocomplete="off" class="marging-top30">
+                <div class="marging-top30" style="float: right; display: flex;">
+                    <button type="button" (click)="closeForm()" class="button-lightBlue margin-right20">
+                        Повернутись
+                    </button>
+                    <button type="submit" class="button-darkBlue">
+                        <span class="button-text">
+                            Створити
+                        </span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</ng-container>
