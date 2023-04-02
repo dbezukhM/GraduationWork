@@ -1,0 +1,93 @@
+<form [formGroup]="createForm" autocomplete="on" (submit)="submit()">
+    <div class="grid2-main-title">
+        <div class="content-center-vertical font-bold text-5xl">Створення нової освітньої програми</div>
+        <div class="content-right">
+            <div class="content-right">
+                <button type="button" class="button-lightBlue" (click)="back()">Повернутись</button>
+            </div>
+            <div class="content-right" style="margin-left: 10px;">
+                <button type="submit" class="button-darkBlue" [disabled]="!createForm.valid">Створити</button>
+            </div>
+        </div>
+    </div>
+    <div class="data-container">
+        <div class="label">
+            <div class="innerlabel">Інформація про освітню програму</div>
+        </div>
+        <div class="marging-top30">
+            <ng-container *ngIf="error">
+                <div class="error-container margin-bottom10">
+                    <div class="error-icon-container">
+                        <mat-icon svgIcon="exclamation-circle-red" class=""></mat-icon>
+                    </div>
+                    <div class="error-text">
+                        Освітня програма з такою назвою вже існує, спробуйте знову
+                    </div>
+                </div>
+            </ng-container>
+            <div class="grid-container-2 ">
+                <div>
+                    <div class="flex-padding15 row-odd">
+                        <div class="col-md-6 row-label">Назва освітньої програми</div>
+                        <div class="col-md-6">
+                            <textarea type="text" rows="4" class="form-control form-control-md" formControlName="name"
+                            [ngClass]="{'invalid-input': createForm.get('name')?.invalid && createForm.get('name')?.touched}"></textarea>
+                            <label class="text-danger" *ngIf="createForm.get('name')?.touched && createForm.get('name')?.errors?.['required']">Введіть назву освітньої програми</label>
+                        </div>
+                    </div>
+                    <div class="flex-padding15">
+                        <div class="col-md-6 row-label">Університет</div>
+                        <div class="col-md-6">
+                            <select class="form-select" formControlName="university" (change)="onUniversityChange($event)" [ngClass]="{'invalid-input': createForm.get('university')?.invalid && createForm.get('university')?.touched}">
+                                <option *ngFor="let item of universities" value="{{item.id}}">{{item.name}}</option>
+                            </select>  
+                            <label class="text-danger" *ngIf="createForm.get('university')?.touched && createForm.get('university')?.errors?.['required']">Оберіть університет</label>
+                        </div>          
+                    </div>
+                    <div class="flex-padding15 row-odd">
+                        <div class="col-md-6 row-label">Факультет</div>
+                        <div class="col-md-6">
+                            <select class="form-select" formControlName="faculty" [attr.disabled]="faculties.length > 0 ? null : false"
+                            [ngClass]="{'invalid-input': createForm.get('faculty')?.invalid && createForm.get('faculty')?.touched}">
+                                <option *ngFor="let item of faculties" value="{{item.id}}" class="capitalize">{{item.name}}</option>
+                            </select>  
+                            <label class="text-danger" *ngIf="createForm.get('faculty')?.touched && createForm.get('faculty')?.errors?.['required']">Оберіть факультет</label>
+                        </div>          
+                    </div>
+                </div>
+                <div>
+                    <div class="flex-padding15 row-odd">
+                        <div class="col-md-6 row-label">Галузь знань</div>
+                        <div class="col-md-6">
+                            <select class="form-select" formControlName="areaOfExpertise" (change)="onAreaOfExpertiseChange($event)"
+                            [ngClass]="{'invalid-input': createForm.get('areaOfExpertise')?.invalid && createForm.get('areaOfExpertise')?.touched}">
+                                <option *ngFor="let item of areaOfExpertiselistlist" value="{{item.id}}" class="capitalize">{{item.name}}</option>
+                            </select>  
+                            <label class="text-danger" *ngIf="createForm.get('areaOfExpertise')?.touched && createForm.get('areaOfExpertise')?.errors?.['required']">Оберіть галузь знань</label>
+                        </div>          
+                    </div>
+                    <div class="flex-padding15">
+                        <div class="col-md-6 row-label">Спеціальність</div>
+                        <div class="col-md-6">
+                            <select class="form-select" formControlName="specialization" [attr.disabled]="specializations.length > 0 ? null : false"
+                            [ngClass]="{'invalid-input': createForm.get('specializations')?.invalid && createForm.get('specializations')?.touched}">
+                                <option *ngFor="let item of specializations" value="{{item.id}}" class="capitalize">{{item.name}}</option>
+                            </select>  
+                            <label class="text-danger" *ngIf="createForm.get('specializations')?.touched && createForm.get('specializations')?.errors?.['required']">Оберіть спеціальність</label>
+                        </div>          
+                    </div>
+                    <div class="flex-padding15 row-odd">
+                        <div class="col-md-6 row-label">Освітній рівень</div>
+                        <div class="col-md-6">
+                            <select class="form-select" formControlName="educationalProgramsType"
+                            [ngClass]="{'invalid-input': createForm.get('educationalProgramsType')?.invalid && createForm.get('educationalProgramsType')?.touched}">
+                                <option *ngFor="let item of educationalProgramsTypes" value="{{item.id}}" class="capitalize">{{item.name}}</option>
+                            </select>  
+                            <label class="text-danger" *ngIf="createForm.get('educationalProgramsType')?.touched && createForm.get('educationalProgramsType')?.errors?.['required']">Оберіть освітній рівень</label>
+                        </div>          
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

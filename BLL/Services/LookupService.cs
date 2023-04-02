@@ -87,7 +87,7 @@ namespace BLL.Services
 
         public async Task<Result<IEnumerable<IdNameModel<Guid>>>> GetEducationalProgramsAsync()
         {
-            var result = await _educationalProgramRepository.GetAllAsync();
+            var result = await _educationalProgramRepository.GetAllAsync(x => x.EducationalProgramsType);
 
             return Result.Success(_mapper.Map<IEnumerable<IdNameModel<Guid>>>(result));
         }

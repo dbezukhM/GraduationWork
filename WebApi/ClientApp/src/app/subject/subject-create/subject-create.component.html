@@ -6,7 +6,7 @@
                 <button type="button" class="button-lightBlue" (click)="back()">Повернутись</button>
             </div>
             <div class="content-right" style="margin-left: 10px;">
-                <button type="submit" class="button-darkBlue" [disabled]="!createForm.valid">Зберегти</button>
+                <button type="submit" class="button-darkBlue" [disabled]="!createForm.valid">Створити</button>
             </div>
         </div>
     </div>
@@ -32,7 +32,7 @@
                         <div class="col-md-6">
                             <textarea type="text" rows="4" class="form-control form-control-md" formControlName="name"
                             [ngClass]="{'invalid-input': createForm.get('name')?.invalid && createForm.get('name')?.touched}"></textarea>
-                            <label class="text-danger" *ngIf="createForm.get('name')?.touched && createForm.get('name')?.errors?.['required']">Уведіть назву дисципліни</label>
+                            <label class="text-danger" *ngIf="createForm.get('name')?.touched && createForm.get('name')?.errors?.['required']">Введіть назву дисципліни</label>
                         </div>
                     </div>
                     <div class="flex-padding15">
@@ -58,7 +58,7 @@
                         <div class="col-md-6">
                             <input type="number" min="5" class="form-control form-control-md" formControlName="credits"
                             [ngClass]="{'invalid-input': createForm.get('credits')?.invalid && createForm.get('credits')?.touched}">
-                            <label class="text-danger" *ngIf="createForm.get('credits')?.touched && createForm.get('credits')?.errors?.['required']">Уведіть кількість кредитів</label>
+                            <label class="text-danger" *ngIf="createForm.get('credits')?.touched && createForm.get('credits')?.errors?.['required']">Введіть кількість кредитів</label>
                         </div>
                     </div>
                     <div class="flex-padding15 row-odd">
@@ -66,7 +66,7 @@
                         <div class="col-md-6">
                             <input type="number" min="1" max="8" class="form-control form-control-md" formControlName="semester"
                             [ngClass]="{'invalid-input': createForm.get('semester')?.invalid && createForm.get('semester')?.touched}">
-                            <label class="text-danger" *ngIf="createForm.get('semester')?.touched && createForm.get('semester')?.errors?.['required']">Уведіть семестр</label>
+                            <label class="text-danger" *ngIf="createForm.get('semester')?.touched && createForm.get('semester')?.errors?.['required']">Введіть семестр</label>
                         </div>
                     </div>
                     <div class="flex-padding15">
@@ -85,7 +85,7 @@
                         <div class="col-md-6">
                             <input type="number" min="0" class="form-control form-control-md" formControlName="lecturesHours"
                             [ngClass]="{'invalid-input': createForm.get('lecturesHours')?.invalid && createForm.get('lecturesHours')?.touched}">
-                            <label class="text-danger" *ngIf="createForm.get('lecturesHours')?.touched && createForm.get('lecturesHours')?.errors?.['required']">Уведіть кількість годин</label>
+                            <label class="text-danger" *ngIf="createForm.get('lecturesHours')?.touched && createForm.get('lecturesHours')?.errors?.['required']">Введіть кількість годин</label>
                         </div>
                     </div>
                     <div class="flex-padding15">
@@ -93,7 +93,7 @@
                         <div class="col-md-6">
                             <input type="number" min="0" class="form-control form-control-md" formControlName="seminarsHours"
                             [ngClass]="{'invalid-input': createForm.get('seminarsHours')?.invalid && createForm.get('seminarsHours')?.touched}">
-                            <label class="text-danger" *ngIf="createForm.get('seminarsHours')?.touched && createForm.get('seminarsHours')?.errors?.['required']">Уведіть кількість годин</label>
+                            <label class="text-danger" *ngIf="createForm.get('seminarsHours')?.touched && createForm.get('seminarsHours')?.errors?.['required']">Введіть кількість годин</label>
                         </div>
                     </div>
                     <div class="flex-padding15 row-odd">
@@ -101,7 +101,7 @@
                         <div class="col-md-6">
                             <input type="number" min="0" class="form-control form-control-md" formControlName="practicalClassesHours"
                             [ngClass]="{'invalid-input': createForm.get('practicalClassesHours')?.invalid && createForm.get('practicalClassesHours')?.touched}">
-                            <label class="text-danger" *ngIf="createForm.get('practicalClassesHours')?.touched && createForm.get('practicalClassesHours')?.errors?.['required']">Уведіть кількість годин</label>
+                            <label class="text-danger" *ngIf="createForm.get('practicalClassesHours')?.touched && createForm.get('practicalClassesHours')?.errors?.['required']">Введіть кількість годин</label>
                         </div>
                     </div>
                     <div class="flex-padding15">
@@ -109,7 +109,7 @@
                         <div class="col-md-6">
                             <input type="number" min="0" class="form-control form-control-md" formControlName="laboratoryClassesHours"
                             [ngClass]="{'invalid-input': createForm.get('laboratoryClassesHours')?.invalid && createForm.get('laboratoryClassesHours')?.touched}">
-                            <label class="text-danger" *ngIf="createForm.get('laboratoryClassesHours')?.touched && createForm.get('laboratoryClassesHours')?.errors?.['required']">Уведіть кількість годин</label>
+                            <label class="text-danger" *ngIf="createForm.get('laboratoryClassesHours')?.touched && createForm.get('laboratoryClassesHours')?.errors?.['required']">Введіть кількість годин</label>
                         </div>
                     </div>
                     <div class="flex-padding15 row-odd">
@@ -117,7 +117,7 @@
                         <div class="col-md-6">
                             <input type="number" min="0" class="form-control form-control-md" formControlName="trainingsHours"
                             [ngClass]="{'invalid-input': createForm.get('trainingsHours')?.invalid && createForm.get('trainingsHours')?.touched}">
-                            <label class="text-danger" *ngIf="createForm.get('trainingsHours')?.touched && createForm.get('trainingsHours')?.errors?.['required']">Уведіть кількість годин</label>
+                            <label class="text-danger" *ngIf="createForm.get('trainingsHours')?.touched && createForm.get('trainingsHours')?.errors?.['required']">Введіть кількість годин</label>
                         </div>
                     </div>
                     <div class="flex-padding15">
@@ -125,7 +125,7 @@
                         <div class="col-md-6">
                             <input type="number" min="0" class="form-control form-control-md" formControlName="consultationsHours"
                             [ngClass]="{'invalid-input': createForm.get('consultationsHours')?.invalid && createForm.get('consultationsHours')?.touched}">
-                            <label class="text-danger" *ngIf="createForm.get('consultationsHours')?.touched && createForm.get('consultationsHours')?.errors?.['required']">Уведіть кількість годин</label>
+                            <label class="text-danger" *ngIf="createForm.get('consultationsHours')?.touched && createForm.get('consultationsHours')?.errors?.['required']">Введіть кількість годин</label>
                         </div>
                     </div>
                     <div class="flex-padding15 row-odd">
@@ -133,7 +133,7 @@
                         <div class="col-md-6">
                             <input type="number" min="0" class="form-control form-control-md" formControlName="selfWorkHours"
                             [ngClass]="{'invalid-input': createForm.get('selfWorkHours')?.invalid && createForm.get('selfWorkHours')?.touched}">
-                            <label class="text-danger" *ngIf="createForm.get('selfWorkHours')?.touched && createForm.get('selfWorkHours')?.errors?.['required']">Уведіть кількість годин</label>
+                            <label class="text-danger" *ngIf="createForm.get('selfWorkHours')?.touched && createForm.get('selfWorkHours')?.errors?.['required']">Введіть кількість годин</label>
                         </div>
                     </div>
                 </div>

@@ -40,7 +40,7 @@ namespace WebApi.Controllers
         }
 
 
-        [HttpGet("id")]
+        [HttpGet("{id}")]
         [Authorize(Roles = "Admin, Lecturer")]
         public async Task<IActionResult> GetByIdAsync(Guid id)
         {

@@ -3,11 +3,11 @@
         <div class="col-md-5 content-center-vertical font-bold text-5xl">Дисципліни</div>
         <ng-container *ngIf="account.isAuthenticated() && account?.person?.isAdmin">
             <div class="col-md-3 content-right">
-                <button class="button-darkBlue" [routerLink]="['/subject-create']">Додати дисципліну</button>
+                <button class="button-darkBlue" [routerLink]="['/subject-create']">Створити дисципліну</button>
             </div>
         </ng-container>
     </div>
-    <div class="data-container" style="height: 530px">
+    <div class="data-container grid-pagination" style="height: 530px">
         <ng-container *ngIf="!searchedSubjects.length">
             <div class="grid-text-empty row-label">Дисципліни відсутні</div>
         </ng-container>
@@ -18,8 +18,12 @@
             <input placeholder="Назва дисципліни" [(ngModel)]="searchName" class="form-control form-control-md" type="text" (input)="search()">
             <input placeholder="Освітня програма" [(ngModel)]="searchEducationalProgram" class="form-control form-control-md" type="text" (input)="search()">
             <input placeholder="Вид дисципліни" [(ngModel)]="searchSelectiveBlock" class="form-control form-control-md" type="text" (input)="search()">
-            <ng-container *ngFor="let subject of searchedSubjects; let index = index">
-                <div class="link-container">
+            <ng-container *ngFor="let subject of searchedSubjects | paginate:{
+                    itemsPerPage: tableSize,
+                    currentPage: page,
+                    totalItems: searchedSubjects.length
+                }; let index = index">
+                <div class="grid-fied-container">
                     <a class="grid-link" [routerLink]="['/subject', subject.id]">
                         {{subject.name}}
                     </a>
@@ -27,6 +31,9 @@
                 <div>{{subject.educationalProgramName}}</div>
                 <div>{{subject.selectiveBlockName}}</div>
             </ng-container>
+        </div>
+        <div class="pagination-container">
+            <pagination-controls previousLabel = "" nextLabel="" (pageChange)="onTableDataChange($event)"></pagination-controls>
         </div>
     </div>
 </ng-container>

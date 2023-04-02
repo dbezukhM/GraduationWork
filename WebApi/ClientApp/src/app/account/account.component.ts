@@ -24,8 +24,8 @@ export class AccountComponent implements OnInit {
   error: ServerError | null;
   req: ChangePassword = {} as ChangePassword;
 
-  pageComp: number = 1;
-  pageWP: number = 1;
+  pageAut: number = 1;
+  pageApprover: number = 1;
   tableSize: number = 5;
 
   constructor(private accountService: AccountService, private router: Router, private formBuilder: FormBuilder,
@@ -40,8 +40,12 @@ export class AccountComponent implements OnInit {
        { validator: this.comparePasswords });
   }
 
-  onTableCompDataChange(event: any){
-    this.pageComp = event
+  onTableAutDataChange(event: any){
+    this.pageAut = event
+  }
+
+  onTableApproverDataChange(event: any){
+    this.pageApprover = event
   }
 
   comparePasswords(fb: FormGroup) {
@@ -110,7 +114,7 @@ export class AccountComponent implements OnInit {
     return false;
   }
 
-  getPersonById(id: Guid){
+  getPersonById(id: string){
     this.accountService.getPersonById(id).subscribe({
       next: (response: ApiResponse<Person>) => {
         console.log(response.result)
@@ -122,6 +126,7 @@ export class AccountComponent implements OnInit {
     this.accountService.getAuthorizedPerson().subscribe({
       next: (response: ApiResponse<Person>) => {
         this.person = response.result
+        this.person.fullName = `${this.person.firstName} ${this.person.lastName}`
       }
     });
   }

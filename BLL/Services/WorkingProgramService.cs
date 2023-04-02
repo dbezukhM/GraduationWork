@@ -125,7 +125,8 @@ namespace BLL.Services
             }
 
             var subject = await _subjectRepository.GetWithDetailsAsync(workingProgram.SubjectId,
-                s => s.EducationalProgram);
+                s => s.EducationalProgram,
+                s => s.EducationalProgram.EducationalProgramsType);
             var result = _mapper.Map<WorkingProgramDetailsModel>(workingProgram);
             result.Subject = _mapper.Map<IdNameModel<Guid>>(subject);
             result.EducationalProgram = _mapper.Map<IdNameModel<Guid>>(subject.EducationalProgram);

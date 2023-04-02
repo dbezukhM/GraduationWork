@@ -37,4 +37,24 @@ export class LookupService {
   getSubjects(){
     return this.httpClient.get<ApiResponse<IdNameModel[]>>(environment.baseUrl + 'api/Lookup/subjects')
   }
+
+  getAreaOfExpertise(){
+    return this.httpClient.get<ApiResponse<IdNameModel[]>>(environment.baseUrl + 'api/Lookup/areaOfExpertise')
+  }
+
+  getSpecializations(id: Guid){
+    return this.httpClient.get<ApiResponse<IdNameModel[]>>(environment.baseUrl + `api/Lookup/specializations/${id}`)
+  }
+
+  getUniversities(){
+    return this.httpClient.get<ApiResponse<IdNameModel[]>>(environment.baseUrl + 'api/Lookup/universities')
+  }
+
+  getFaculties(id: Guid){
+    return this.httpClient.get<ApiResponse<IdNameModel[]>>(environment.baseUrl + `api/Lookup/faculties/${id}`)
+  }
+
+  getEducationalProgramsTypes(){
+    return this.httpClient.get<ApiResponse<IdNameModel[]>>(environment.baseUrl + 'api/Lookup/educationalProgramsTypes')
+  }
 }

@@ -7,7 +7,7 @@
             </div>
         </ng-container>
     </div>
-    <div class="data-container" style="height: 530px">
+    <div class="data-container grid-pagination" style="height: 530px">
         <ng-container *ngIf="!searchedUsers.length">
             <div class="grid-text-empty row-label">Користувачі відсутні</div>
         </ng-container>
@@ -18,9 +18,13 @@
             <input placeholder="Електронна пошта" [(ngModel)]="searchEmail" class="form-control form-control-md" type="text" (input)="search()">
             <input placeholder="Ім'я" [(ngModel)]="searchFirstName" class="form-control form-control-md" type="text" (input)="search()">
             <input placeholder="Прізвище" [(ngModel)]="searchLastName" class="form-control form-control-md" type="text" (input)="search()">
-            <ng-container *ngFor="let user of searchedUsers; let index = index">
-                <div class="link-container">
-                    <a class="grid-link">
+            <ng-container *ngFor="let user of searchedUsers | paginate:{
+                    itemsPerPage: tableSize,
+                    currentPage: page,
+                    totalItems: searchedUsers.length
+                }; let index = index">
+                <div class="grid-fied-container">
+                    <a class="grid-link" [routerLink]="['/user', user.id]">
                         {{user.email}}
                     </a>
                 </div>
@@ -28,16 +32,68 @@
                 <div>{{user.lastName}}</div>
             </ng-container>
         </div>
+        <div class="pagination-container">
+            <pagination-controls previousLabel = "" nextLabel="" (pageChange)="onTableDataChange($event)"></pagination-controls>
+        </div>
     </div>
     <div class="popUpFormBackGround" [ngClass]="{'show': formOpened}">
         <div class="popUpForm">
             <div class="main-title">Створення нового користувача</div>
-            <form autocomplete="off" class="marging-top30">
+            <form [formGroup]="createForm" autocomplete="off" (submit)="submit()" class="marging-top30">
+                <ng-container *ngIf="error">
+                    <div class="error-container margin-bottom10">
+                        <div class="error-icon-container">
+                            <mat-icon svgIcon="exclamation-circle-red"></mat-icon>
+                        </div>
+                        <div class="error-text">
+                            Користувач з такою електонною поштою вже існує, спробуйте знову
+                        </div>
+                    </div>
+                </ng-container>
+                <div class="row row-odd padding75rem">
+                    <div class="col-md-5 row-label">
+                        Електронна пошта
+                    </div>
+                    <div class="col-md-7 row-text">
+                        <input type="text" class="form-control form-control-md" formControlName="email" [ngClass]="{'invalid-input': createForm.get('email')?.invalid && createForm.get('email')?.touched}">
+                        <label class="text-danger" *ngIf="createForm.get('email')?.touched && createForm.get('email')?.errors?.['required']">Введіть електронну пошту</label>
+                    </div>
+                </div>
+                <div class="row padding75rem">
+                    <div class="col-md-5 row-label">
+                        Ім'я
+                    </div>
+                    <div class="col-md-7 row-text">
+                        <input type="text" class="form-control form-control-md" formControlName="firstName" [ngClass]="{'invalid-input': createForm.get('firstName')?.invalid && createForm.get('firstName')?.touched}">
+                        <label class="text-danger" *ngIf="createForm.get('firstName')?.touched && createForm.get('firstName')?.errors?.['required']">Введіть ім'я</label>
+                    </div>
+                </div>
+                <div class="row row-odd padding75rem">
+                    <div class="col-md-5 row-label">
+                        Прізвище
+                    </div>
+                    <div class="col-md-7 row-text">
+                        <input type="text" class="form-control form-control-md" formControlName="lastName" [ngClass]="{'invalid-input': createForm.get('lastName')?.invalid && createForm.get('lastName')?.touched}">
+                        <label class="text-danger" *ngIf="createForm.get('lastName')?.touched && createForm.get('lastName')?.errors?.['required']">Введіть прізвище</label>
+                    </div>
+                </div>
+                <div class="row padding75rem">
+                    <div class="col-md-5 row-label">
+                        Роль у системі
+                    </div>
+                    <div class="col-md-7 row-text">
+                        <div *ngFor="let role of rolesNames; let i=index">
+                            <input type="checkbox" class="form-check-input" [value]="role.name" (change)="onCheckboxChange($event)"
+                            />
+                            <label class="row-text" style="margin-left: 10px;">{{role.value}}</label>
+                        </div>
+                    </div>
+                </div>
                 <div class="marging-top30" style="float: right; display: flex;">
                     <button type="button" (click)="closeForm()" class="button-lightBlue margin-right20">
                         Повернутись
                     </button>
-                    <button type="submit" class="button-darkBlue">
+                    <button type="submit" class="button-darkBlue" [disabled]="!createForm.valid">
                         <span class="button-text">
                             Створити
                         </span>

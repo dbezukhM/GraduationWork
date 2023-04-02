@@ -30,6 +30,12 @@ export class WorkingProgramListComponent implements OnInit {
   file: File
   fileName: string = ''
 
+  page: number = 1;
+  tableSize: number = 7;
+  onTableDataChange(event: any){
+    this.page = event
+  }
+  
   constructor(private service: WorkingProgramService, public account: AccountComponent, private lookup: LookupService,
     private formBuilder: FormBuilder, private toastService: HotToastService, private router: Router) { }
 
@@ -104,16 +110,13 @@ export class WorkingProgramListComponent implements OnInit {
       this.toastService.observe(
         {
           loading: 'Обробка',
-          success: 'Робоча програма успішно створена',
+          success: 'Робоча програма створена успішно',
           error: 'Помилка створення робочої програми',
         }
       )
     )
     .subscribe({
       next: async (res: ApiResponse<Guid>)=>{
-        this.createForm.reset()
-        this.loadData()
-        this.createFormOpened = false
         await new Promise(f => setTimeout(f, 1000));
         this.router.navigate([`working-program/${res.result}`])
       },

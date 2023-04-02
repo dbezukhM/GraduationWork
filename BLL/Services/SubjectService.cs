@@ -53,6 +53,7 @@ public class SubjectService : ISubjectService
             s => s.SelectiveBlock,
             s => s.FinalControlType,
             s => s.EducationalProgram,
+            s => s.EducationalProgram.EducationalProgramsType,
             s => s.SubjectCompetences,
             s => s.SubjectProgramResults);
         if (subject == null)
@@ -74,7 +75,8 @@ public class SubjectService : ISubjectService
 
     public async Task<Result<Guid>> CreateAsync(SubjectCreateModel model)
     {
-        var isNameExisting = await _subjectRepository.ExistsAsync(x => x.Name == model.Name);
+        var isNameExisting = await _subjectRepository.ExistsAsync(x =>
+            x.Name == model.Name && x.EducationalProgramId == model.EducationalProgramId);
         if (isNameExisting)
         {
             return Result.ValidationError<Guid>(BlErrors.EducationalProgramNameNotUnique);

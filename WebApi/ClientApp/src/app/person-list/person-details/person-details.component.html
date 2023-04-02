@@ -1,0 +1,107 @@
+<ng-container *ngIf="person">
+    <div class="row" style="justify-content: space-between;">
+        <div class="col-md-5 content-center-vertical font-bold text-5xl">Кабінет користувача</div>
+    </div>
+    <div class="data-container">
+        <div class="label">
+            <div class="innerlabel">Інформація про акаунт користувача</div>
+        </div>
+        <div class="row info">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="row row-container row-odd">
+                        <div class="col-md-5 row-label">
+                            Ім'я
+                        </div>
+                        <div class="col-md-7 row-text">
+                            {{person.firstName}}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="row row-container row-odd">
+                        <div class="col-md-5 row-label">
+                            Електронна пошта
+                        </div>
+                        <div class="col-md-7 row-text">
+                            {{person.email}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="row row-container">
+                        <div class="col-md-5 row-label">
+                            Прізвище
+                        </div>
+                        <div class="col-md-7 row-text">
+                            {{person.lastName}}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="row row-container">
+                        <div class="col-md-5 row-label">
+                            Роль у системі
+                        </div>
+                        <div class="col-md-7 row-text">
+                            {{person.isAdmin ? 'Викладач, адміністратор' : 'Викладач'}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <div class="grid-container-2">
+            <div class="data-container height-350 relative">
+                <div class="label">
+                    <div class="innerlabel">Перелік створених робочих програм</div>
+                </div>
+                <div class="vertical-grid2">
+                    <div class="top-line" style="padding-top: 10px;">
+                        <ng-container *ngIf="person.workingProgramsAuthor.length">
+                            <div *ngFor="let item of person.workingProgramsAuthor; let index = index"
+                                [ngClass]="{'row-odd': 0 === index % 2}" style="padding: 12px;">
+                                <a class="grid-link" [routerLink]="['/working-program', item.id]">
+                                    {{item.name}}
+                                </a>        
+                            </div>
+                            <!--<div class="paginationControl">
+                                <pagination-controls previousLabel = "Попередня" nextLabel="Наступна" (pageChange)="onTableCompDataChange($event)"></pagination-controls>
+                            </div>-->
+                        </ng-container>
+                        <ng-container *ngIf="!person.workingProgramsAuthor.length">
+                            <div class="grid-text-empty row-label">
+                                Створені робочі програми відсутні
+                            </div>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+            <div class="data-container height-350 relative">
+                <div class="vertical-grid2">
+                    <div class="label">
+                        <div class="innerlabel">Перелік підтверджених робочих програм</div>
+                    </div>
+                    <div class="top-line" style="padding-top: 10px;">
+                        <ng-container *ngIf="person.workingProgramsApprover.length">
+                            <div *ngFor="let item of person.workingProgramsApprover; let index = index"
+                            [ngClass]="{'row-odd': 0 === index % 2}" style="padding: 12px;">
+                                <a class="grid-link" [routerLink]="['/working-program', item.id]">
+                                    {{item.name}}
+                                </a>        
+                            </div>
+                        </ng-container>
+                        <ng-container *ngIf="!person.workingProgramsApprover.length">
+                            <div class="grid-text-empty row-label">
+                                Підтверджені робочі програми відсутні
+                            </div>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-container>

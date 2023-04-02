@@ -75,7 +75,7 @@ namespace BLL.Services
 
             if (!result.Succeeded)
             {
-                return Result.ValidationError<Guid>(_mapper.Map<IEnumerable<Error>>(result.Errors));
+                return Result.ValidationError<Guid>(BlErrors.ExistingEntity);
             }
 
             foreach (var role in model.Roles)
@@ -164,7 +164,7 @@ namespace BLL.Services
             {
                 To = email,
                 Subject = "Створення акаунту",
-                EmailBody = $"Вітаю!<br/>Для Вас було створено акаунт для входу на платформу \"Робочі дисципліни університетів\".<br/>Посилання - {_settings.ClientUrl}/login<br/>Логін - <b>{email}</b><br/>Пароль - <b>{password}</b>",
+                EmailBody = $"Вітаємо!<br/>Для Вас було створено акаунт для входу на платформу \"Робочі дисципліни університетів\".<br/>Посилання - {_settings.ClientUrl}/login<br/>Логін - <b>{email}</b><br/>Пароль - <b>{password}</b>",
             };
 
             return result;

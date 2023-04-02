@@ -10,6 +10,7 @@ import { IdNameModel } from 'src/app/models/id-name-model.model';
 import { ProgramResult } from 'src/app/models/program-result.model';
 import { SubjectDetails } from 'src/app/models/subject-details.model';
 import { SubjectUpdate } from 'src/app/models/subject-update.model';
+import { ConfirmationDialogService } from 'src/app/services/confirmation-dialog.service';
 import { LookupService } from 'src/app/services/lookup.service';
 import { SubjectService } from 'src/app/services/subject.service';
 import { WorkingProgramService } from 'src/app/services/working-program.service';
@@ -23,7 +24,7 @@ export class SubjectUpdateComponent implements OnInit {
 
   constructor(private router: ActivatedRoute, private service: SubjectService, private workingProgramService: WorkingProgramService,
     public account: AccountComponent, private toastService: HotToastService, private lookupService: LookupService,
-    private navigationRouter: Router) { }
+    private navigationRouter: Router, private confirmationDialogService: ConfirmationDialogService) { }
 
   error: ServerError | null;
   subject: SubjectDetails
@@ -61,6 +62,7 @@ export class SubjectUpdateComponent implements OnInit {
       }
     })
   }
+
   mapModels(model: SubjectDetails){
     this.updateModel.name = this.subject.name
     this.updateModel.credits = this.subject.credits

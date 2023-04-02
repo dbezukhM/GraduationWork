@@ -58,43 +58,54 @@
     </div>
     <div>
         <div class="grid-container-2">
-            <div class="data-container height-350 relative">
-                <div class="label">
-                    <div class="innerlabel">Перелік створених робочих програм</div>
-                </div>
-                <div class="vertical-grid2">
-                    <div class="top-line" style="padding-top: 10px;">
-                        <ng-container *ngIf="person.workingProgramsAuthor.length">
-                            <div *ngFor="let item of person.workingProgramsAuthor | paginate:{
-                                itemsPerPage: tableSize,
-                                currentPage: pageComp,
-                                totalItems: person.workingProgramsAuthor.length
-                            }; let index = index"
-                                [ngClass]="{'row-odd': 0 === index % 2}" style="padding: 12px;">
-                                <a class="grid-link" [routerLink]="['/working-program', item.id]">
-                                    {{item.name}}
-                                </a>        
-                            </div>
-                            <!--<div class="paginationControl">
-                                <pagination-controls previousLabel = "Попередня" nextLabel="Наступна" (pageChange)="onTableCompDataChange($event)"></pagination-controls>
-                            </div>-->
-                        </ng-container>
-                        <ng-container *ngIf="!person.workingProgramsAuthor.length">
-                            <div class="grid-text-empty row-label">
-                                Створені робочі програми відсутні
-                            </div>
-                        </ng-container>
+            <div class="data-container height-350 relative grid-pagination">
+                <div>
+                    <div class="label">
+                        <div class="innerlabel">Перелік створених робочих програм</div>
+                    </div>
+                    <div class="vertical-grid2">
+                        <div class="top-line" style="padding-top: 10px;">
+                            <ng-container *ngIf="person.workingProgramsAuthor.length">
+                                <div *ngFor="let item of person.workingProgramsAuthor | paginate:{
+                                    id: 'pagination1',
+                                    itemsPerPage: tableSize,
+                                    currentPage: pageAut,
+                                    totalItems: person.workingProgramsAuthor.length
+                                }; let index = index"
+                                    [ngClass]="{'row-odd': 0 === index % 2}" style="padding: 12px;">
+                                    <a class="grid-link" [routerLink]="['/working-program', item.id]">
+                                        {{item.name}}
+                                    </a>        
+                                </div>
+                                <!--<div class="paginationControl">
+                                    <pagination-controls previousLabel = "Попередня" nextLabel="Наступна" (pageChange)="onTableCompDataChange($event)"></pagination-controls>
+                                </div>-->
+                            </ng-container>
+                            <ng-container *ngIf="!person.workingProgramsAuthor.length">
+                                <div class="grid-text-empty row-label">
+                                    Створені робочі програми відсутні
+                                </div>
+                            </ng-container>
+                        </div>
                     </div>
                 </div>
+                <div class="pagination-container">
+                    <pagination-controls id="pagination1" previousLabel = "" nextLabel="" (pageChange)="onTableAutDataChange($event)"></pagination-controls>
+                </div>
             </div>
-            <div class="data-container height-350 relative">
+            <div class="data-container height-350 relative grid-pagination">
                 <div class="vertical-grid2">
                     <div class="label">
                         <div class="innerlabel">Перелік підтверджених робочих програм</div>
                     </div>
                     <div class="top-line" style="padding-top: 10px;">
                         <ng-container *ngIf="person.workingProgramsApprover.length">
-                            <div *ngFor="let item of person.workingProgramsApprover; let index = index"
+                            <div *ngFor="let item of person.workingProgramsApprover | paginate:{
+                                id: 'pagination2',
+                                itemsPerPage: tableSize,
+                                currentPage: pageApprover,
+                                totalItems: person.workingProgramsApprover.length
+                            }; let index = index"
                             [ngClass]="{'row-odd': 0 === index % 2}" style="padding: 12px;">
                                 <a class="grid-link" [routerLink]="['/working-program', item.id]">
                                     {{item.name}}
@@ -107,6 +118,9 @@
                             </div>
                         </ng-container>
                     </div>
+                </div>
+                <div class="pagination-container">
+                    <pagination-controls id="pagination2" previousLabel = "" nextLabel="" (pageChange)="onTableApproverDataChange($event)"></pagination-controls>
                 </div>
             </div>
         </div>
@@ -132,7 +146,7 @@
                     <div class="col-md-6 row-text">
                         <input type="password" class="form-control form-control-md" formControlName="OldPassword"
                         [ngClass]="{'invalid-input': changePasswordForm.get('OldPassword')?.invalid && changePasswordForm.get('OldPassword')?.touched}">
-                        <label class="text-danger" *ngIf="changePasswordForm.get('OldPassword')?.touched && changePasswordForm.get('OldPassword')?.errors?.['required']">Уведіть пароль</label>
+                        <label class="text-danger" *ngIf="changePasswordForm.get('OldPassword')?.touched && changePasswordForm.get('OldPassword')?.errors?.['required']">Введіть пароль</label>
                     </div>
                 </div>
                 <div class="row padding75rem">
@@ -142,7 +156,7 @@
                     <div class="col-md-6 row-text">
                         <input type="password" class="form-control form-control-md" formControlName="NewPassword"
                         [ngClass]="{'invalid-input': changePasswordForm.get('NewPassword')?.invalid && changePasswordForm.get('NewPassword')?.touched}">
-                        <label class="text-danger" *ngIf="changePasswordForm.get('NewPassword')?.touched && changePasswordForm.get('NewPassword')?.errors?.['required']">Уведіть пароль</label>
+                        <label class="text-danger" *ngIf="changePasswordForm.get('NewPassword')?.touched && changePasswordForm.get('NewPassword')?.errors?.['required']">Введіть пароль</label>
                     </div>
                 </div>
                 <div class="row row-odd padding75rem">
@@ -152,7 +166,7 @@
                     <div class="col-md-6 row-text">
                         <input type="password" class="form-control form-control-md" formControlName="ConfirmPassword"
                         [ngClass]="{'invalid-input': changePasswordForm.get('ConfirmPassword')?.invalid && changePasswordForm.get('ConfirmPassword')?.touched}">
-                        <label class="text-danger" *ngIf="changePasswordForm.get('ConfirmPassword')?.touched && changePasswordForm.get('ConfirmPassword')?.errors?.['required']">Уведіть пароль</label>
+                        <label class="text-danger" *ngIf="changePasswordForm.get('ConfirmPassword')?.touched && changePasswordForm.get('ConfirmPassword')?.errors?.['required']">Введіть пароль</label>
                         <label class="text-danger" *ngIf="changePasswordForm.get('ConfirmPassword')?.touched && changePasswordForm.get('ConfirmPassword')?.errors?.['passwordMismatch']">Паролі не співпадають</label>
                     </div>
                 </div>

@@ -1,12 +1,12 @@
 <div class="row" style="justify-content: space-between;">
     <div class="col-md-5 content-center-vertical font-bold text-5xl">Робочі програми</div>
-    <ng-container *ngIf="account.isAuthenticated() && account?.person?.isAdmin">
+    <ng-container *ngIf="account.isAuthenticated()">
         <div class="col-md-3 content-right">
-            <button class="button-darkBlue" (click)="openForm()">Додати робочу програму</button>
+            <button class="button-darkBlue" (click)="openForm()">Створити робочу програму</button>
         </div>
     </ng-container>
 </div>
-<div class="data-container" style="height: 530px">
+<div class="data-container grid-pagination" style="height: 530px">
     <ng-container *ngIf="!searchedworkingPrograms.length">
         <div class="grid-text-empty row-label">Робочі програми відсутні</div>
     </ng-container>
@@ -15,14 +15,21 @@
         <div>Назва дисципліни</div>
         <input [(ngModel)]="searchName" class="form-control form-control-md" type="text" placeholder="Назва робочої програми" (input)="search()">
         <input [(ngModel)]="searchSubjectName" class="form-control form-control-md" type="text" placeholder="Назва дисципліни" (input)="search()">
-        <ng-container *ngFor="let item of searchedworkingPrograms; let index = index">
-            <div class="link-container">
+        <ng-container *ngFor="let item of searchedworkingPrograms | paginate:{
+                itemsPerPage: tableSize,
+                currentPage: page,
+                totalItems: searchedworkingPrograms.length
+            }; let index = index">
+            <div class="grid-fied-container">
                 <a class="grid-link" [routerLink]="['/working-program', item.id]">
                     {{item.name}}
                 </a>
             </div>
             <div>{{item.subjectName}}</div>
         </ng-container>
+    </div>
+    <div class="pagination-container">
+        <pagination-controls previousLabel = "" nextLabel="" (pageChange)="onTableDataChange($event)"></pagination-controls>
     </div>
 </div>
 <div class="popUpFormBackGround" [ngClass]="{'show': createFormOpened}">

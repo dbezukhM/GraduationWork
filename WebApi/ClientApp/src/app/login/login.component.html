@@ -16,14 +16,14 @@
                 <label >Електронна адреса</label>
                 <input class="form-control form-control-md" id="Email" formControlName="Email"
                     [ngClass]="{'invalid-input': loginForm.get('Email')?.invalid && loginForm.get('Email')?.touched}">
-                <label class="text-danger" *ngIf="loginForm.get('Email')?.touched && loginForm.get('Email')?.errors?.['required']">Уведіть електронну адресу</label>
-                <label class="text-danger" *ngIf="loginForm.get('Email')?.touched && loginForm.get('Email')?.errors?.['email']">Уведіть коректну електронну адресу</label>
+                <label class="text-danger" *ngIf="loginForm.get('Email')?.touched && loginForm.get('Email')?.errors?.['required']">Введіть електронну адресу</label>
+                <label class="text-danger" *ngIf="loginForm.get('Email')?.touched && loginForm.get('Email')?.errors?.['email']">Введіть коректну електронну адресу</label>
             </div>
             <div class="form-control-group">
                 <label>Пароль</label>
                 <input type="password" class="form-control form-control-md" formControlName="Password"
                 [ngClass]="{'invalid-input': loginForm.get('Password')?.invalid && loginForm.get('Password')?.touched}">
-                <label class="text-danger" *ngIf="loginForm.get('Password')?.touched && loginForm.get('Password')?.errors?.['required']">Уведіть пароль</label>
+                <label class="text-danger" *ngIf="loginForm.get('Password')?.touched && loginForm.get('Password')?.errors?.['required']">Введіть пароль</label>
             </div>
             <div class="form-row">
                 <button type="submit" class="button" [disabled]="!loginForm.valid">

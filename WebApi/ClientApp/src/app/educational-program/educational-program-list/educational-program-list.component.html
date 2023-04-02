@@ -1,0 +1,42 @@
+<ng-container *ngIf="educationalPrograms.length">
+    <div class="row" style="justify-content: space-between;">
+        <div class="col-md-5 content-center-vertical font-bold text-5xl">Освітні програми</div>
+        <ng-container *ngIf="account.isAuthenticated() && account?.person?.isAdmin">
+            <div class="col-md-3 content-right">
+                <button class="button-darkBlue" [routerLink]="['/educational-program-create']">Створити освітню програму</button>
+            </div>
+        </ng-container>
+    </div>
+    <div class="data-container grid-pagination" style="height: 530px">
+        <ng-container *ngIf="!searchededucationalPrograms.length">
+            <div class="grid-text-empty row-label">Освітні програми відсутні</div>
+        </ng-container>
+        <div class="grid">
+            <div>Назва</div>
+            <div>Університет</div>
+            <div>Спеціальність</div>
+            <div>Освітній рівень</div>
+            <input placeholder="Назва" [(ngModel)]="searchName" class="form-control form-control-md" type="text" (input)="search()">
+            <input placeholder="Університет" [(ngModel)]="searchUniversity" class="form-control form-control-md" type="text" (input)="search()">
+            <input placeholder="Спеціальність" [(ngModel)]="searchSpecialization" class="form-control form-control-md" type="text" (input)="search()">
+            <input placeholder="Освітній рівень" [(ngModel)]="searchEducationalProgramsType" class="form-control form-control-md" type="text" (input)="search()">
+            <ng-container *ngFor="let model of searchededucationalPrograms | paginate:{
+                    itemsPerPage: tableSize,
+                    currentPage: page,
+                    totalItems: searchededucationalPrograms.length
+                }; let index = index">
+                <div class="grid-fied-container">
+                    <a class="grid-link" [routerLink]="['/educational-program', model.id]">
+                        {{model.name}}
+                    </a>
+                </div>
+                <div class="grid-fied-container">{{model.universityName}}</div>
+                <div class="grid-fied-container">{{model.specializationName}}</div>
+                <div class="grid-fied-container">{{model.educationalProgramsTypeName}}</div>
+            </ng-container>
+        </div>
+        <div class="pagination-container">
+            <pagination-controls previousLabel = "" nextLabel="" (pageChange)="onTableDataChange($event)"></pagination-controls>
+        </div>
+    </div>
+</ng-container>

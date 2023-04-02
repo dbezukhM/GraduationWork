@@ -276,8 +276,7 @@
     border: 1px solid #ced4da;
     border-radius: 5px;
 }
-
-.link-container {
+.grid-fied-container{
     overflow: hidden; 
     white-space: nowrap; 
     text-overflow: ellipsis;
@@ -315,4 +314,54 @@
 }
 .relative{
     position: relative;
+}
+.capitalize:first-letter {
+    text-transform: capitalize
+}
+
+.grid-pagination {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.pagination-container{
+    display: flex;
+    justify-content: center;
+}
+
+.current{
+    background: #EEF0FB !important;
+    color: #526ED3 !important;
+    font-style: normal !important;
+    border-radius: 6px !important;
+    padding: 6px 12px !important;
+}
+
+li .ng-star-inserted {
+    font-style: normal !important;
+    color: #526ED3 !important;
+    text-decoration: inherit;
+    font-weight: 700 !important;
+    font-size: 14px !important;
+}
+pagination-template .ng-star-inserted{
+    margin: 0 1px !important;
+}
+.ngx-pagination .pagination-next a:after, .ngx-pagination .pagination-next.disabled:after{
+    margin-left: 0 !important;
+}
+.ngx-pagination .pagination-previous a:before, .ngx-pagination .pagination-previous.disabled:before{
+    margin-right: 0 !important;
+}
+.ngx-pagination a{
+    margin: 0 !important;
+}
+.ngx-pagination a:hover{
+ background-color: #e3e7f9 !important;
+ border-radius: 6px !important;
+ padding: 6px 12px !important;
+}
+ul {
+    padding-left: 0 !important;
 }

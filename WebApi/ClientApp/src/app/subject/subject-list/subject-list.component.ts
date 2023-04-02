@@ -22,6 +22,12 @@ export class SubjectListComponent implements OnInit {
   searchEducationalProgram: string =''
   searchSelectiveBlock: string =''
 
+  page: number = 1;
+  tableSize: number = 7;
+  onTableDataChange(event: any){
+    this.page = event
+  }
+
   ngOnInit(): void {
     this.account.loadPerson()
     this.subjectService.getAll().subscribe({

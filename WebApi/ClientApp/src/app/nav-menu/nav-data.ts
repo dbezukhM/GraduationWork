@@ -5,6 +5,11 @@ export const navbarData = [
         label: 'Дисципліни'
     },
     {
+        routeLink: 'educational-programs',
+        icon: 'cil-education',
+        label: 'Освітні програми'
+    },
+    {
         routeLink: 'working-programs',
         icon: 'file-text',
         label: 'Робочі програми'
@@ -50,5 +55,9 @@ export const iconsToLoad = [
     {
         iconName: 'people',
         iconPath: '../assets/svg/people.svg'
+    },
+    {
+        iconName: 'cil-education',
+        iconPath: '../assets/svg/cil-education.svg'
     }
 ]

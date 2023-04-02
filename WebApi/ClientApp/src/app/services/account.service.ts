@@ -6,6 +6,7 @@ import { ApiResponse } from '../models/api-response.model';
 import { AuthenticatedResponse } from '../models/authenticated-response.model';
 import { ChangePassword } from '../models/change-password.model';
 import { Person } from '../models/person.model';
+import { PersonCreate } from '../models/person-create.model';
 
 @Injectable({
   providedIn: 'root'
@@ -26,7 +27,7 @@ export class AccountService {
     return this.httpClient.post(environment.baseUrl + 'api/Account/LogOut', null);
   }
 
-  getPersonById(id: Guid) {
+  getPersonById(id: string) {
     return this.httpClient.get<ApiResponse<Person>>(environment.baseUrl + `api/Account/${id}`);
   }
 
@@ -44,5 +45,9 @@ export class AccountService {
 
   getAll() {
     return this.httpClient.get<ApiResponse<Person[]>>(environment.baseUrl + 'api/Account/persons')
+  }
+
+  createPerson(model: PersonCreate){
+    return this.httpClient.post<ApiResponse<Guid>>(environment.baseUrl + "api/Account", model)
   }
 }

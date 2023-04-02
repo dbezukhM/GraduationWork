@@ -10,4 +10,5 @@ export interface Person {
     isAdmin: boolean;
     workingProgramsAuthor: IdNameModel[];
     workingProgramsApprover: IdNameModel[];
+    fullName: string;
 }
