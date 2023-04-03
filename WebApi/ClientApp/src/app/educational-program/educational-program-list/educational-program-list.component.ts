@@ -39,6 +39,7 @@ export class EducationalProgramListComponent implements OnInit {
     })
   }
   search(){
+    this.page = 1
     this.searchededucationalPrograms = this.educationalPrograms
     if(this.searchName != ''){
       this.searchededucationalPrograms = this.searchededucationalPrograms.filter((val) =>

@@ -16,6 +16,8 @@ namespace BLL.Models
 
         public bool IsAdmin { get; set; }
 
+        public IEnumerable<string> Roles { get; set; }
+
         public IEnumerable<IdNameModel<Guid>> WorkingProgramsAuthor { get; set; }
 
         public IEnumerable<IdNameModel<Guid>> WorkingProgramsApprover { get; set; }

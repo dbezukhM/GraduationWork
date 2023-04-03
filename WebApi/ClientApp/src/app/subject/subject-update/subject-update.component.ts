@@ -44,7 +44,12 @@ export class SubjectUpdateComponent implements OnInit {
   }
 
   back(){
-    this.navigationRouter.navigate([`/subject/${this.subject.id}`])
+    this.confirmationDialogService.confirm('Скасувати зміни?')
+    .then((confirmed) => {
+      if(confirmed){
+        this.navigationRouter.navigate([`/subject/${this.subject.id}`])
+      }
+    }).catch(() => console.log('outside the dialog'))
   }
 
   initializeFields(){
@@ -62,7 +67,7 @@ export class SubjectUpdateComponent implements OnInit {
       }
     })
   }
-
+  
   mapModels(model: SubjectDetails){
     this.updateModel.name = this.subject.name
     this.updateModel.credits = this.subject.credits

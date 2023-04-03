@@ -31,7 +31,7 @@ namespace DAL.DatabaseInitializers
                 new University
                 {
                     Id = Guid.Parse("D7878FAF-66CC-4808-B3F1-69E57D1BF014"),
-                    Name = "Київський національний університет імені тараса шевченка",
+                    Name = "Київський національний університет імені Тараса Шевченка",
                 });
         }
 

@@ -5,6 +5,7 @@ import { HotToastService } from '@ngneat/hot-toast';
 import { AccountComponent } from 'src/app/account/account.component';
 import { ApiResponse } from 'src/app/models/api-response.model';
 import { WorkingProgramDetails } from 'src/app/models/working-program-details.model';
+import { ConfirmationDialogService } from 'src/app/services/confirmation-dialog.service';
 import { WorkingProgramService } from 'src/app/services/working-program.service';
 
 @Component({
@@ -15,7 +16,7 @@ import { WorkingProgramService } from 'src/app/services/working-program.service'
 export class WorkingProgramDetailsComponent implements OnInit {
 
   constructor(private activateRouter: ActivatedRoute, private service: WorkingProgramService, public account: AccountComponent,
-    private toastService: HotToastService, private router: Router) { }
+    private toastService: HotToastService, private router: Router, private confirmationDialogService: ConfirmationDialogService) { }
 
   model: WorkingProgramDetails
 
@@ -54,24 +55,29 @@ export class WorkingProgramDetailsComponent implements OnInit {
     })
   }
   delete(){
-    this.service.delete(this.model.id)
-    .pipe(
-      this.toastService.observe(
-        {
-          loading: 'Видалення робочої програми',
-          success: 'Видалення успішне',
-          error: 'Помилка видалення, спробуйте пізніше',
-        }
-      )
-    )
-    .subscribe({
-      next: async () => {
-        await new Promise(f => setTimeout(f, 1000));
-        this.router.navigate(['/working-programs'])
-      },
-      error: () => {
+    this.confirmationDialogService.confirm('Видалити робочу програму?')
+    .then((confirmed) => {
+      if(confirmed){
+        this.service.delete(this.model.id)
+        .pipe(
+          this.toastService.observe(
+            {
+              loading: 'Видалення робочої програми',
+              success: 'Видалення успішне',
+              error: 'Помилка видалення, спробуйте пізніше',
+            }
+          )
+        )
+        .subscribe({
+          next: async () => {
+            await new Promise(f => setTimeout(f, 1000));
+            this.router.navigate(['/working-programs'])
+          },
+          error: () => {
+          }
+        })
       }
-    })
+    }).catch(() => console.log('outside the dialog'))
   }
 
   approve(){

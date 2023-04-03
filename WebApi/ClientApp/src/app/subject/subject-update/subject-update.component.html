@@ -21,7 +21,7 @@
                         <mat-icon svgIcon="exclamation-circle-red" class=""></mat-icon>
                     </div>
                     <div class="error-text">
-                        Дисципліна з такою назвою вже існує, спробуйте знову
+                        В рамках даної освітньої програми, дисципліна з такою назвою вже існує, спробуйте іншу
                     </div>
                 </div>
             </ng-container>
@@ -35,6 +35,12 @@
                         <div class="col-md-6 row-label">Форма заключного контролю</div>
                         <select class="form-select" [(ngModel)]="updateModel.finalControlTypeId">
                             <option *ngFor="let item of finalControlTypes" value="{{item.id}}">{{item.name}}</option>
+                        </select>            
+                    </div>
+                    <div class="flex-padding15">
+                        <div class="col-md-6 row-label">Освітня програма</div>
+                        <select class="form-select" disabled>
+                            <option>{{subject.educationalProgram.name}}</option>
                         </select>            
                     </div>
                     <div class="flex-padding15 row-odd">

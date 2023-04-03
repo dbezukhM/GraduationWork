@@ -2,11 +2,13 @@
     <div class="grid2-main-title">
         <div class="content-center-vertical font-bold text-5xl">{{subject.name}}</div>
         <div class="content-right">
-            <ng-container *ngIf="account.isAuthenticated() && account?.person?.isAdmin">
-                <div class="content-right">
-                    <button class="button-lightBlue" (click)="downLoad()">Шаблон робочої програми</button>
-                </div>
-                <ng-container *ngIf="account?.person?.isAdmin">
+            <ng-container *ngIf="account.isAuthenticated()">
+                <ng-container *ngIf="account.isLecturerP">
+                    <div class="content-right">
+                        <button class="button-lightBlue" (click)="downLoad()">Шаблон робочої програми</button>
+                    </div>
+                </ng-container>
+                <ng-container *ngIf="account.isMethodistP">
                     <div class="content-right" style="margin-left: 10px;">
                         <button class="button-lightBlue" [routerLink]="['/subject-update', subject.id]">Редагувати</button>
                     </div>

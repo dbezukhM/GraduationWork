@@ -1,7 +1,7 @@
 <ng-container *ngIf="users.length">
     <div class="row" style="justify-content: space-between;">
         <div class="col-md-5 content-center-vertical font-bold text-5xl">Користувачі системи</div>
-        <ng-container *ngIf="account.isAuthenticated() && account?.person?.isAdmin">
+        <ng-container *ngIf="account.isAuthenticated() && account.isAdminP">
             <div class="col-md-3 content-right">
                 <button class="button-darkBlue" (click)="openForm()">Створити нового користувача</button>
             </div>
@@ -46,7 +46,7 @@
                             <mat-icon svgIcon="exclamation-circle-red"></mat-icon>
                         </div>
                         <div class="error-text">
-                            Користувач з такою електонною поштою вже існує, спробуйте знову
+                            Користувач з такою електонною поштою вже існує, спробуйте іншу
                         </div>
                     </div>
                 </ng-container>
@@ -57,6 +57,7 @@
                     <div class="col-md-7 row-text">
                         <input type="text" class="form-control form-control-md" formControlName="email" [ngClass]="{'invalid-input': createForm.get('email')?.invalid && createForm.get('email')?.touched}">
                         <label class="text-danger" *ngIf="createForm.get('email')?.touched && createForm.get('email')?.errors?.['required']">Введіть електронну пошту</label>
+                        <label class="text-danger" *ngIf="createForm.get('email')?.touched && createForm.get('email')?.errors?.['email']">Введіть коректну адресу електронної пошти</label>
                     </div>
                 </div>
                 <div class="row padding75rem">

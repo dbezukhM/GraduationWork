@@ -8,6 +8,7 @@ import { AccountComponent } from 'src/app/account/account.component';
 import { ApiResponse, ServerError } from 'src/app/models/api-response.model';
 import { IdNameModel } from 'src/app/models/id-name-model.model';
 import { WorkingProgram } from 'src/app/models/working-program.model';
+import { ConfirmationDialogService } from 'src/app/services/confirmation-dialog.service';
 import { LookupService } from 'src/app/services/lookup.service';
 import { WorkingProgramService } from 'src/app/services/working-program.service';
 
@@ -37,7 +38,8 @@ export class WorkingProgramListComponent implements OnInit {
   }
   
   constructor(private service: WorkingProgramService, public account: AccountComponent, private lookup: LookupService,
-    private formBuilder: FormBuilder, private toastService: HotToastService, private router: Router) { }
+    private formBuilder: FormBuilder, private toastService: HotToastService, private router: Router,
+    private confirmationDialogService: ConfirmationDialogService) { }
 
   ngOnInit(): void {
     this.account.loadPerson()
@@ -68,6 +70,7 @@ export class WorkingProgramListComponent implements OnInit {
   }
 
   search(){
+    this.page = 1
     this.searchedworkingPrograms = this.workingPrograms
     if(this.searchName != ''){
       this.searchedworkingPrograms = this.searchedworkingPrograms.filter((val) =>
@@ -88,7 +91,12 @@ export class WorkingProgramListComponent implements OnInit {
     this.createFormOpened = !this.createFormOpened
   }
   closeForm(){
-    this.createFormOpened = !this.createFormOpened
+    this.confirmationDialogService.confirm('Скасувати зміни?')
+    .then((confirmed) => {
+      if(confirmed){
+        this.createFormOpened = !this.createFormOpened
+      }
+    }).catch(() => console.log('outside the dialog'))
   }
   uploadFile = (files: FileList) => {
     this.file = <File>files[0];

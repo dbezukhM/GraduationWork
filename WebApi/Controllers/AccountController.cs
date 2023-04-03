@@ -32,7 +32,7 @@ namespace WebApi.Controllers
         }
 
         [HttpPost("LogOut")]
-        [Authorize(Roles = "Admin, Lecturer")]
+        [Authorize]
         public async Task<ActionResult> LogOut()
         {
             await _accountService.LogOut();
@@ -41,7 +41,7 @@ namespace WebApi.Controllers
 
 
         [HttpGet("{id}")]
-        [Authorize(Roles = "Admin, Lecturer")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetByIdAsync(Guid id)
         {
             var result = await _accountService.GetByIdAsync(id);
@@ -50,7 +50,7 @@ namespace WebApi.Controllers
         }
 
         [HttpGet("getByEmail/{email}")]
-        [Authorize(Roles = "Admin, Lecturer")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetByEmailAsync(string email)
         {
             var result = await _accountService.GetByEmailAsync(email);
@@ -59,7 +59,7 @@ namespace WebApi.Controllers
         }
 
         [HttpGet("getAuthorized")]
-        [Authorize(Roles = "Admin, Lecturer")]
+        [Authorize(Roles = "Admin, Lecturer, Methodist")]
         public async Task<IActionResult> GetAuthorizedAsync()
         {
             var result = await _accountService.GetByEmailAsync(User.FindFirst(ClaimTypes.Name)?.Value);

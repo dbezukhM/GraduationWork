@@ -17,14 +17,14 @@
             <div class="content-right">
                 <button class="button-lightBlue" (click)="downLoad()">Завантажити файл робочої програми</button>
             </div>
-            <ng-container *ngIf="account.isAuthenticated() && (account?.person?.isAdmin || model.createdByName == account.person.fullName)">
+            <ng-container *ngIf="account.isAuthenticated() && account.isMethodistP">
                 <div class="content-right" style="margin-left: 10px;">
                     <button class="button-delete" (click)="delete()">Видалити</button>
                 </div>
             </ng-container>
         </div>
     </div>
-    <ng-container *ngIf="account.isAuthenticated() && !model.isAvailable && model.createdByName != account.person.fullName">
+    <ng-container *ngIf="account.isAuthenticated() && !model.isAvailable && account.isMethodistP">
         <div class="content-right">
             <button class="button-confirm" (click)="approve()">Підтвердити робочу програму</button>
         </div>

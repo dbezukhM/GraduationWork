@@ -8,16 +8,16 @@
                         <mat-icon svgIcon="exclamation-circle-red" class=""></mat-icon>
                     </div>
                     <div class="error-text">
-                        Невірна електронна адреса та пароль, спробуйте знову
+                        Невірна електронна пошта та пароль, спробуйте знову
                     </div>
                 </div>
             </ng-container>
             <div class="form-control-group">
-                <label >Електронна адреса</label>
+                <label >Електронна пошта</label>
                 <input class="form-control form-control-md" id="Email" formControlName="Email"
                     [ngClass]="{'invalid-input': loginForm.get('Email')?.invalid && loginForm.get('Email')?.touched}">
-                <label class="text-danger" *ngIf="loginForm.get('Email')?.touched && loginForm.get('Email')?.errors?.['required']">Введіть електронну адресу</label>
-                <label class="text-danger" *ngIf="loginForm.get('Email')?.touched && loginForm.get('Email')?.errors?.['email']">Введіть коректну електронну адресу</label>
+                <label class="text-danger" *ngIf="loginForm.get('Email')?.touched && loginForm.get('Email')?.errors?.['required']">Введіть електронну пошту</label>
+                <label class="text-danger" *ngIf="loginForm.get('Email')?.touched && loginForm.get('Email')?.errors?.['email']">Введіть коректну адресу електронної пошти</label>
             </div>
             <div class="form-control-group">
                 <label>Пароль</label>

@@ -129,8 +129,8 @@ namespace BLL.Services
             {
                 return Result.NotFound<PersonGetModel>(BlErrors.NotFound(personId));
             }
-
             var result = _mapper.Map<PersonGetModel>(person);
+            result.Roles = await _userManager.GetRolesAsync(person);
 
             return Result.Success(result);
         }
@@ -146,6 +146,7 @@ namespace BLL.Services
             }
 
             var result = _mapper.Map<PersonGetModel>(person);
+            result.Roles = await _userManager.GetRolesAsync(person);
 
             return Result.Success(result);
         }

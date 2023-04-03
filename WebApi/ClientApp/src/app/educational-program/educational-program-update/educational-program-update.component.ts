@@ -8,6 +8,7 @@ import { ApiResponse, ServerError } from 'src/app/models/api-response.model';
 import { EducationalProgramDetails } from 'src/app/models/educational-program-details.model';
 import { EducationalProgramUpdate } from 'src/app/models/educational-program-update.model';
 import { IdNameModel } from 'src/app/models/id-name-model.model';
+import { ConfirmationDialogService } from 'src/app/services/confirmation-dialog.service';
 import { EducationalProgramService } from 'src/app/services/educational-program.service';
 import { LookupService } from 'src/app/services/lookup.service';
 
@@ -19,7 +20,8 @@ import { LookupService } from 'src/app/services/lookup.service';
 export class EducationalProgramUpdateComponent implements OnInit {
 
   constructor(private activatedRouter: ActivatedRoute, private service: EducationalProgramService, private lookUp: LookupService,
-    private formBuilder: FormBuilder, private router: Router, private toastService: HotToastService) { }
+    private formBuilder: FormBuilder, private router: Router, private toastService: HotToastService,
+    private confirmationDialogService: ConfirmationDialogService) { }
 
   educationalProgram: EducationalProgramDetails;
   educationalProgramUpdate: EducationalProgramUpdate = {} as EducationalProgramUpdate
@@ -156,7 +158,12 @@ export class EducationalProgramUpdateComponent implements OnInit {
   }
 
   back(){
-    this.router.navigate([`educational-program/${this.educationalProgram.id}`])
+    this.confirmationDialogService.confirm('Скасувати зміни?')
+    .then((confirmed) => {
+      if(confirmed){
+        this.router.navigate([`educational-program/${this.educationalProgram.id}`])
+      }
+    }).catch(() => console.log('outside the dialog'))
   }
 
   capitalize(input: string) {

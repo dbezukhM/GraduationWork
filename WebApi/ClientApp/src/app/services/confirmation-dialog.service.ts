@@ -8,10 +8,10 @@ export class ConfirmationDialogService {
   constructor(private modalService: NgbModal) { }
 
   public confirm(
-    title: string,
     message: string,
-    btnOkText: string = 'OK',
-    btnCancelText: string = 'Cancel',
+    title: string = 'Підтвердження дії',
+    btnOkText: string = 'Так',
+    btnCancelText: string = 'Ні',
     dialogSize: 'sm'|'lg' = 'sm'): Promise<boolean> {
     const modalRef = this.modalService.open(ConfirmationDialogComponent, { size: dialogSize });
     modalRef.componentInstance.title = title;

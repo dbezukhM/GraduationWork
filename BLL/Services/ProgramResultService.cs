@@ -31,6 +31,7 @@ namespace BLL.Services
         {
             var programResults = await _programResultRepository.GetAllAsync(
                 r => r.EducationalProgram,
+                r => r.EducationalProgram.EducationalProgramsType,
                 r => r.SubjectProgramResults);
             var subjects = await _subjectRepository.GetAllAsync();
             var result = _mapper.Map<IEnumerable<ProgramResultGetModel>>(programResults);

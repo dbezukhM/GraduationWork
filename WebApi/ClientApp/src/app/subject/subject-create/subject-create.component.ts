@@ -7,6 +7,7 @@ import { Guid } from 'guid-typescript';
 import { ApiResponse, ServerError } from 'src/app/models/api-response.model';
 import { IdNameModel } from 'src/app/models/id-name-model.model';
 import { SubjectCreate } from 'src/app/models/subject-create.model';
+import { ConfirmationDialogService } from 'src/app/services/confirmation-dialog.service';
 import { LookupService } from 'src/app/services/lookup.service';
 import { SubjectService } from 'src/app/services/subject.service';
 
@@ -18,7 +19,7 @@ import { SubjectService } from 'src/app/services/subject.service';
 export class SubjectCreateComponent implements OnInit {
 
   constructor(private service: SubjectService, private lookUp: LookupService, private formBuilder: FormBuilder,
-    private router: Router, private toastService: HotToastService) { }
+    private router: Router, private toastService: HotToastService, private confirmationDialogService: ConfirmationDialogService) { }
 
   createForm: FormGroup;
   createModel: SubjectCreate = {} as SubjectCreate
@@ -47,7 +48,12 @@ export class SubjectCreateComponent implements OnInit {
   }
 
   back(){
-    this.router.navigate([`/subjects`])
+    this.confirmationDialogService.confirm('Скасувати зміни?')
+    .then((confirmed) => {
+      if(confirmed){
+        this.router.navigate([`/subjects`])
+      }
+    }).catch(() => console.log('outside the dialog'))
   }
 
   submit(){

@@ -2,12 +2,10 @@
     <div class="grid2-main-title">
         <div class="content-center-vertical font-bold text-5xl">{{educationalProgram.name}}</div>
         <div class="content-right">
-            <ng-container *ngIf="account.isAuthenticated() && account?.person?.isAdmin">
-                <ng-container *ngIf="account?.person?.isAdmin">
-                    <div class="content-right" style="margin-left: 10px;">
-                        <button class="button-lightBlue" [routerLink]="['/educational-program-update', educationalProgram.id]">Редагувати</button>
-                    </div>
-                </ng-container>
+            <ng-container *ngIf="account.isAuthenticated() && account.isMethodistP">
+                <div class="content-right" style="margin-left: 10px;">
+                    <button class="button-lightBlue" [routerLink]="['/educational-program-update', educationalProgram.id]">Редагувати</button>
+                </div>
             </ng-container>
         </div>
     </div>
@@ -39,36 +37,55 @@
                 </div>
             </div>
         </div>
-        <div class="data-container relative">
-            <div class="label">
-                <div class="innerlabel">Дисципліни</div>
+        <div class="data-container relative grid-pagination">
+            <div>
+                <div class="label">
+                    <div class="innerlabel">Дисципліни</div>
+                </div>
+                <div style="padding-top: 10px;">
+                    <ng-container *ngIf="educationalProgram.subjects.length">
+                        <div *ngFor="let item of educationalProgram.subjects| paginate:{
+                            itemsPerPage: tableSize,
+                            currentPage: page,
+                            totalItems: educationalProgram.subjects.length
+                        }; let index = index"
+                        [ngClass]="{'row-odd': 0 === index % 2}" style="padding: 12px;">
+                            <a class="grid-link" [routerLink]="['/subject', item.id]">
+                                {{item.name}}
+                            </a>        
+                        </div>
+                    </ng-container>
+                    <ng-container *ngIf="!educationalProgram.subjects.length">
+                        <div class="grid-text-empty row-label">
+                            Дисципліни відсутні
+                        </div>
+                    </ng-container>
+                </div>
             </div>
-            <div style="padding-top: 10px;">
-                <ng-container *ngIf="educationalProgram.subjects.length">
-                    <div *ngFor="let item of educationalProgram.subjects; let index = index"
-                    [ngClass]="{'row-odd': 0 === index % 2}" style="padding: 12px;">
-                        <a class="grid-link" [routerLink]="['/subject', item.id]">
-                            {{item.name}}
-                        </a>        
-                    </div>
-                </ng-container>
-                <ng-container *ngIf="!educationalProgram.subjects.length">
-                    <div class="grid-text-empty row-label">
-                        Дисципліни відсутні
-                    </div>
-                </ng-container>
+            <div class="pagination-container" *ngIf="educationalProgram.subjects.length">
+                <pagination-controls previousLabel = "" nextLabel="" (pageChange)="onTableDataChange($event)"></pagination-controls>
             </div>
         </div>
     </div>
     <div class="data-container">
-        <div class="label">
-            <div class="innerlabel">Компетентності</div>
+        <div class="flex-space-between">
+            <div class="label">
+                <div class="innerlabel">Компетентності</div>
+            </div>
+            <ng-container *ngIf="account.isAuthenticated() && account.isMethodistP">
+                <div>
+                    <button class="button-darkBlue" (click)="compFormOpen()">Створити компетентність</button>
+                </div>
+            </ng-container>
         </div>
         <div class="marging-top30">
             <ng-container *ngFor="let comp of educationalProgram.competences; let index = index">
                 <div class="flex-padding15 row-odd" [ngClass]="{'row-odd': 0 === index % 2}">
                     <div class="col-md-2 row-label">{{comp.name}}</div>
-                    <div class="col-md-10 row-text">{{comp.description}}</div>
+                    <div class="col-md-9 row-text">{{comp.description}}</div>
+                    <ng-container *ngIf="account.isAuthenticated() && account.isMethodistP">
+                        <div class="col-md-1 flex-center-absolute" (click)="deleteComp(comp)"><mat-icon svgIcon="trash-red"></mat-icon></div>
+                    </ng-container>
                 </div>
             </ng-container>
             <ng-container *ngIf="!educationalProgram.competences.length">
@@ -77,14 +94,24 @@
         </div>
     </div>
     <div class="data-container" style="margin-bottom: 10px;">
-        <div class="label">
-            <div class="innerlabel">Програмні результати навчання</div>
+        <div class="flex-space-between">
+            <div class="label">
+                <div class="innerlabel">Програмні результати навчання</div>
+            </div>
+            <ng-container *ngIf="account.isAuthenticated() && account.isMethodistP">
+                <div>
+                    <button class="button-darkBlue" (click)="prFormOpen()">Створити програмний результат</button>
+                </div>
+            </ng-container>
         </div>
         <div class="marging-top30">
             <ng-container *ngFor="let res of educationalProgram.programResults; let index = index">
                 <div class="flex-padding15 row-odd" [ngClass]="{'row-odd': 0 === index % 2}">
                     <div class="col-md-2 row-label">{{res.name}}</div>
-                    <div class="col-md-10 row-text">{{res.description}}</div>
+                    <div class="col-md-9 row-text">{{res.description}}</div>
+                    <ng-container *ngIf="account.isAuthenticated() && account.isMethodistP">
+                        <div class="col-md-1 flex-center-absolute" (click)="deletePR(res)"><mat-icon svgIcon="trash-red"></mat-icon></div>
+                    </ng-container>
                 </div>
             </ng-container>
             <ng-container *ngIf="!educationalProgram.programResults.length">
@@ -93,3 +120,89 @@
         </div>
     </div>
 </ng-container>
+<div class="popUpFormBackGround" [ngClass]="{'show': compFormCreateOpened}">
+    <div class="popUpForm">
+        <div class="main-title">Створення робочої програми</div>
+        <form [formGroup]="createCompForm" autocomplete="off" (submit)="createComp()" class="marging-top30">
+            <ng-container *ngIf="errorComp">
+                <div class="error-container margin-bottom10">
+                    <div class="error-icon-container">
+                        <mat-icon svgIcon="exclamation-circle-red"></mat-icon>
+                    </div>
+                    <div class="error-text">
+                        Компетентність з такою назвою в даній освітній програмі вже існує, спробуйте іншу
+                    </div>
+                </div>
+            </ng-container>
+            <div class="row row-odd padding75rem">
+                <div class="col-md-5 row-label ">
+                    Назва
+                </div>
+                <div class="col-md-7 row-text">
+                    <input type="text" class="form-control form-control-md" formControlName="name">
+                </div>
+            </div>
+            <div class="row padding75rem">
+                <div class="col-md-5 row-label">
+                    Опис
+                </div>
+                <div class="col-md-7 row-text">
+                    <textarea type="text" rows="4" class="form-control form-control-md" formControlName="description"></textarea>
+                </div>
+            </div>
+            <div class="marging-top30" style="float: right; display: flex;">
+                <button type="button" (click)="compFormClose()" class="button-lightBlue margin-right20">
+                    Повернутись
+                </button>
+                <button type="submit" class="button-darkBlue" [disabled]="!createCompForm.valid">
+                    <span class="button-text">
+                        Створити
+                    </span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="popUpFormBackGround" [ngClass]="{'show': prFormCreateOpened}">
+    <div class="popUpForm">
+        <div class="main-title">Створення програмного результату</div>
+        <form [formGroup]="createPRForm" autocomplete="off" (submit)="createPR()" class="marging-top30">
+            <ng-container *ngIf="errorPR">
+                <div class="error-container margin-bottom10">
+                    <div class="error-icon-container">
+                        <mat-icon svgIcon="exclamation-circle-red"></mat-icon>
+                    </div>
+                    <div class="error-text">
+                        Програмний результат з такою назвою в даній освітній програмі вже існує, спробуйте іншу
+                    </div>
+                </div>
+            </ng-container>
+            <div class="row row-odd padding75rem">
+                <div class="col-md-5 row-label ">
+                    Назва
+                </div>
+                <div class="col-md-7 row-text">
+                    <input type="text" class="form-control form-control-md" formControlName="name">
+                </div>
+            </div>
+            <div class="row padding75rem">
+                <div class="col-md-5 row-label">
+                    Опис
+                </div>
+                <div class="col-md-7 row-text">
+                    <textarea type="text" rows="4" class="form-control form-control-md" formControlName="description"></textarea>
+                </div>
+            </div>
+            <div class="marging-top30" style="float: right; display: flex;">
+                <button type="button" (click)="prFormClose()" class="button-lightBlue margin-right20">
+                    Повернутись
+                </button>
+                <button type="submit" class="button-darkBlue" [disabled]="!createPRForm.valid">
+                    <span class="button-text">
+                        Створити
+                    </span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

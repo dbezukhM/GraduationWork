@@ -11,4 +11,5 @@ export interface Person {
     workingProgramsAuthor: IdNameModel[];
     workingProgramsApprover: IdNameModel[];
     fullName: string;
+    roles: string[]
 }

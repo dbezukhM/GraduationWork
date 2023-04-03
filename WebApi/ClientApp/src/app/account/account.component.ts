@@ -23,6 +23,9 @@ export class AccountComponent implements OnInit {
   changePasswordForm: FormGroup;
   error: ServerError | null;
   req: ChangePassword = {} as ChangePassword;
+  isAdminP: boolean = false;
+  isMethodistP: boolean = false;
+  isLecturerP: boolean = false;
 
   pageAut: number = 1;
   pageApprover: number = 1;
@@ -127,6 +130,15 @@ export class AccountComponent implements OnInit {
       next: (response: ApiResponse<Person>) => {
         this.person = response.result
         this.person.fullName = `${this.person.firstName} ${this.person.lastName}`
+        if(this.person.roles.includes("Admin")){
+          this.isAdminP = true;
+        }
+        if(this.person.roles.includes("Lecturer")){
+          this.isLecturerP = true;
+        }
+        if(this.person.roles.includes("Methodist")){
+          this.isMethodistP = true;
+        }
       }
     });
   }
@@ -134,6 +146,9 @@ export class AccountComponent implements OnInit {
   logOut(){
     this.accountService.logOut().subscribe({
       next: () => {
+        this.isAdminP = false
+        this.isLecturerP = false
+        this.isMethodistP = false
         localStorage.removeItem('token');
         this.router.navigate(['/'])
       }

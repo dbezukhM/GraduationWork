@@ -41,6 +41,7 @@ public class SubjectService : ISubjectService
     {
         var subjects = await _subjectRepository.GetAllAsync(
             s => s.EducationalProgram,
+            s => s.EducationalProgram.EducationalProgramsType,
             s => s.SelectiveBlock);
         var result = _mapper.Map<IEnumerable<SubjectModel>>(subjects);
 

@@ -59,5 +59,9 @@ export const iconsToLoad = [
     {
         iconName: 'cil-education',
         iconPath: '../assets/svg/cil-education.svg'
+    },
+    {
+        iconName: 'x',
+        iconPath: '../assets/svg/x.svg'
     }
 ]

@@ -9,6 +9,7 @@ import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@ang
 import { PersonCreate } from '../models/person-create.model';
 import { Guid } from 'guid-typescript';
 import { HttpErrorResponse } from '@angular/common/http';
+import { ConfirmationDialogService } from '../services/confirmation-dialog.service';
 
 @Component({
   selector: 'app-person-list',
@@ -18,7 +19,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 export class PersonListComponent implements OnInit {
 
   constructor(private service: AccountService, public account: AccountComponent, private router: Router,
-    private toastService: HotToastService, private formBuilder: FormBuilder) { }
+    private toastService: HotToastService, private formBuilder: FormBuilder, private confirmationDialogService: ConfirmationDialogService) { }
   users: Person[] = []
   searchedUsers: Person[] = []
   searchEmail = ''
@@ -27,7 +28,8 @@ export class PersonListComponent implements OnInit {
   formOpened: boolean = false;
   rolesNames: Array<any> = [
     {name: "Admin", value: "Адміністратор"},
-    {name: "Lecturer", value: "Викладач"}
+    {name: "Lecturer", value: "Викладач"},
+    {name: "Methodist", value: "Методист"}
   ]
   createForm: FormGroup
   error: ServerError | null;
@@ -40,9 +42,10 @@ export class PersonListComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.account.loadPerson()
     this.loadData()
     this.createForm = this.formBuilder.group({
-      email: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       roles: this.formBuilder.array([], [Validators.required]),
@@ -77,6 +80,7 @@ export class PersonListComponent implements OnInit {
   }
 
   search(){
+    this.page = 1
     this.searchedUsers = this.users
     if(this.searchEmail != ''){
       this.searchedUsers = this.searchedUsers.filter((val) =>
@@ -100,7 +104,12 @@ export class PersonListComponent implements OnInit {
     this.formOpened = !this.formOpened
   }
   closeForm(){
-    this.formOpened = !this.formOpened
+    this.confirmationDialogService.confirm('Скасувати зміни?')
+    .then((confirmed) => {
+      if(confirmed){
+        this.formOpened = !this.formOpened
+      }
+    }).catch(() => console.log('outside the dialog'))
   }
 
   submit(){

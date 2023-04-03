@@ -31,6 +31,7 @@ namespace BLL.Services
         {
             var competences = await _competenceRepository.GetAllAsync(
                 c => c.EducationalProgram,
+                c => c.EducationalProgram.EducationalProgramsType,
                 c => c.SubjectCompetences);
             var subjects = await _subjectRepository.GetAllAsync();
             var result = _mapper.Map<IEnumerable<CompetenceGetModel>>(competences);

@@ -14,6 +14,20 @@ export class PersonDetailsComponent implements OnInit {
 
   constructor(private accountService: AccountService, private router: Router, private activatedRouter: ActivatedRoute) { }
   person: Person;
+  pageAut: number = 1;
+  pageApprover: number = 1;
+  tableSize: number = 5;
+  isAdminP: boolean = false;
+  isMethodistP: boolean = false;
+  isLecturerP: boolean = false;
+
+  onTableAutDataChange(event: any){
+    this.pageAut = event
+  }
+
+  onTableApproverDataChange(event: any){
+    this.pageApprover = event
+  }
 
   ngOnInit(): void {
     const id = this.activatedRouter.snapshot.paramMap.get('id');
@@ -24,6 +38,15 @@ export class PersonDetailsComponent implements OnInit {
     this.accountService.getPersonById(id).subscribe({
       next: (response: ApiResponse<Person>) => {
         this.person = response.result
+        if(this.person.roles.includes("Admin")){
+          this.isAdminP = true;
+        }
+        if(this.person.roles.includes("Lecturer")){
+          this.isLecturerP = true;
+        }
+        if(this.person.roles.includes("Methodist")){
+          this.isMethodistP = true;
+        }
       }
     });
   }

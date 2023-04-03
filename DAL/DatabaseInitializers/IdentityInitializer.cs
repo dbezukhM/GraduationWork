@@ -7,6 +7,7 @@ namespace DAL.DatabaseInitializers
     {
         public const string AdminRoleName = "Admin";
         public const string LecturerRoleName = "Lecturer";
+        public const string MethodistRoleName = "Methodist";
 
         public static async Task InitializeAsync(UserManager<Person> userManager,
             RoleManager<IdentityRole<Guid>> roleManager)
@@ -26,6 +27,11 @@ namespace DAL.DatabaseInitializers
                 await roleManager.CreateAsync(new IdentityRole<Guid>(LecturerRoleName));
             }
 
+            if (await roleManager.FindByNameAsync(MethodistRoleName) == null)
+            {
+                await roleManager.CreateAsync(new IdentityRole<Guid>(MethodistRoleName));
+            }
+
             if (await userManager.FindByNameAsync(adminEmail) == null)
             {
                 var adminUser = new Person
@@ -42,6 +48,7 @@ namespace DAL.DatabaseInitializers
                 {
                     await userManager.AddToRoleAsync(adminUser, AdminRoleName);
                     await userManager.AddToRoleAsync(adminUser, LecturerRoleName);
+                    await userManager.AddToRoleAsync(adminUser, MethodistRoleName);
                 }
             }
         }

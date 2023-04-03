@@ -1,0 +1,23 @@
+.close{
+    border: none;
+    background: none;
+}
+.control-container{
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn {
+    margin: 0 5px;
+}
+.btn-primary {
+    background-color: #526ED3;
+}
+.btn-primary:hover{
+    background-color: #7086d3;
+}
+.btn-primary:active{
+    border: 1px solid #526ED3;
+}

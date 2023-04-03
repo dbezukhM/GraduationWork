@@ -42,7 +42,7 @@ namespace WebApi.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Admin, Lecturer")]
+        [Authorize(Roles = "Lecturer")]
         public async Task<IActionResult> CreateAsync([FromForm] WorkingProgramCreateRequest model)
         {
             var workingProgramModel = Mapper.Map<WorkingProgramCreateModel>(model);
@@ -53,7 +53,7 @@ namespace WebApi.Controllers
         }
 
         [HttpGet("generateTemplate/{subjectId}")]
-        [Authorize(Roles = "Admin, Lecturer")]
+        [Authorize(Roles = "Lecturer")]
         public async Task<IActionResult> GenerateTemplateAsync(Guid subjectId)
         {
             var result = await _fileGenerator.GenerateFile(subjectId);
@@ -80,7 +80,7 @@ namespace WebApi.Controllers
         }
 
         [HttpPut("approve/{id}")]
-        [Authorize(Roles = "Admin, Lecturer")]
+        [Authorize(Roles = "Methodist")]
         public async Task<IActionResult> ApproveWorkingProgramAsync([FromRoute] Guid id)
         {
             var result = await _workingProgramService.ApproveWorkingProgramAsync(id, User.FindFirst(ClaimTypes.Name)?.Value);
@@ -100,7 +100,7 @@ namespace WebApi.Controllers
         }
 
         [HttpDelete("{id}")]
-        [Authorize(Roles = "Admin, Lecturer")]
+        [Authorize(Roles = "Methodist")]
         public async Task<IActionResult> DeleteAsync(Guid id)
         {
             var result = await _workingProgramService.DeleteByIdAsync(id);

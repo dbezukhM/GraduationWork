@@ -46,7 +46,17 @@
                             Роль у системі
                         </div>
                         <div class="col-md-7 row-text">
-                            {{person.isAdmin ? 'Викладач, адміністратор' : 'Викладач'}}
+                            <div class="col-md-7 row-text">
+                                <ng-container *ngIf="isAdminP">
+                                    <div>Адміністратор</div>
+                                </ng-container>
+                                <ng-container *ngIf="isMethodistP">
+                                    <div>Методист</div>
+                                </ng-container>
+                                <ng-container *ngIf="isLecturerP">
+                                    <div>Викладач</div>
+                                </ng-container>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -55,39 +65,51 @@
     </div>
     <div>
         <div class="grid-container-2">
-            <div class="data-container height-350 relative">
-                <div class="label">
-                    <div class="innerlabel">Перелік створених робочих програм</div>
-                </div>
-                <div class="vertical-grid2">
-                    <div class="top-line" style="padding-top: 10px;">
-                        <ng-container *ngIf="person.workingProgramsAuthor.length">
-                            <div *ngFor="let item of person.workingProgramsAuthor; let index = index"
-                                [ngClass]="{'row-odd': 0 === index % 2}" style="padding: 12px;">
-                                <a class="grid-link" [routerLink]="['/working-program', item.id]">
-                                    {{item.name}}
-                                </a>        
-                            </div>
-                            <!--<div class="paginationControl">
-                                <pagination-controls previousLabel = "Попередня" nextLabel="Наступна" (pageChange)="onTableCompDataChange($event)"></pagination-controls>
-                            </div>-->
-                        </ng-container>
-                        <ng-container *ngIf="!person.workingProgramsAuthor.length">
-                            <div class="grid-text-empty row-label">
-                                Створені робочі програми відсутні
-                            </div>
-                        </ng-container>
+            <div class="data-container height-350 relative grid-pagination">
+                <div>
+                    <div class="label">
+                        <div class="innerlabel">Перелік створених робочих програм</div>
+                    </div>
+                    <div class="vertical-grid2">
+                        <div class="top-line" style="padding-top: 10px;">
+                            <ng-container *ngIf="person.workingProgramsAuthor.length">
+                                <div *ngFor="let item of person.workingProgramsAuthor | paginate:{
+                                    id: 'pagination1',
+                                    itemsPerPage: tableSize,
+                                    currentPage: pageAut,
+                                    totalItems: person.workingProgramsAuthor.length
+                                }; let index = index"
+                                    [ngClass]="{'row-odd': 0 === index % 2}" style="padding: 12px;">
+                                    <a class="grid-link" [routerLink]="['/working-program', item.id]">
+                                        {{item.name}}
+                                    </a>        
+                                </div>
+                            </ng-container>
+                            <ng-container *ngIf="!person.workingProgramsAuthor.length">
+                                <div class="grid-text-empty row-label">
+                                    Створені робочі програми відсутні
+                                </div>
+                            </ng-container>
+                        </div>
                     </div>
                 </div>
+                <div class="pagination-container" *ngIf="person.workingProgramsAuthor.length">
+                    <pagination-controls id="pagination1" previousLabel = "" nextLabel="" (pageChange)="onTableAutDataChange($event)"></pagination-controls>
+                </div>
             </div>
-            <div class="data-container height-350 relative">
+            <div class="data-container height-350 relative grid-pagination">
                 <div class="vertical-grid2">
                     <div class="label">
                         <div class="innerlabel">Перелік підтверджених робочих програм</div>
                     </div>
                     <div class="top-line" style="padding-top: 10px;">
                         <ng-container *ngIf="person.workingProgramsApprover.length">
-                            <div *ngFor="let item of person.workingProgramsApprover; let index = index"
+                            <div *ngFor="let item of person.workingProgramsApprover | paginate:{
+                                id: 'pagination2',
+                                itemsPerPage: tableSize,
+                                currentPage: pageApprover,
+                                totalItems: person.workingProgramsApprover.length
+                            }; let index = index"
                             [ngClass]="{'row-odd': 0 === index % 2}" style="padding: 12px;">
                                 <a class="grid-link" [routerLink]="['/working-program', item.id]">
                                     {{item.name}}
@@ -100,6 +122,9 @@
                             </div>
                         </ng-container>
                     </div>
+                </div>
+                <div class="pagination-container" *ngIf="person.workingProgramsApprover.length">
+                    <pagination-controls id="pagination2" previousLabel = "" nextLabel="" (pageChange)="onTableApproverDataChange($event)"></pagination-controls>
                 </div>
             </div>
         </div>

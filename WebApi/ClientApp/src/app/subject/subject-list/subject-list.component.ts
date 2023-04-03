@@ -42,6 +42,7 @@ export class SubjectListComponent implements OnInit {
   }
 
   search(){
+    this.page = 1
     this.searchedSubjects = this.subjects
     if(this.searchName != ''){
       this.searchedSubjects = this.searchedSubjects.filter((val) =>

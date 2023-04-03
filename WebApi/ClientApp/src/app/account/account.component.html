@@ -49,7 +49,15 @@
                             Роль у системі
                         </div>
                         <div class="col-md-7 row-text">
-                            {{person.isAdmin ? 'Викладач, адміністратор' : 'Викладач'}}
+                            <ng-container *ngIf="isAdminP">
+                                <div>Адміністратор</div>
+                            </ng-container>
+                            <ng-container *ngIf="isMethodistP">
+                                <div>Методист</div>
+                            </ng-container>
+                            <ng-container *ngIf="isLecturerP">
+                                <div>Викладач</div>
+                            </ng-container>
                         </div>
                     </div>
                 </div>
@@ -77,9 +85,6 @@
                                         {{item.name}}
                                     </a>        
                                 </div>
-                                <!--<div class="paginationControl">
-                                    <pagination-controls previousLabel = "Попередня" nextLabel="Наступна" (pageChange)="onTableCompDataChange($event)"></pagination-controls>
-                                </div>-->
                             </ng-container>
                             <ng-container *ngIf="!person.workingProgramsAuthor.length">
                                 <div class="grid-text-empty row-label">
@@ -89,7 +94,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="pagination-container">
+                <div class="pagination-container" *ngIf="person.workingProgramsAuthor.length">
                     <pagination-controls id="pagination1" previousLabel = "" nextLabel="" (pageChange)="onTableAutDataChange($event)"></pagination-controls>
                 </div>
             </div>
@@ -119,7 +124,7 @@
                         </ng-container>
                     </div>
                 </div>
-                <div class="pagination-container">
+                <div class="pagination-container" *ngIf="person.workingProgramsApprover.length">
                     <pagination-controls id="pagination2" previousLabel = "" nextLabel="" (pageChange)="onTableApproverDataChange($event)"></pagination-controls>
                 </div>
             </div>

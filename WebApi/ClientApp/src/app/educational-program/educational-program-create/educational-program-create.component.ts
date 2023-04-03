@@ -7,6 +7,7 @@ import { Guid } from 'guid-typescript';
 import { ApiResponse, ServerError } from 'src/app/models/api-response.model';
 import { EducationalProgramCreate } from 'src/app/models/educational-program-create.model';
 import { IdNameModel } from 'src/app/models/id-name-model.model';
+import { ConfirmationDialogService } from 'src/app/services/confirmation-dialog.service';
 import { EducationalProgramService } from 'src/app/services/educational-program.service';
 import { LookupService } from 'src/app/services/lookup.service';
 
@@ -18,7 +19,7 @@ import { LookupService } from 'src/app/services/lookup.service';
 export class EducationalProgramCreateComponent implements OnInit {
 
   constructor(private service: EducationalProgramService, private lookUp: LookupService, private formBuilder: FormBuilder,
-    private router: Router, private toastService: HotToastService) { }
+    private router: Router, private toastService: HotToastService, private confirmationDialogService: ConfirmationDialogService) { }
 
   createForm: FormGroup;
   createModel: EducationalProgramCreate = {} as EducationalProgramCreate;
@@ -69,7 +70,12 @@ export class EducationalProgramCreateComponent implements OnInit {
   }
 
   back(){
-    this.router.navigate(["/educational-programs"])
+    this.confirmationDialogService.confirm('Скасувати зміни?')
+    .then((confirmed) => {
+      if(confirmed){
+        this.router.navigate(["/educational-programs"])
+      }
+    }).catch(() => console.log('outside the dialog'))
   }
 
   onUniversityChange(event: any){

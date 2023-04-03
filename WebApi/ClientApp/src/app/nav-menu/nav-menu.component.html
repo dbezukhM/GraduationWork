@@ -24,7 +24,7 @@
             </a>
         </div>
         <ng-container *ngIf="account.isAuthenticated()">
-            <ng-container *ngIf="account.person?.isAdmin">
+            <ng-container *ngIf="account.isAdminP">
                 <div class="sidenav-nav-item">
                     <a class="sidenav-nav-link" [routerLink]="['users']" 
                         routerLinkActive="active"
