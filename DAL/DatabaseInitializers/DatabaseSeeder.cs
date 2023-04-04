@@ -41,7 +41,7 @@ namespace DAL.DatabaseInitializers
                 new Faculty
                 {
                     Id = Guid.Parse("DC560CE1-CCF7-4C65-90CF-4DB0D9C538F7"),
-                    Name = "факультет комп’ютерних наук та кібернетики",
+                    Name = "Факультет комп’ютерних наук та кібернетики",
                     UniversityId = Guid.Parse("D7878FAF-66CC-4808-B3F1-69E57D1BF014"),
                 });
         }
@@ -54,6 +54,12 @@ namespace DAL.DatabaseInitializers
                     Id = Guid.Parse("579CA45F-59E8-4C59-BE83-14D0032A84C4"),
                     Number = 12,
                     Name = "Інформаційні технології",
+                },
+                new AreaOfExpertise
+                {
+                    Id = Guid.Parse("0C9FBE25-8829-4A04-BCC7-78EFA3CF5D6F"),
+                    Number = 11,
+                    Name = "Математика та статистика",
                 });
         }
 
@@ -62,10 +68,31 @@ namespace DAL.DatabaseInitializers
             modelBuilder.Entity<Specialization>().HasData(
                 new Specialization
                 {
+                    Id = Guid.Parse("4E5DAFD6-F581-406E-A1D6-5FB82E86C4C9"),
+                    Number = 121,
+                    Name = "Інженерія програмного забезпечення",
+                    AreaOfExpertiseId = Guid.Parse("579CA45F-59E8-4C59-BE83-14D0032A84C4"),
+                },
+                new Specialization
+                {
                     Id = Guid.Parse("66E1809B-AB20-4122-A1C4-8643CECE445D"),
                     Number = 122,
                     Name = "Комп’ютерні науки",
                     AreaOfExpertiseId = Guid.Parse("579CA45F-59E8-4C59-BE83-14D0032A84C4"),
+                },
+                new Specialization
+                {
+                    Id = Guid.Parse("02E05698-AC3A-40DA-B648-8487F4DBB48F"),
+                    Number = 124,
+                    Name = "Системний аналіз",
+                    AreaOfExpertiseId = Guid.Parse("579CA45F-59E8-4C59-BE83-14D0032A84C4"),
+                },
+                new Specialization
+                {
+                    Id = Guid.Parse("6FF2CE28-22C6-4248-9095-DBF4346D048C"),
+                    Number = 113,
+                    Name = "Прикладна математика",
+                    AreaOfExpertiseId = Guid.Parse("0C9FBE25-8829-4A04-BCC7-78EFA3CF5D6F"),
                 });
         }
 
@@ -93,10 +120,34 @@ namespace DAL.DatabaseInitializers
                 new EducationalProgram
                 {
                     Id = Guid.Parse("E119AF71-D0C5-436A-95F5-3EEB626F82F2"),
+                    Name = "Програмна інженерія",
+                    EducationalProgramsTypeId = Guid.Parse("F0963A92-50EF-4A3E-AB48-5871AE63D10E"),
+                    FacultyId = Guid.Parse("DC560CE1-CCF7-4C65-90CF-4DB0D9C538F7"),
+                    SpecializationId = Guid.Parse("4E5DAFD6-F581-406E-A1D6-5FB82E86C4C9"),
+                },
+                new EducationalProgram
+                {
+                    Id = Guid.Parse("D02C1C73-C6D0-433E-8D25-C03FB60C520B"),
                     Name = "Інформатика",
                     EducationalProgramsTypeId = Guid.Parse("F0963A92-50EF-4A3E-AB48-5871AE63D10E"),
                     FacultyId = Guid.Parse("DC560CE1-CCF7-4C65-90CF-4DB0D9C538F7"),
                     SpecializationId = Guid.Parse("66E1809B-AB20-4122-A1C4-8643CECE445D"),
+                },
+                new EducationalProgram
+                {
+                    Id = Guid.Parse("B64B25B8-CC04-45D4-9E9A-446A10E886D6"),
+                    Name = "Системний аналіз",
+                    EducationalProgramsTypeId = Guid.Parse("F0963A92-50EF-4A3E-AB48-5871AE63D10E"),
+                    FacultyId = Guid.Parse("DC560CE1-CCF7-4C65-90CF-4DB0D9C538F7"),
+                    SpecializationId = Guid.Parse("02E05698-AC3A-40DA-B648-8487F4DBB48F"),
+                },
+                new EducationalProgram
+                {
+                    Id = Guid.Parse("68FD7C38-7313-425B-9D47-5F1784E722C4"),
+                    Name = "Прикладна математика",
+                    EducationalProgramsTypeId = Guid.Parse("F0963A92-50EF-4A3E-AB48-5871AE63D10E"),
+                    FacultyId = Guid.Parse("DC560CE1-CCF7-4C65-90CF-4DB0D9C538F7"),
+                    SpecializationId = Guid.Parse("6FF2CE28-22C6-4248-9095-DBF4346D048C"),
                 });
         }
 

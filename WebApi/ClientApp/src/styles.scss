@@ -189,10 +189,34 @@
 .button-confirm:active{
     background-color: #39a14d;
 }
+
+.button-warning{
+    padding: 10px 25px;
+    border: none;
+    border-radius: 7px;
+    color: white;
+    background-color: #ffc107;
+    font-weight: 700;
+    font-size: 15px;
+    white-space: nowrap;
+    max-height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid transparent;
+}
+.button-warning:hover{
+    background-color: #ffca2c;
+}
+.button-warning:active{
+    background-color: #ffcd39;
+}
 .button-darkBlue:disabled,
 .button-darkBlue[disabled],
 .button-lightBlue:disabled,
-.button-lightBlue[disabled]{
+.button-lightBlue[disabled],
+.button-delete:disabled,
+.button-delete[disabled]{
     background-color: #686f88;
     opacity: 0.5;
     color: white;

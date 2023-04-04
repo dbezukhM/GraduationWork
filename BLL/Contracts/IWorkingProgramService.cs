@@ -18,5 +18,7 @@ namespace BLL.Contracts
         Task<Result<Guid>> CreateCommentAsync(CommentCreateModel model);
 
         Task<Result> DeleteByIdAsync(Guid id);
+
+        Task<Result> RejectAsync(RejectModel model, string email);
     }
 }

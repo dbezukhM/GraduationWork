@@ -17,16 +17,17 @@
             <div class="content-right">
                 <button class="button-lightBlue" (click)="downLoad()">Завантажити файл робочої програми</button>
             </div>
-            <ng-container *ngIf="account.isAuthenticated() && account.isMethodistP">
+            <ng-container *ngIf="account.isAuthenticated() && account.isMethodistP && model.isAvailable">
                 <div class="content-right" style="margin-left: 10px;">
                     <button class="button-delete" (click)="delete()">Видалити</button>
                 </div>
             </ng-container>
         </div>
     </div>
-    <ng-container *ngIf="account.isAuthenticated() && !model.isAvailable && account.isMethodistP">
+    <ng-container *ngIf="account.isAuthenticated() && !model.isAvailable && account.isMethodistP && account.person?.fullName != model?.createdByName">
         <div class="content-right">
-            <button class="button-confirm" (click)="approve()">Підтвердити робочу програму</button>
+            <button class="button-confirm" (click)="approve()">Підтвердити</button>
+            <button style="margin-left: 10px;" class="button-warning" (click)="formOpen()">Відхилити</button>
         </div>
     </ng-container>
     <div class="data-container">
@@ -60,6 +61,31 @@
                     </div>
                 </ng-container>
             </div>
+        </div>
+    </div>
+    <div class="popUpFormBackGround" [ngClass]="{'show': rejectFormOpened}">
+        <div class="popUpForm">
+            <div class="main-title">Відхилення робочої програми</div>
+            <form [formGroup]="rejectWpForm" autocomplete="off" (submit)="reject()" class="marging-top30">
+                <div class="row padding75rem">
+                    <div class="col-md-5 row-label">
+                        Причина відхилення
+                    </div>
+                    <div class="col-md-7 row-text">
+                        <textarea type="text" rows="4" class="form-control form-control-md" formControlName="reason"></textarea>
+                    </div>
+                </div>
+                <div class="marging-top30" style="float: right; display: flex;">
+                    <button type="button" (click)="formClose()" class="button-lightBlue margin-right20">
+                        Повернутись
+                    </button>
+                    <button type="submit" class="button-delete" [disabled]="!rejectWpForm.valid">
+                        <span class="button-text">
+                            Відхилити
+                        </span>
+                    </button>
+                </div>
+            </form>
         </div>
     </div>
 </ng-container>

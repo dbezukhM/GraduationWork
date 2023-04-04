@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environment';
 import { ApiResponse } from '../models/api-response.model';
 import { WorkingProgramDetails } from '../models/working-program-details.model';
 import { WorkingProgram } from '../models/working-program.model';
+import { WorkingProgramReject } from '../models/working-program-reject.model';
 
 @Injectable({
   providedIn: 'root'
@@ -44,5 +45,9 @@ export class WorkingProgramService {
   }
   approveWp(id: Guid){
     return this.httpClient.put(environment.baseUrl + `api/WorkingProgram/approve/${id}`, null)
+  }
+
+  rejectWp(model: WorkingProgramReject){
+    return this.httpClient.post(environment.baseUrl + 'api/WorkingProgram/reject', model)
   }
 }

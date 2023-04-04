@@ -6,6 +6,7 @@ using BLL.Results;
 using DAL.Contracts;
 using DAL.Entities;
 using Microsoft.AspNetCore.Identity;
+using System.Runtime;
 
 namespace BLL.Services
 {
@@ -17,6 +18,7 @@ namespace BLL.Services
         private readonly IWpRepositoryAsync<WorkingProgram> _workingProgramRepository;
         private readonly IWpRepositoryAsync<Comment> _commentRepository;
         private readonly IFileProvider _fileProvider;
+        private readonly IEmailSender _emailSender;
         private readonly UserManager<Person> _userManager;
 
         public WorkingProgramService(
@@ -26,6 +28,7 @@ namespace BLL.Services
             IWpRepositoryAsync<WorkingProgram> workingProgramRepository,
             IWpRepositoryAsync<Comment> commentRepository,
             IFileProvider fileProvider,
+            IEmailSender emailSender,
             UserManager<Person> userManager)
         {
             _unitOfWork = unitOfWork;
@@ -35,6 +38,7 @@ namespace BLL.Services
             _commentRepository = commentRepository;
             _fileProvider = fileProvider;
             _userManager = userManager;
+            _emailSender = emailSender;
         }
 
         public async Task<Result<Guid>> CreateAsync(WorkingProgramCreateModel model)
@@ -203,6 +207,38 @@ namespace BLL.Services
                 await _workingProgramRepository.DeleteAsync(id);
                 return Result.Success();
             });
+        }
+
+        public async Task<Result> RejectAsync(RejectModel model, string email)
+        {
+            var workingProgram = await _workingProgramRepository.FindAsync(x => x.Id == model.WorkingProgramId);
+            if (workingProgram == null)
+            {
+                return Result.NotFound(BlErrors.NotFound(model.WorkingProgramId));
+            }
+
+            var methodist = await _userManager.FindByEmailAsync(email);
+            var author = await _userManager.FindByIdAsync(workingProgram.CreatedById.ToString());
+            var rejectEmailModel = CreateRejectEmailModel(author.Email, workingProgram, model.Reason, $"{methodist.FirstName} {methodist.LastName}");
+
+            return await _unitOfWork.NewTransaction(async () =>
+            {
+                await _workingProgramRepository.DeleteAsync(model.WorkingProgramId);
+                await _emailSender.SendEmailAsync(rejectEmailModel);
+                return Result.Success();
+            });
+        }
+
+        private SendEmailModel CreateRejectEmailModel(string email, WorkingProgram model, string reason, string methodistFullName)
+        {
+            var result = new SendEmailModel
+            {
+                To = email,
+                Subject = "Відхилення робочої програми",
+                EmailBody = $"Вашу робочу програму({model.Name}) було відхилено методистом - {methodistFullName}, по причині:<br/>{reason}",
+            };
+
+            return result;
         }
     }
 }

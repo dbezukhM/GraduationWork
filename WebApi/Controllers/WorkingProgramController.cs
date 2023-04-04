@@ -42,7 +42,7 @@ namespace WebApi.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Lecturer")]
+        [Authorize(Roles = "Lecturer, Methodist")]
         public async Task<IActionResult> CreateAsync([FromForm] WorkingProgramCreateRequest model)
         {
             var workingProgramModel = Mapper.Map<WorkingProgramCreateModel>(model);
@@ -104,6 +104,16 @@ namespace WebApi.Controllers
         public async Task<IActionResult> DeleteAsync(Guid id)
         {
             var result = await _workingProgramService.DeleteByIdAsync(id);
+
+            return OperationResult(result);
+        }
+
+        [HttpPost("reject")]
+        [Authorize(Roles = "Methodist")]
+        public async Task<IActionResult> RejectAsync(RejectRequest request)
+        {
+            var rejectModel = Mapper.Map<RejectModel>(request);
+            var result = await _workingProgramService.RejectAsync(rejectModel, User.FindFirst(ClaimTypes.Name)?.Value);
 
             return OperationResult(result);
         }

@@ -1,6 +1,6 @@
 <div class="row" style="justify-content: space-between;">
     <div class="col-md-5 content-center-vertical font-bold text-5xl">Робочі програми</div>
-    <ng-container *ngIf="account.isAuthenticated() && account.isLecturerP">
+    <ng-container *ngIf="account.isAuthenticated() && (account.isLecturerP || account.isMethodistP)">
         <div class="col-md-3 content-right">
             <button class="button-darkBlue" (click)="openForm()">Створити робочу програму</button>
         </div>
