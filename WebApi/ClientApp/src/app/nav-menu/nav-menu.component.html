@@ -3,10 +3,9 @@
         <div class="icon-container">
             <mat-icon svgIcon="list" (click)="toggleCollapse()" class="logo"></mat-icon>
         </div>
-        <div class="logo-text" @fadeInOut *ngIf="collapsed">Angular</div>
-        <button class="btn-close" @fadeInOut *ngIf="collapsed" (click)="closeSidenav()">
-            <i class="fal fa-times close-icon"></i>
-        </button>
+        <div class="log-icon-container" @fadeInOut *ngIf="collapsed">
+            <mat-icon svgIcon="Logo" class="logo-icon"></mat-icon>
+        </div>
     </div>
     <div class="sidenav-nav">
         <div class="sidenav-nav-item" *ngFor="let data of navData; let last = last"

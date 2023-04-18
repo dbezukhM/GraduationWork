@@ -28,6 +28,7 @@
     "@ngneat/hot-toast": "^4.1.0",
     "@ngneat/overview": "^3.0.0",
     "@popperjs/core": "^2.11.6",
+    "angular-svg-icon": "^14.0.0",
     "bootstrap": "^5.2.3",
     "bootstrap-icons": "^1.10.3",
     "guid-typescript": "^1.0.9",

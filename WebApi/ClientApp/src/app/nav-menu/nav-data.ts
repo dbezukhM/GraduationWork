@@ -63,5 +63,9 @@ export const iconsToLoad = [
     {
         iconName: 'x',
         iconPath: '../assets/svg/x.svg'
+    },
+    {
+        iconName: 'Logo',
+        iconPath: '../assets/svg/Logo.svg'
     }
 ]

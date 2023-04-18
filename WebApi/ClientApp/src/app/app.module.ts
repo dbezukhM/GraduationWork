@@ -29,6 +29,7 @@ import { EducationalProgramCreateComponent } from './educational-program/educati
 import { EducationalProgramUpdateComponent } from './educational-program/educational-program-update/educational-program-update.component';
 import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
 import { ConfirmationDialogService } from './services/confirmation-dialog.service';
+import { AngularSvgIconModule } from 'angular-svg-icon';
 @NgModule({
   declarations: [
     AppComponent,
@@ -64,7 +65,8 @@ import { ConfirmationDialogService } from './services/confirmation-dialog.servic
     FormsModule,
     ReactiveFormsModule,
     MatIconModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    AngularSvgIconModule.forRoot()
   ],
   providers: [FormBuilder, AuthGuard,
   {

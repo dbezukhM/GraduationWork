@@ -2,7 +2,7 @@
 
 namespace BLL.Models
 {
-    public class SubjectDetailsModel
+    public class SubjectDetailsModel : IDomainModel
     {
         public Subject Subject { get; set; }
 

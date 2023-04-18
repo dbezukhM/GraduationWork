@@ -22,7 +22,7 @@ namespace WebApi
             builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             builder.Services.AddSettings(builder.Configuration);
             builder.Services.AddCors(builder.Configuration);
-            //builder.Services.AddApplicationInsightsTelemetry();
+            builder.Services.AddApplicationInsightsTelemetry();
 
             var app = builder.Build();
 

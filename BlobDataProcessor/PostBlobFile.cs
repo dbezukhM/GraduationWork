@@ -28,8 +28,8 @@ namespace BlobDataProcessor
                 .AddEnvironmentVariables()
                 .Build();
 
-            var blobConnection = config["AzureWebJobsStorage"];
-            var container = "workingprograms";
+            var blobConnection = config["Storage"];
+            var container = config["Container"];
 
             if (string.IsNullOrWhiteSpace(model.FileName) || model.Contents == null)
             {
